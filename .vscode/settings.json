@@ -1,0 +1,10 @@
+{
+  "python.terminal.activateEnvironment": true,
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
+<<<<<<< HEAD
+  // Opcional: força o terminal a usar o profile padrão do Windows
+  "terminal.integrated.defaultProfile.windows": "PowerShell" 
+=======
+  "terminal.integrated.defaultProfile.windows": "PowerShell"
+>>>>>>> 73db3feb (Initial commit: add project files, exclude venv)
+}

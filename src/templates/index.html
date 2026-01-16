@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGERAIO | Inteligência</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { margin: 0; padding: 0; background-color: #0f111a; color: #e0e0e0; font-family: 'Roboto Mono', monospace; }
+        
+        /* Layout Grid */
+        .container { display: grid; grid-template-columns: 300px 1fr; height: 100vh; }
+        
+        /* Sidebar */
+        .sidebar { background-color: #1a1d29; border-right: 2px solid #333; padding: 20px; overflow-y: auto; }
+        .logo { font-size: 24px; color: #ff4b4b; font-weight: bold; margin-bottom: 30px; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        
+        /* Map Area */
+        .map-wrapper { position: relative; }
+        #map { width: 100%; height: 100%; z-index: 1; }
+        
+        /* Cards */
+        .stat-card { background: #252936; padding: 15px; margin-bottom: 15px; border-radius: 4px; border-left: 4px solid #ff4b4b; }
+        .stat-value { font-size: 20px; font-weight: bold; }
+        .stat-label { font-size: 12px; color: #888; }
+        
+        /* Controls */
+        select { width: 100%; padding: 10px; background: #0f111a; color: white; border: 1px solid #444; margin-bottom: 20px; }
+        
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="sidebar">
+        <div class="logo">🦅 SIGERAIO</div>
+        
+        <label>FILTRO DE FACÇÃO</label>
+        <select id="faccaoFilter" onchange="updateMap()">
+            <option value="TODAS">TODAS AS FORÇAS</option>
+            <option value="CV">COMANDO VERMELHO</option>
+            <option value="GDE">G.D.E.</option>
+            <option value="PCC">P.C.C.</option>
+            <option value="DESCONHECIDO">SEM INFORMAÇÃO</option>
+        </select>
+        
+        <div id="stats-container">
+            <div class="stat-card">
+                <div class="stat-value" id="total-count">...</div>
+                <div class="stat-label">OCORRÊNCIAS TOTAIS</div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 20px; font-size: 10px; color: #555;">
+            SISTEMA DE INTELIGÊNCIA GEORREFERENCIADA<br>
+            VERSÃO FLASK 1.0
+        </div>
+    </div>
+
+    <div class="map-wrapper">
+        <div id="map"></div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+    // Inicialização do Mapa (Dark Mode)
+    var map = L.map('map').setView([-3.79, -38.56], 12);
+    
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 20
+    }).addTo(map);
+
+    var markersLayer = new L.LayerGroup();
+    map.addLayer(markersLayer);
+
+    // Função para carregar dados
+    function updateMap() {
+        var faccao = document.getElementById('faccaoFilter').value;
+        
+        // Carregar Pontos
+        fetch(`/api/crimes?faccao=${faccao}`)
+            .then(response => response.json())
+            .then(data => {
+                markersLayer.clearLayers();
+                
+                L.geoJSON(data, {
+                    pointToLayer: function (feature, latlng) {
+                        return L.circleMarker(latlng, {
+                            radius: 6,
+                            fillColor: feature.properties.cor,
+                            color: "#000",
+                            weight: 1,
+                            opacity: 1,
+                            fillOpacity: 0.8
+                        });
+                    },
+                    onEachFeature: function (feature, layer) {
+                        layer.bindPopup(`
+                            <strong>${feature.properties.natureza}</strong><br>
+                            Bairro: ${feature.properties.bairro}<br>
+                            Facção: ${feature.properties.faccao}<br>
+                            Data: ${feature.properties.data}
+                        `);
+                    }
+                }).addTo(markersLayer);
+            });
+            
+        // Atualizar Stats
+        fetch('/api/stats')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('total-count').innerText = data.total_ocorrencias || 0;
+            });
+    }
+
+    // Carga inicial
+    updateMap();
+</script>
+
+</body>
+</html>
