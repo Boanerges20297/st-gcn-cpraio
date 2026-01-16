@@ -1,93 +1,6 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-<<<<<<< HEAD
-from torch_geometric.nn import DenseGCNConv
-from torch_geometric.utils import to_dense_adj
-
-class STGCN_Cpraio(nn.Module):
-    """
-    Arquitetura Espaço-Temporal para Predição de Risco Criminal.
-    
-    Fluxo de Dados:
-    1. Entrada: Tensor (Batch, Time_Steps, Nodes, Features)
-    2. Spatial Block: Mistura informações entre bairros vizinhos a cada timestep.
-    3. Temporal Block: Analisa a evolução histórica de cada bairro (agora enriquecido pelos vizinhos).
-    4. Head de Predição: Projeta o risco futuro (com foco em CVLI).
-    """
-    
-    def __init__(self, num_nodes, in_channels, hidden_channels, out_channels, dropout=0.3):
-        super().__init__()
-        self.num_nodes = num_nodes
-        self.dropout = dropout
-        
-        # --- 1. Processamento Espacial (GCN) ---
-        # Aumenta a dimensão das features misturando com vizinhos
-        self.gcn1 = DenseGCNConv(in_channels, hidden_channels)
-        self.gcn2 = DenseGCNConv(hidden_channels, hidden_channels)
-        
-        # --- 2. Processamento Temporal (LSTM) ---
-        # O LSTM processa a sequência temporal para CADA nó independentemente
-        # input_size = hidden_channels (que veio da GCN)
-        self.lstm = nn.LSTM(
-            input_size=hidden_channels, 
-            hidden_size=hidden_channels * 2, # Aumenta capacidade para memória temporal
-            num_layers=1, 
-            batch_first=True
-        )
-        
-        # --- 3. Decodificador (Output Head) ---
-        # Reduz de volta para a dimensão de predição (Ex: 1 canal de Risco CVLI ou N canais de crimes)
-        self.head = nn.Sequential(
-            nn.Linear(hidden_channels * 2, hidden_channels),
-            nn.ReLU(),
-            nn.Dropout(dropout),
-            nn.Linear(hidden_channels, out_channels)
-        )
-
-    def forward(self, x, edge_index):
-        """
-        x: (Batch, Time, Nodes, Features) -> O Histórico recente
-        edge_index: (2, Num_Edges) -> A topologia da cidade
-        """
-        B, T, N, F_in = x.size()
-        
-        # Conversão para Matriz de Adjacência Densa (B, N, N) necessária para DenseGCNConv
-        # Como a cidade é a mesma para todo o batch, repetimos a adjacência
-        adj = to_dense_adj(edge_index, max_num_nodes=N)[0] # (N, N)
-        adj = adj.unsqueeze(0).repeat(B * T, 1, 1) # (Batch*Time, N, N)
-        
-        # --- Passo A: Spatial Mixing ---
-        # Achatar Batch e Time para aplicar GCN em todos os frames de uma vez
-        # (Batch * Time, Nodes, Features)
-        x_flat = x.view(B * T, N, F_in)
-        
-        # Aplica GCN
-        h = F.relu(self.gcn1(x_flat, adj))
-        h = F.dropout(h, p=self.dropout, training=self.training)
-        h = F.relu(self.gcn2(h, adj)) # (B*T, N, Hidden)
-        
-        # --- Passo B: Temporal Processing ---
-        # Agora queremos que o LSTM veja: "Para o Bairro X, aqui está a sequência histórica"
-        # Reshape para: (Batch * Nodes, Time, Hidden)
-        # Primeiro voltamos para (B, T, N, H)
-        h = h.view(B, T, N, -1)
-        # Transpomos para (B, N, T, H) e achatamos B e N
-        h = h.permute(0, 2, 1, 3).contiguous().view(B * N, T, -1)
-        
-        # Passar pelo LSTM
-        # out: (B*N, T, Hidden*2), hn: (1, B*N, Hidden*2)
-        lstm_out, _ = self.lstm(h)
-        
-        # Pegamos apenas o ÚLTIMO estado (o momento T, resumo de toda a história)
-        last_state = lstm_out[:, -1, :] # (B*N, Hidden*2)
-        
-        # --- Passo C: Predição ---
-        out = self.head(last_state) # (B*N, Out_Channels)
-        
-        # Retornar formato estruturado (Batch, Nodes, Out_Channels)
-        return out.view(B, N, -1)
-=======
 from torch_geometric.nn import GCNConv
 
 class STGCN_Cpraio(nn.Module):
@@ -169,4 +82,3 @@ class STGCN_Cpraio(nn.Module):
         out = out.view(batch_size, num_nodes, -1)
         
         return out
->>>>>>> 73db3feb (Initial commit: add project files, exclude venv)

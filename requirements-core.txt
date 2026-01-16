@@ -1,3 +1,4 @@
+# Dependências Core (sem torch-scatter e torch-sparse que requerem compilação MSVC)
 # Manipulação de Dados e Arrays
 numpy>=1.24.0
 pandas>=2.0.0
@@ -7,17 +8,12 @@ scipy>=1.10.0
 geopandas>=0.13.0
 shapely>=2.0.0
 rtree>=1.0.1
-osmnx>=1.9.0  # Para baixar geometrias de bairros via OpenStreetMap
-folium>=0.14.0 # Para visualização rápida de mapas nos notebooks
+osmnx>=1.9.0
+folium>=0.14.0
 
-# Deep Learning (Graph Neural Networks)
-# Nota: Instalar versão compatível com seu CUDA. Exemplo base CPU/CUDA 11.8:
+# Deep Learning (Graph Neural Networks) - VERSÃO BASE
 torch>=2.0.0
 torch-geometric>=2.3.0
-# NOTA: torch-scatter e torch-sparse requerem compilação C++/Windows SDK
-# Veja INSTALL_EXTENSIONS.md para instruções de instalação
-# torch-scatter>=2.1.0
-# torch-sparse>=0.6.0
 
 # Machine Learning Geral
 scikit-learn>=1.2.0
@@ -38,5 +34,5 @@ python-dotenv>=1.0.0
 tqdm>=4.65.0
 matplotlib>=3.7.0
 seaborn>=0.12.0
-networkx>=3.1  # Manipulação de grafos clássica
+networkx>=3.1
 requests>=2.31.0

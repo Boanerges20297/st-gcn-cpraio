@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 .venv
-=======
 venv
->>>>>>> 73db3feb (Initial commit: add project files, exclude venv)
 __pycache__
 *.pyc
