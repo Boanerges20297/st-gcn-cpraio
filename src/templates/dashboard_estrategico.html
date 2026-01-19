@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Estratégico - SIGERAIO</title>
+    <!-- Leaflet.js para mapas de facções -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e5a7a 0%, #2c7aa3 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 22px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+        }
+
+        .card h2 {
+            color: #1e5a7a;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #1e5a7a;
+            padding-bottom: 10px;
+            font-size: 1.4em;
+        }
+
+        .stat-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #2c7aa3;
+        }
+
+        .stat-label {
+            font-weight: 600;
+            color: #555;
+            font-size: 1.05em;
+        }
+
+        .stat-value {
+            font-size: 1.9em;
+            font-weight: bold;
+            color: #2c7aa3;
+        }
+
+        .stat-box.cvp { border-left-color: #ff6b6b; }
+        .stat-box.cvli { border-left-color: #ff0000; }
+        .stat-box.critico { border-left-color: #ff6b6b; background: #ffe8e8; }
+
+        .recomendacao-card {
+            background: white;
+            border-radius: 8px;
+            padding: 12px;
+            border-left: 4px solid #2c7aa3;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .recomendacao-card.critico {
+            border-left-color: #e74c3c;
+            background: #fff5f5;
+        }
+
+        .recomendacao-card.critico .recomendacao-motivo {
+            color: #c0392b;
+        }
+
+        .recomendacao-card.alto {
+            border-left-color: #ff6b6b;
+            background: #ffe8e8;
+        }
+
+        .recomendacao-card.alto .recomendacao-motivo {
+            color: #e74c3c;
+        }
+
+        .recomendacao-card.medio {
+            border-left-color: #f39c12;
+            background: #fff8e8;
+        }
+
+        .recomendacao-card.medio .recomendacao-motivo {
+            color: #d68910;
+        }
+
+        .recomendacao-card.baixo {
+            border-left-color: #27ae60;
+            background: #e8f8f5;
+        }
+
+        .recomendacao-card.baixo .recomendacao-motivo {
+            color: #0d3d2c;
+        }
+
+        .recomendacao-card.baixo .detalhe-valor {
+            color: #145a32;
+        }
+
+        .recomendacao-titulo {
+            font-weight: bold;
+            font-size: 0.95em;
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .recomendacao-acao {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: bold;
+            color: white;
+        }
+
+        .recomendacao-acao.intensificar {
+            background: #ff0000;
+        }
+
+        .recomendacao-acao.aumentar {
+            background: #ff6b6b;
+        }
+
+        .recomendacao-acao.monitorar {
+            background: #3498db;
+        }
+
+        .recomendacao-acao.manter {
+            background: #ffa500;
+        }
+
+        .recomendacao-acao.reduzir {
+            background: #90ee90;
+            color: #333;
+        }
+
+        .recomendacao-detalhe {
+            font-size: 0.85em;
+            color: #666;
+            margin: 4px 0;
+            line-height: 1.4;
+        }
+
+        .recomendacao-motivo {
+            background: linear-gradient(135deg, rgba(44, 122, 163, 0.15), rgba(30, 90, 122, 0.15));
+            padding: 12px 10px;
+            border-radius: 4px;
+            font-size: 0.95em;
+            font-weight: 500;
+            color: #1e5a7a;
+            margin: 10px 0;
+            border-left: 4px solid #2c7aa3;
+            line-height: 1.4;
+        }
+
+        .recomendacao-detalhes-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .detalhe-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .detalhe-label {
+            font-size: 0.7em;
+            color: #95a5a6;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .detalhe-valor {
+            font-size: 0.95em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .recomendacao-horario {
+            background: rgba(0,0,0,0.05);
+            padding: 6px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-top: 6px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .top-bairros {
+            margin-top: 20px;
+        }
+
+        .bairro-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .bairro-nome {
+            font-weight: 600;
+            color: #333;
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .risco-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+            color: white;
+        }
+
+        .risco-critico { background: #ff0000; }
+        .risco-alto { background: #ff6b6b; }
+        .risco-medio { background: #ffa500; }
+        .risco-baixo { background: #28a745; }
+
+        .facctions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .faccao-item {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .faccao-nome {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .faccao-count {
+            font-size: 1.8em;
+            color: #2c7aa3;
+            font-weight: bold;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .analise-container {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .analise-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .analise-header h2 {
+            color: #333;
+            border-bottom: 3px solid #2c7aa3;
+            padding-bottom: 10px;
+            font-size: 1.4em;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #2c7aa3;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1e5a7a;
+            transform: scale(1.05);
+        }
+
+        .btn-primary:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: scale(1.05);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Estilos para Mapa de Facções */
+        #mapa-faccoes {
+            height: 400px;
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .faccao-legenda {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 12px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .legenda-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .legenda-cor {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            margin-right: 8px;
+        }
+
+        .analise-content {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.6;
+            color: #333;
+            border-left: 4px solid #1e5a7a;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #2c7aa3;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #2c7aa3;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error {
+            background: #ffe8e8;
+            border-left: 4px solid #ff0000;
+            padding: 15px;
+            border-radius: 6px;
+            color: #cc0000;
+            margin-top: 20px;
+        }
+
+        .success {
+            background: #e8f5e9;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            border-radius: 6px;
+            color: #006600;
+            margin-top: 20px;
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            padding: 20px;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .timestamp {
+            font-size: 0.85em;
+            color: #999;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                <div>
+                    <h1>🎯 Dashboard Estratégico</h1>
+                    <p>Análise Inteligente de Segurança Pública em Fortaleza</p>
+                </div>
+                <div style="display: flex; gap: 10px; height: fit-content;">
+                    <a href="/relatorio-analise" class="btn btn-primary" style="text-decoration: none; background: #d32f2f; padding: 10px 20px; border-radius: 6px; color: white; font-weight: 600;">
+                        Relatório IA
+                    </a>
+                    <a href="/" class="btn btn-secondary" style="text-decoration: none; height: fit-content;">
+                        ← Voltar
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- 📅 FILTRO DE DATA - TOPO (PRIORITÁRIO) -->
+        <div class="card" style="margin-bottom: 20px; background: linear-gradient(135deg, #1e5a7a 0%, #2c7aa3 0.1%); border: 2px solid white;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h2 style="color: white; margin: 0; font-size: 1.2em;">📅 Filtro Temporal</h2>
+                <small style="color: rgba(255,255,255,0.8);">Atualize os períodos para refiltrar todo o dashboard</small>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1.2fr 1fr auto; gap: 12px; align-items: flex-end;">
+                <div>
+                    <label style="display: block; font-weight: 600; margin-bottom: 6px; color: white; font-size: 0.85em;">📍 Data Início</label>
+                    <input type="date" id="data-inicio" style="width: 100%; padding: 10px; border: 2px solid white; border-radius: 6px; font-size: 0.95em; background: white; color: #333;">
+                </div>
+                <div>
+                    <label style="display: block; font-weight: 600; margin-bottom: 6px; color: white; font-size: 0.85em;">📍 Data Fim</label>
+                    <input type="date" id="data-fim" style="width: 100%; padding: 10px; border: 2px solid white; border-radius: 6px; font-size: 0.95em; background: white; color: #333;">
+                </div>
+                <div>
+                    <label style="display: block; font-weight: 600; margin-bottom: 6px; color: white; font-size: 0.85em;">⚡ Atalhos Rápidos</label>
+                    <select id="periodo-rapido" onchange="aplicarPeriodoRapido()" style="width: 100%; padding: 10px; border: 2px solid white; border-radius: 6px; font-size: 0.95em; background: white; color: #333;">
+                        <option value="">-- Selecione --</option>
+                        <option value="30">Últimos 30 dias</option>
+                        <option value="60">Últimos 60 dias</option>
+                        <option value="90">Últimos 90 dias</option>
+                        <option value="180">Últimos 180 dias</option>
+                        <option value="365">Último ano</option>
+                    </select>
+                </div>
+                <div id="info-periodo" style="color: rgba(255,255,255,0.9); font-size: 0.85em; font-weight: 500;">
+                    ⏱️ Carregando...
+                </div>
+                <button class="btn btn-primary" onclick="aplicarFiltroData()" style="padding: 10px 25px; height: fit-content; background: white; color: #2c7aa3; font-weight: bold; border: none; cursor: pointer;">
+                    🔍 Filtrar
+                </button>
+            </div>
+        </div>
+
+        <!-- 🎯 PAINEL DE RECOMENDAÇÕES OPERACIONAIS (NOVO) -->
+        <div class="card" style="margin-bottom: 20px; background: linear-gradient(135deg, #2c7aa3 0%, #1e5a7a 100%); border: 2px solid white;">
+            <h2 style="color: white; margin: 0 0 15px 0; font-size: 1.3em;">🎯 RECOMENDAÇÕES OPERACIONAIS</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin-bottom: 15px;" id="recomendacoes-container">
+                <div style="background: rgba(255,255,255,0.1); padding: 12px; border-radius: 8px; text-align: center; color: white;">
+                    <div style="font-size: 0.85em; opacity: 0.9;">Carregando recomendações...</div>
+                </div>
+            </div>
+            
+            <div style="background: rgba(255,255,255,0.15); padding: 12px; border-radius: 8px; color: white; font-size: 0.9em; display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+                <div>
+                    <div style="opacity: 0.8;">📊 Confiança Média</div>
+                    <div style="font-size: 1.3em; font-weight: bold;" id="confianca-media">--</div>
+                </div>
+                <div>
+                    <div style="opacity: 0.8;">� Equipes Necessárias</div>
+                    <div style="font-size: 1.3em; font-weight: bold;" id="equipes-total">--</div>
+                </div>
+                <div>
+                    <div style="opacity: 0.8;">📈 Impacto Esperado</div>
+                    <div style="font-size: 1.3em; font-weight: bold;" id="impacto-total">--</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard" id="dashboard">
+            <!-- Estatísticas Gerais -->
+            <div class="card">
+                <h2>📊 Situação Geral</h2>
+                <div class="stat-box">
+                    <span class="stat-label">Total de Crimes</span>
+                    <span class="stat-value" id="total-crimes">-</span>
+                </div>
+                <div class="stat-box cvli">
+                    <span class="stat-label">Homicídios (CVLI) Total</span>
+                    <span class="stat-value" id="cvli-count">-</span>
+                </div>
+                <div style="background: #fff3cd; padding: 12px; border-radius: 6px; margin-bottom: 12px; font-size: 0.95em; color: #856404;">
+                    <div><strong>CVLI por Região:</strong></div>
+                    <div>🏙️ Fortaleza: <span id="cvli-fortaleza">-</span></div>
+                    <div>🌆 RMF: <span id="cvli-rmf">-</span></div>
+                    <div>🌄 Interior: <span id="cvli-interior">-</span></div>
+                </div>
+                <div class="stat-box cvp">
+                    <span class="stat-label">Roubos Patrimoniais (CVP) Total</span>
+                    <span class="stat-value" id="cvp-count">-</span>
+                </div>
+                <div style="background: #f8d7da; padding: 12px; border-radius: 6px; margin-bottom: 12px; font-size: 0.95em; color: #721c24;">
+                    <div><strong>CVP por Região:</strong></div>
+                    <div>🏙️ Fortaleza: <span id="cvp-fortaleza">-</span></div>
+                    <div>🌆 RMF: <span id="cvp-rmf">-</span></div>
+                    <div>🌄 Interior: <span id="cvp-interior">-</span></div>
+                </div>
+            </div>
+
+            <!-- Distribuição por Facção -->
+            <div class="card">
+                <h2>👥 Facções em Atuação & Geolocalização</h2>
+                
+                <!-- Ranking por Volume -->
+                <div style="margin-bottom: 15px;">
+                    <h3 style="font-size: 0.95em; color: #666; margin-bottom: 10px;">📊 Ranking por Volume de Crimes</h3>
+                    <div class="facctions" id="facctions">
+                        <!-- Preenchido via JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Mapa de Facções (Geolocalização) -->
+                <div style="border-top: 2px solid #eee; padding-top: 15px;">
+                    <h3 style="font-size: 0.95em; color: #666; margin-bottom: 10px;">🗺️ Territórios Geográficos</h3>
+                    <div id="mapa-faccoes"></div>
+                    <div class="faccao-legenda" id="legenda-faccoes">
+                        <!-- Legenda preenchida via JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <footer>
+            <p>🛡️ Sistema SIGERAIO - Inteligência de Segurança Pública | Dashboard Estratégico</p>
+            <p style="font-size: 0.85em; margin-top: 10px;">Dados atualizados em tempo real | Análise com IA Gemini</p>
+        </footer>
+    </div>
+
+    <script>
+        // Variáveis globais para filtro de data
+        let dataInicio = null;
+        let dataFim = null;
+
+        // Carregar dados ao abrir página
+        window.addEventListener('load', () => {
+            inicializarFiltroData();
+            aplicarPeriodoRapido();  // Já carrega com filtro padrão de 30 dias
+        });
+
+        function inicializarFiltroData() {
+            // Definir datas padrão: últimos 30 dias
+            const hoje = new Date();
+            const trinta = new Date(hoje.getTime() - 30 * 24 * 60 * 60 * 1000);
+            
+            const formatarData = (data) => data.toISOString().split('T')[0];
+            
+            dataInicio = formatarData(trinta);
+            dataFim = formatarData(hoje);
+            
+            document.getElementById('data-inicio').value = dataInicio;
+            document.getElementById('data-fim').value = dataFim;
+            document.getElementById('periodo-rapido').value = '30';
+            
+            atualizarInfoPeriodo();
+        }
+
+        function aplicarPeriodoRapido() {
+            const periodo = document.getElementById('periodo-rapido').value;
+            if (!periodo) return;
+            
+            const hoje = new Date();
+            const inicio = new Date(hoje.getTime() - parseInt(periodo) * 24 * 60 * 60 * 1000);
+            
+            const formatarData = (data) => data.toISOString().split('T')[0];
+            
+            dataInicio = formatarData(inicio);
+            dataFim = formatarData(hoje);
+            
+            document.getElementById('data-inicio').value = dataInicio;
+            document.getElementById('data-fim').value = dataFim;
+            
+            atualizarInfoPeriodo();
+            aplicarFiltroData();
+        }
+
+        function aplicarFiltroData() {
+            dataInicio = document.getElementById('data-inicio').value;
+            dataFim = document.getElementById('data-fim').value;
+            
+            if (!dataInicio || !dataFim) {
+                alert('Selecione as datas de início e fim');
+                return;
+            }
+            
+            atualizarInfoPeriodo();
+            carregarDadosComFiltro();
+        }
+
+        function atualizarInfoPeriodo() {
+            const inicio = new Date(dataInicio);
+            const fim = new Date(dataFim);
+            const dias = Math.ceil((fim - inicio) / (1000 * 60 * 60 * 24)) + 1;
+            
+            const formatarExibicao = (data) => {
+                return new Date(data).toLocaleDateString('pt-BR', {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric'
+                });
+            };
+            
+            document.getElementById('info-periodo').innerHTML = 
+                `<small>⏱️ Período: ${formatarExibicao(dataInicio)} até ${formatarExibicao(dataFim)} (${dias} dias)</small>`;
+        }
+
+        async function carregarDados() {
+            try {
+                const response = await fetch('/api/strategic_insights');
+                const data = await response.json();
+                
+                if (data.sucesso) {
+                    preencherDashboard(data.data);
+                    carregarRecomendacoes();
+                }
+            } catch (error) {
+                console.error('Erro ao carregar dados:', error);
+            }
+        }
+
+        async function carregarDadosComFiltro() {
+            try {
+                const params = new URLSearchParams();
+                if (dataInicio) params.append('data_inicio', dataInicio);
+                if (dataFim) params.append('data_fim', dataFim);
+                
+                const response = await fetch(`/api/strategic_insights_range?${params}`);
+                const data = await response.json();
+                
+                if (data.sucesso) {
+                    preencherDashboard(data.data);
+                    carregarRecomendacoes();
+                } else {
+                    alert('Erro: ' + (data.detalhes || data.erro));
+                }
+            } catch (error) {
+                console.error('Erro ao carregar dados com filtro:', error);
+                alert('Erro ao buscar dados. Verifique o console.');
+            }
+        }
+
+        async function carregarRecomendacoes() {
+            try {
+                const params = new URLSearchParams();
+                if (dataInicio) params.append('data_inicio', dataInicio);
+                if (dataFim) params.append('data_fim', dataFim);
+                
+                const response = await fetch(`/api/recomendacoes_operacionais?${params}`);
+                const data = await response.json();
+                
+                if (data.sucesso && data.data.recomendacoes) {
+                    preencherRecomendacoes(data.data);
+                }
+            } catch (error) {
+                console.error('Erro ao carregar recomendações:', error);
+            }
+        }
+
+        function preencherRecomendacoes(data) {
+            const recomendacoes = data.recomendacoes || [];
+            const resumo = data.resumo || {};
+            
+            // Preencher cards de recomendações
+            const container = document.getElementById('recomendacoes-container');
+            if (recomendacoes.length > 0) {
+                const html = recomendacoes.slice(0, 12).map(rec => {
+                    const acaoClass = rec.acao.toLowerCase().replace(' ', '-');
+                    const prioridadeClass = rec.prioridade.toLowerCase();
+                    
+                    return `
+                        <div class="recomendacao-card ${prioridadeClass}">
+                            <div class="recomendacao-titulo">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%;">
+                                    <div>
+                                        <div style="font-weight: bold; font-size: 1em;">${rec.bairro}</div>
+                                        <div style="font-size: 0.75em; color: #666; margin-top: 2px;">Território: <strong>${rec.faccao_dominante || 'DESCONHECIDA'}</strong></div>
+                                    </div>
+                                    <span class="recomendacao-acao ${acaoClass}">${rec.acao}</span>
+                                </div>
+                            </div>
+                            <div class="recomendacao-motivo">
+                                <strong>Fatores de Risco:</strong><br/>
+                                <small>CVP: ${rec.cvp || 0} | CVLI: ${rec.cvli || 0} | Risco ST-GCN: ${(rec.risco_previsto * 100).toFixed(0)}% | Tendência: ${(rec.tendencia_percentual || 0).toFixed(0)}%</small>
+                            </div>
+                            <div class="recomendacao-detalhes-grid">
+                                <div class="detalhe-item">
+                                    <span class="detalhe-label">Equipes</span>
+                                    <span class="detalhe-valor">${rec.equipes_recomendadas > 0 ? '+' : ''}${rec.equipes_recomendadas}</span>
+                                </div>
+                                <div class="detalhe-item">
+                                    <span class="detalhe-label">Horário</span>
+                                    <span class="detalhe-valor">${rec.horario_pico}</span>
+                                </div>
+                                <div class="detalhe-item">
+                                    <span class="detalhe-label">Confiança</span>
+                                    <span class="detalhe-valor">${rec.confianca_predicao.toFixed(0)}%</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                
+                container.innerHTML = html;
+            }
+            
+            // Preencher resumo
+            document.getElementById('confianca-media').textContent = 
+                (resumo.confianca_media || 0).toFixed(0) + '%';
+            document.getElementById('equipes-total').textContent = 
+                (resumo.equipes_necessarias || 0);
+            document.getElementById('impacto-total').textContent = 
+                (resumo.impacto_esperado_percentual || 0).toFixed(0) + '%';
+        }
+
+
+        function preencherDashboard(stats) {
+            // Estatísticas gerais
+            document.getElementById('total-crimes').textContent = 
+                stats.total_crimes.toLocaleString('pt-BR');
+            document.getElementById('cvp-count').textContent = 
+                stats.crime_types.CVP.toLocaleString('pt-BR');
+            document.getElementById('cvli-count').textContent = 
+                stats.crime_types.CVLI.toLocaleString('pt-BR');
+            
+            // ===== AJUSTE 2: CVLI/CVP por 3 regiões =====
+            if (stats.crime_types_by_region) {
+                const cvli_by_region = stats.crime_types_by_region.CVLI;
+                const cvp_by_region = stats.crime_types_by_region.CVP;
+                
+                document.getElementById('cvli-fortaleza').textContent = cvli_by_region.FORTALEZA.toLocaleString('pt-BR');
+                document.getElementById('cvli-rmf').textContent = cvli_by_region.RMF.toLocaleString('pt-BR');
+                document.getElementById('cvli-interior').textContent = cvli_by_region.INTERIOR.toLocaleString('pt-BR');
+                
+                document.getElementById('cvp-fortaleza').textContent = cvp_by_region.FORTALEZA.toLocaleString('pt-BR');
+                document.getElementById('cvp-rmf').textContent = cvp_by_region.RMF.toLocaleString('pt-BR');
+                document.getElementById('cvp-interior').textContent = cvp_by_region.INTERIOR.toLocaleString('pt-BR');
+            }
+
+            // ===== HOMICÍDIOS POR TERRITÓRIO (AID ORCRIM) =====
+            let territoriosHtml = '';
+            let territoriosRmfInterior = [];
+            let territoriosFortaleza = [];
+            
+            if (stats.top_territorios && stats.top_territorios.length > 0) {
+                const coresRisco = ['#ff0000', '#ff6b6b', '#ffa500', '#ffcc00', '#90EE90'];
+                
+                // Separar por região (simplificado: Fortaleza vs RMF/Interior)
+                stats.top_territorios.forEach((t, idx) => {
+                    const cor = coresRisco[Math.min(idx, coresRisco.length - 1)];
+                    const num = idx + 1;
+                    const aid = t.territorio || 'SEM ORCRIM';
+                    const count = t.homicidios;
+                    const faccao = t.faccao_dominante || 'DESCONHECIDA';
+                    
+                    // Formatar nome exibido: se não for CAPITAL e tivermos cidade, mostrar 'Bairro (Cidade)'
+                    let displayName = aid;
+                    const region = (t.regiao || '').toString().toUpperCase();
+                    if (region !== 'CAPITAL' && t.cidade) {
+                        try { displayName = `${aid} (${t.cidade})`; } catch (e) { displayName = aid; }
+                    }
+
+                    const card = `
+                            <div class="territorio-item" style="display: flex; flex-direction: column; padding: 12px; background: #f8f9fa; border-radius: 6px; margin-bottom: 8px; border-left: 4px solid ${cor};">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                                    <span style="font-weight: 600; color: #333;">${num}. ${displayName}</span>
+                                    <span style="background: #ff0000; color: white; padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 0.9em; display: inline-block; white-space: nowrap;">${count} homicídios</span>
+                                </div>
+                                <div style="font-size: 0.85em; color: #666; padding-top: 6px; border-top: 1px solid #ddd;">
+                                    👥 Facção: <strong>${faccao}</strong>
+                                </div>
+                            </div>
+                        `;
+                    
+                    // Separar em colunas com base na região retornada pelo backend
+                    if (region === 'CAPITAL' || aid.includes('SEM')) {
+                        territoriosFortaleza.push(card);
+                    } else {
+                        territoriosRmfInterior.push(card);
+                    }
+                });
+            }
+            
+            // Criar layout em 2 colunas
+            const col1 = territoriosFortaleza.join('');
+            const col2 = territoriosRmfInterior.join('');
+            
+            document.getElementById('facctions').innerHTML = 
+                '<div style="padding: 0;">' +
+                '<h3 style="font-size: 0.95em; color: #666; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #eee;">🔴 HOMICÍDIOS POR TERRITÓRIO</h3>' +
+                '<p style="font-size: 0.85em; color: #999; margin-bottom: 12px; font-style: italic;">⚠️ Crimes ocorrem em territórios (AIDs ORCRIM). Facção é contexto geográfico, NÃO autoria.</p>' +
+                '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%;">' +
+                '<div style="width:100%;"><h4 style="font-size: 0.9em; color: #333; margin-bottom: 8px; font-weight: 600;">📍 Fortaleza (Centro)</h4>' + col1 + '</div>' +
+                '<div style="width:100%;"><h4 style="font-size: 0.9em; color: #333; margin-bottom: 8px; font-weight: 600;">🗺️ RMF / Interior</h4>' + col2 + '</div>' +
+                '</div>' +
+                '</div>';
+
+            // Carregar mapa de facções como contexto geográfico
+            carregarMapaFaccoes();
+
+            // ===== AJUSTE 3: Bairros com facções presentes =====
+            const bairrosHtml = stats.top_bairros
+                .map(b => {
+                    const risco = b.risco_previsto;
+                    let riscoClass = 'risco-baixo';
+                    let riscoText = 'BAIXO';
+                    
+                    if (risco > 0.32) {
+                        riscoClass = 'risco-critico';
+                        riscoText = 'CRÍTICO';
+                    } else if (risco > 0.31) {
+                        riscoClass = 'risco-alto';
+                        riscoText = 'ALTO';
+                    } else if (risco > 0.30) {
+                        riscoClass = 'risco-medio';
+                        riscoText = 'MÉDIO';
+                    }
+                    
+                    const faccoes_presentes = b.faccoes_presentes || 'MISTO';
+                    
+                    return `
+                        <div class="bairro-item">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span class="bairro-nome">${b.local_oficial}</span>
+                                <span class="risco-badge ${riscoClass}">${riscoText}</span>
+                            </div>
+                            <div style="font-size: 0.8em; color: #666; margin-top: 6px; padding-top: 6px; border-top: 1px solid #eee;">
+                                👥 Facções: <strong>${faccoes_presentes}</strong>
+                            </div>
+                        </div>
+                    `;
+                })
+                .join('');
+        }
+
+        async function dispararAnalise() {
+            const btn = document.getElementById('btn-analisa');
+            const resultado = document.getElementById('analise-resultado');
+
+            btn.disabled = true;
+
+            // Mostrar loading
+            resultado.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Analisando dados e gerando recomendações...</p>
+                    <p style="font-size: 0.9em; margin-top: 10px; color: #999;">
+                        Conectando com IA para análise estratégica
+                    </p>
+                </div>
+            `;
+
+            try {
+                const response = await fetch('/api/ai_analysis', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({})
+                });
+
+                const data = await response.json();
+
+                if (data.sucesso) {
+                    resultado.innerHTML = `
+                        <div class="success">
+                            ✓ Análise gerada com sucesso em ${new Date(data.timestamp).toLocaleTimeString('pt-BR')}
+                        </div>
+                        ${data.analise}
+                    `;
+                } else {
+                    resultado.innerHTML = `
+                        <div class="error">
+                            ❌ Erro ao gerar análise: ${data.erro}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultado.innerHTML = `
+                    <div class="error">
+                        ❌ Erro de conexão: ${error.message}
+                    </div>
+                `;
+            }
+
+            btn.disabled = false;
+        }
+
+        // Cores para diferentes facções
+        const coresFaccoes = {
+            'CV': '#FF0000',
+            'PCC': '#00FF00',
+            'TCP': '#0000FF',
+            'MASSA': '#FFFF00',
+            'OKAIDA': '#FF00FF',
+            'GDE': '#00FFFF'
+        };
+
+        let mapaFaccoes = null;
+
+        async function carregarMapaFaccoes() {
+            try {
+                // Inicializar mapa se não existir
+                if (!mapaFaccoes) {
+                    mapaFaccoes = L.map('mapa-faccoes').setView([-3.7319, -38.5267], 11);
+                    
+                    // Adicionar tile layer
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '© OpenStreetMap contributors',
+                        maxZoom: 18
+                    }).addTo(mapaFaccoes);
+                }
+
+                // Tentar carregar GeoJSON das facções
+                const faccoes = ['CV', 'PCC', 'TCP', 'MASSA', 'OKAIDA', 'GDE'];
+                const legenda = [];
+
+                for (const faccao of faccoes) {
+                    try {
+                        const response = await fetch(`/data/graph/faccao_${faccao.toLowerCase()}.geojson`);
+                        if (response.ok) {
+                            const geojson = await response.json();
+                            
+                            // Adicionar layer ao mapa
+                            L.geoJSON(geojson, {
+                                style: {
+                                    color: coresFaccoes[faccao] || '#999',
+                                    weight: 2,
+                                    opacity: 0.7,
+                                    fillOpacity: 0.3
+                                },
+                                onEachFeature: (feature, layer) => {
+                                    layer.bindPopup(`<b>${faccao}</b><br/>${faccao} - Área de Atuação`);
+                                }
+                            }).addTo(mapaFaccoes);
+
+                            legenda.push(faccao);
+                        }
+                    } catch (err) {
+                        console.warn(`GeoJSON não encontrado para ${faccao}`);
+                    }
+                }
+
+                // Atualizar legenda
+                const legendaHtml = legenda.map(f => `
+                    <div class="legenda-item">
+                        <div class="legenda-cor" style="background-color: ${coresFaccoes[f]};"></div>
+                        <span>${f}</span>
+                    </div>
+                `).join('');
+                
+                if (legendaHtml) {
+                    document.getElementById('legenda-faccoes').innerHTML = legendaHtml;
+                } else {
+                    document.getElementById('legenda-faccoes').innerHTML = 
+                        '<p style="font-size: 0.85em; color: #999;">⚠️ Aguardando integração de dados GeoJSON. Execute: python scripts_ajuste/integrar_faccoes_geojson.py</p>';
+                }
+
+            } catch (error) {
+                console.error('Erro ao carregar mapa de facções:', error);
+                document.getElementById('legenda-faccoes').innerHTML = 
+                    '<p style="font-size: 0.85em; color: #999;">⚠️ Erro ao carregar mapa. Verifique console.</p>';
+            }
+        }
+    </script>
+</body>
+</html>

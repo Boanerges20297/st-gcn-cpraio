@@ -1,0 +1,4 @@
+FLASK_APP=src/app.py
+FLASK_ENV=development
+FLASK_DEBUG=0
+FLASK_RUN_PORT=5000

@@ -1,0 +1,82 @@
+{
+  "titulo": "Teste de Eficiência ST-GCN",
+  "data_teste": "2026-01-18T22:16:07.071843",
+  "dataset": {
+    "total_records": 83295,
+    "treino": {
+      "periodo": "2022-01-01 to 2023-12-31",
+      "registros": 54535,
+      "observacoes_14d": 2722
+    },
+    "teste": {
+      "periodo": "2024-01-01 to 2025-12-31",
+      "registros": 28468,
+      "observacoes_14d": 2747
+    }
+  },
+  "metricas_globais": {
+    "MAE_crimes_14d": 4.47,
+    "RMSE_crimes_14d": 21.77,
+    "R_squared": 0.811,
+    "acuracia_acao_operacional_pct": 99.63
+  },
+  "modelo_info": {
+    "tipo": "Aproximacao de ST-GCN (Media Movel + Sazonalidade + Tendencia)",
+    "pesos": {
+      "serie_temporal": 0.5,
+      "sazonalidade": 0.3,
+      "tendencia": 0.2
+    },
+    "bairros_treinados": 167
+  },
+  "performance_por_acao": {
+    "INTENSIFICAR": {
+      "acertos_pct": 100.0,
+      "amostras": 43
+    },
+    "AUMENTAR": {
+      "acertos_pct": 0,
+      "amostras": 0
+    },
+    "MONITORAR": {
+      "acertos_pct": 0.0,
+      "amostras": 1
+    },
+    "MANTER": {
+      "acertos_pct": 99.66,
+      "amostras": 2651
+    }
+  },
+  "top_bairros_por_mae": [
+    {
+      "bairro": "CAUCAIA",
+      "mae": 17.71,
+      "amostras": 53,
+      "crimes_reais_media": 54.91
+    },
+    {
+      "bairro": "FORTALEZA",
+      "mae": 134.87,
+      "amostras": 53,
+      "crimes_reais_media": 321.51
+    },
+    {
+      "bairro": "MARACANAÚ",
+      "mae": 19.89,
+      "amostras": 52,
+      "crimes_reais_media": 53.23
+    },
+    {
+      "bairro": "MARANGUAPE",
+      "mae": 3.78,
+      "amostras": 52,
+      "crimes_reais_media": 6.33
+    },
+    {
+      "bairro": "JUAZEIRO DO NORTE",
+      "mae": 2.04,
+      "amostras": 51,
+      "crimes_reais_media": 4.02
+    }
+  ]
+}

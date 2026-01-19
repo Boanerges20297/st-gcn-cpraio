@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "territorio_gde_interior",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "codarea": "2305704", "id_match": "230570", "name": "IPAUMIRIM", "name_upper": "IPAUMIRIM", "local_oficial": "IPAUMIRIM", "faccao_predominante": "GDE", "percentual": 100.0, "criticidade_territorio": "CRÍTICO" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -38.6524, -6.7571 ], [ -38.7198, -6.7675 ], [ -38.7486, -6.7555 ], [ -38.7796, -6.7217 ], [ -38.8466, -6.7092 ], [ -38.8289, -6.7447 ], [ -38.811, -6.8466 ], [ -38.856, -6.859 ], [ -38.8197, -6.8567 ], [ -38.7742, -6.8684 ], [ -38.7652, -6.9109 ], [ -38.6754, -6.8618 ], [ -38.6717, -6.8471 ], [ -38.6519, -6.8117 ], [ -38.6139, -6.7824 ], [ -38.6524, -6.7571 ] ] ] } }
+]
+}

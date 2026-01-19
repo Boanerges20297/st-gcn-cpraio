@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise Estratégica de Segurança - Fortaleza</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            justify-content: flex-end;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-pdf {
+            background: #d32f2f;
+            color: white;
+        }
+
+        .btn-pdf:hover {
+            background: #b71c1c;
+            box-shadow: 0 4px 8px rgba(211, 47, 47, 0.3);
+        }
+
+        .btn-print {
+            background: #1976d2;
+            color: white;
+        }
+
+        .btn-print:hover {
+            background: #1565c0;
+            box-shadow: 0 4px 8px rgba(25, 118, 210, 0.3);
+        }
+
+        .report {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #1e5a7a;
+            padding-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            color: #1e5a7a;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .header .subtitle {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .metadata {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+            font-size: 13px;
+        }
+
+        .metadata-item {
+            background: #f9f9f9;
+            padding: 10px;
+            border-left: 3px solid #2c7aa3;
+            border-radius: 4px;
+        }
+
+        .metadata-label {
+            font-weight: 600;
+            color: #1e5a7a;
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .metadata-value {
+            color: #555;
+        }
+
+        .section {
+            margin: 30px 0;
+            padding: 0;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e5a7a;
+            border-left: 4px solid #2c7aa3;
+            padding-left: 15px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .section-content {
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 6px;
+            line-height: 1.7;
+            color: #444;
+        }
+
+        .diagnostico {
+            background: #e3f2fd;
+            border-left: 4px solid #1976d2;
+        }
+
+        .hotspots {
+            background: #fff3e0;
+            border-left: 4px solid #f57c00;
+        }
+
+        .recomendacoes {
+            background: #e8f5e9;
+            border-left: 4px solid #388e3c;
+        }
+
+        .dados-tabela {
+            margin: 15px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table th {
+            background: #1e5a7a;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        table tr:hover {
+            background: #f0f0f0;
+        }
+
+        .destaque {
+            background: #fff9c4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+
+        .risco-alto {
+            color: #d32f2f;
+            font-weight: 600;
+        }
+
+        .risco-critico {
+            color: #b71c1c;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .lista-items {
+            margin: 15px 0;
+        }
+
+        .lista-items li {
+            margin: 10px 0;
+            margin-left: 20px;
+            padding-left: 10px;
+        }
+
+        .lista-items li:before {
+            content: "→";
+            margin-right: 10px;
+            color: #2c7aa3;
+            font-weight: bold;
+        }
+
+        .timestamp {
+            text-align: right;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .assinatura {
+            margin-top: 40px;
+            text-align: center;
+            font-style: italic;
+            color: #666;
+            font-size: 14px;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .toolbar {
+                display: none;
+            }
+
+            .container {
+                max-width: 100%;
+                padding: 0;
+            }
+
+            .report {
+                box-shadow: none;
+                border-radius: 0;
+                padding: 20px;
+            }
+
+            .section-content {
+                background: white;
+                border: 1px solid #ddd;
+            }
+
+            .diagnostico,
+            .hotspots,
+            .recomendacoes {
+                background: white !important;
+            }
+        }
+
+        @page {
+            margin: 2cm;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        .loading.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="toolbar">
+            <button class="btn btn-print" onclick="window.print()">
+                🖨️ Imprimir
+            </button>
+            <button class="btn btn-pdf" onclick="gerarPDF()">
+                📄 Gerar PDF
+            </button>
+        </div>
+
+        <div class="loading" id="loading">
+            <p>Gerando PDF...</p>
+        </div>
+
+        <div class="report" id="report-content">
+            <div class="header">
+                <h1>📊 ANÁLISE ESTRATÉGICA DE SEGURANÇA PÚBLICA</h1>
+                <p class="subtitle">Fortaleza - Ceará</p>
+                <div class="metadata">
+                    <div class="metadata-item">
+                        <span class="metadata-label">Período:</span>
+                        <span class="metadata-value" id="meta-periodo">-</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span class="metadata-label">Crimes Analisados:</span>
+                        <span class="metadata-value" id="meta-crimes">-</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span class="metadata-label">Gerado em:</span>
+                        <span class="metadata-value" id="meta-timestamp">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="analise-conteudo">
+                <p style="text-align: center; color: #999;">Carregando análise...</p>
+            </div>
+
+            <div class="assinatura">
+                <p>Relatório automático gerado pelo Sistema de Análise Estratégica</p>
+            </div>
+
+            <div class="timestamp">
+                <p>Gerado em: <span id="timestamp-final">-</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Extrair parâmetros da URL
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Função para formatar a análise em HTML
+        function formatarAnalise(texto) {
+            let html = '';
+            const linhas = texto.split('\n');
+            
+            for (let i = 0; i < linhas.length; i++) {
+                let linha = linhas[i].trim();
+                
+                if (!linha) {
+                    if (html && !html.endsWith('</li>')) {
+                        html += '<br>';
+                    }
+                    continue;
+                }
+
+                // Detectar títulos e seções
+                if (linha.match(/^\d+\.\s+\*\*[^*]+\*\*:/) || linha.match(/^##\s/) || linha.match(/^\*\*[^*]+\*\*:$/)) {
+                    const titulo = linha.replace(/^\*\*/,'').replace(/\*\*:?$/,'').replace(/^\d+\.\s+/,'').replace(/^##\s+/, '');
+                    const classe = titulo.toLowerCase().includes('diagnóstico') ? 'diagnostico' : 
+                                  titulo.toLowerCase().includes('hotspot') ? 'hotspots' :
+                                  titulo.toLowerCase().includes('recomend') ? 'recomendacoes' : '';
+                    
+                    html += `<div class="section">
+                             <div class="section-title">${titulo}</div>
+                             <div class="section-content ${classe}">`;
+                    
+                    // Processar conteúdo até próxima seção
+                    i++;
+                    let conteudo = '';
+                    while (i < linhas.length && !linhas[i].trim().match(/^\d+\.\s+\*\*|^##\s/)) {
+                        if (linhas[i].trim()) {
+                            conteudo += '<p>' + linhas[i].trim() + '</p>';
+                        }
+                        i++;
+                    }
+                    i--; // Voltar uma linha pois será incrementada no loop principal
+                    html += conteudo + '</div></div>';
+                } 
+                // Detectar bullets e listas
+                else if (linha.match(/^[\*\-\→\•]/)) {
+                    const item = linha.replace(/^[\*\-\→\•]\s+/, '');
+                    if (!html.endsWith('</ul>')) {
+                        html += '<ul class="lista-items">';
+                    }
+                    html += '<li>' + item + '</li>';
+                    
+                    // Fechar lista se próxima linha não é bullet
+                    if (i + 1 < linhas.length && !linhas[i + 1].trim().match(/^[\*\-\→\•]/)) {
+                        html += '</ul>';
+                    }
+                }
+                // Texto normal
+                else {
+                    html += '<p>' + linha + '</p>';
+                }
+            }
+
+            return html;
+        }
+
+        // Carregar análise do endpoint
+        function carregarAnalise() {
+            const dataInicio = getQueryParam('data_inicio');
+            const dataFim = getQueryParam('data_fim');
+
+            const payload = {};
+            if (dataInicio) payload.data_inicio = dataInicio;
+            if (dataFim) payload.data_fim = dataFim;
+
+            fetch('/api/ai_analysis', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.sucesso) {
+                        // Atualizar metadata com dados brutos
+                        const dados = data.dados || {};
+                        document.getElementById('meta-periodo').textContent = 
+                            `${dados.data_inicio || '(período padrão)'} até ${dados.data_fim || '(hoje)'}`;
+                        document.getElementById('meta-crimes').textContent = 
+                            (dados.total_crimes || 0).toLocaleString('pt-BR');
+                        document.getElementById('meta-timestamp').textContent = 
+                            new Date(data.timestamp).toLocaleDateString('pt-BR');
+                        document.getElementById('timestamp-final').textContent = 
+                            new Date(data.timestamp).toLocaleString('pt-BR');
+
+                        // Formatar e exibir análise
+                        const conteudo = formatarAnalise(data.analise);
+                        document.getElementById('analise-conteudo').innerHTML = conteudo;
+                    } else {
+                        document.getElementById('analise-conteudo').innerHTML = 
+                            `<p style="color: #d32f2f;">Erro ao gerar análise: ${data.erro}</p>`;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('analise-conteudo').innerHTML = 
+                        `<p style="color: #d32f2f;">Erro na requisição: ${error.message}</p>`;
+                });
+        }
+
+        // Gerar PDF
+        function gerarPDF() {
+            const loading = document.getElementById('loading');
+            loading.classList.add('show');
+
+            try {
+                // Carregar html2pdf de CDN
+                const script = document.createElement('script');
+                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+                script.onload = function() {
+                    const elemento = document.getElementById('report-content');
+                    const opcoes = {
+                        margin: 10,
+                        filename: `analise_seguranca_${new Date().toISOString().split('T')[0]}.pdf`,
+                        image: { type: 'jpeg', quality: 0.98 },
+                        html2canvas: { scale: 2 },
+                        jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
+                    };
+                    html2pdf().set(opcoes).from(elemento).save();
+                    loading.classList.remove('show');
+                };
+                document.head.appendChild(script);
+            } catch (error) {
+                alert('Erro ao gerar PDF: ' + error.message);
+                loading.classList.remove('show');
+            }
+        }
+
+        // Carregar análise ao abrir página
+        document.addEventListener('DOMContentLoaded', carregarAnalise);
+    </script>
+</body>
+</html>

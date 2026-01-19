@@ -6,164 +6,178 @@ import sys
 from pathlib import Path
 from shapely.geometry import Point
 
-# Configuração de caminhos
+# Configuração
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_RAW = BASE_DIR / "data" / "raw"
 DATA_GRAPH = BASE_DIR / "data" / "graph"
 DATA_PROCESSED = BASE_DIR / "data" / "processed"
 
 def load_geojsons():
-    """Carrega os mapas administrativos."""
+    """Carrega e funde os mapas, criando uma hierarquia de prioridade."""
+    # ORDEM DE PRIORIDADE PARA DESEMPATE:
+    # 1. RMF (Para garantir que Caucaia/Maracanaú não sejam engolidos por Fortaleza)
+    # 2. CAPITAL
+    # 3. INTERIOR
+    priority_order = ['RMF', 'CAPITAL', 'INTERIOR']
+    
     paths = {
         'CAPITAL': DATA_GRAPH / "fortaleza_bairros.geojson",
         'RMF': DATA_GRAPH / "ceara_rmf.geojson",
         'INTERIOR': DATA_GRAPH / "ceara_interior.geojson"
     }
-    gdfs = {}
-    for region, p in paths.items():
-        if p.exists():
-            gdfs[region] = gpd.read_file(p)
-            # Garantir CRS WGS84
-            if gdfs[region].crs != "EPSG:4326":
-                gdfs[region] = gdfs[region].to_crs("EPSG:4326")
-    return gdfs
+    
+    parts = []
+    for region in priority_order:
+        p = paths.get(region)
+        if p and p.exists():
+            gdf = gpd.read_file(p)
+            if gdf.crs != "EPSG:4326":
+                gdf = gdf.to_crs("EPSG:4326")
+            
+            # Etiqueta a região
+            gdf['regiao_sistema'] = region
+            
+            # Normaliza o nome do local
+            if 'name' in gdf.columns:
+                gdf['local_oficial'] = gdf['name'].str.upper().str.strip()
+            elif 'NM_MUNICIP' in gdf.columns:
+                gdf['local_oficial'] = gdf['NM_MUNICIP'].str.upper().str.strip()
+            else:
+                gdf['local_oficial'] = 'DESCONHECIDO'
+                
+            parts.append(gdf)
+            
+    if not parts: return None
+    
+    # Junta tudo num único mapa do Ceará
+    full_map = pd.concat(parts, ignore_index=True)
+    return full_map
 
 def process_crimes():
-    print("[-] Carregando Ocorrências (JSON)...")
+    print("[-] Carregando Ocorrências...")
     json_path = DATA_RAW / "dados_status_ocorrencias_gerais.json"
     
-    with open(json_path, 'r', encoding='utf-8') as f:
-        content = json.load(f)
+    try:
+        with open(json_path, 'r', encoding='utf-8') as f:
+            content = json.load(f)
+    except Exception as e:
+        print(f"[X] Erro ao ler JSON: {e}")
+        return pd.DataFrame()
         
-    # Extração robusta (lida com lista ou dict wrapper)
     raw_data = []
     if isinstance(content, list):
-        # Tenta achar o dict que tem a chave 'data'
         for item in content:
             if isinstance(item, dict) and 'data' in item:
                 raw_data = item['data']
                 break
         if not raw_data and len(content) > 0 and 'latitude' in content[0]:
-             raw_data = content # É uma lista direta
+             raw_data = content
     elif isinstance(content, dict) and 'data' in content:
         raw_data = content['data']
 
-    if not raw_data:
-        print("[X] ERRO: JSON vazio ou formato desconhecido.")
-        return pd.DataFrame()
+    if not raw_data: return pd.DataFrame()
 
     df = pd.DataFrame(raw_data)
     
-    # Padronização
     cols_map = {
         'latitude': 'lat', 'longitude': 'lng',
         'data': 'data', 'hora': 'hora',
-        'tipo_evento': 'natureza', 'id': 'id_ocorrencia'
+        'tipo_evento': 'natureza', 'id': 'id_ocorrencia',
+        'bairro': 'bairro_ciops',
+        'tipo': 'tipo'  # Campo CVLI/CVP já vem do JSON
     }
-    # Mantém colunas originais se não estiverem no map
     df = df.rename(columns=cols_map)
     
-    # Limpeza de Coordenadas
+    # Limpeza GPS
     df['lat'] = pd.to_numeric(df['lat'], errors='coerce')
     df['lng'] = pd.to_numeric(df['lng'], errors='coerce')
     df = df.dropna(subset=['lat', 'lng'])
     
-    # Criar Geometria
-    geometry = [Point(xy) for xy in zip(df.lng, df.lat)]
-    gdf_crimes = gpd.GeoDataFrame(df, geometry=geometry, crs="EPSG:4326")
+    # Remove coordenadas zeradas ou fora do Ceará (filtro grosseiro)
+    df = df[(df['lat'] < -2) & (df['lat'] > -8) & (df['lng'] < -37) & (df['lng'] > -42)]
     
-    return gdf_crimes
+    geometry = [Point(xy) for xy in zip(df.lng, df.lat)]
+    return gpd.GeoDataFrame(df, geometry=geometry, crs="EPSG:4326")
 
 def run_pipeline():
     print("==============================================")
-    print("   ETL GEOESPACIAL: OCORRÊNCIAS + FACÇÕES     ")
+    print("   ETL UNIFICADO (CORREÇÃO DE FRONTEIRA)      ")
     print("==============================================")
     
-    # 1. Carregar Mapas
-    gdfs_mapas = load_geojsons()
-    if not gdfs_mapas:
-        print("[X] Nenhum mapa geojson encontrado em data/graph/")
+    # 1. Mapa Unificado
+    gdf_mapa_total = load_geojsons()
+    if gdf_mapa_total is None:
+        print("[X] Erro: Mapas não encontrados.")
         return
 
-    # 2. Carregar Crimes
+    # 2. Crimes
     gdf_crimes = process_crimes()
     if gdf_crimes.empty:
+        print("[X] Erro: Sem crimes.")
         return
 
-    print(f"[-] Roteando {len(gdf_crimes)} crimes via GPS...")
+    print(f"[-] Roteando {len(gdf_crimes)} crimes no mapa unificado...")
     
-    dfs_final = []
+    # 3. Spatial Join Único
+    # op='within' garante que o ponto está DENTRO do polígono.
+    # Se um ponto cair em 2 polígonos (sobreposição), ele duplica.
+    joined = gpd.sjoin(gdf_crimes, gdf_mapa_total, how="inner", predicate="within")
     
-    # 3. Spatial Join Hierárquico (Capital -> RMF -> Interior)
-    # Crimes que caem em Fortaleza ficam na Capital. O resto sobra para RMF, etc.
+    # 4. Deduplicação Estratégica
+    # Se um crime caiu em "Fortaleza" e "Caucaia" ao mesmo tempo, removemos a duplicata.
+    # Como carregamos RMF antes de CAPITAL na lista `parts`, se usarmos 'drop_duplicates'
+    # mantendo o primeiro, a prioridade da lista original é preservada? 
+    # Não necessariamente após o sjoin e concat.
     
-    remaining = gdf_crimes.copy()
+    # Vamos ordenar por região para garantir a prioridade: RMF > CAPITAL > INTERIOR
+    # Criamos uma coluna de peso para ordenar
+    region_weight = {'RMF': 1, 'CAPITAL': 2, 'INTERIOR': 3}
+    joined['peso_prioridade'] = joined['regiao_sistema'].map(region_weight)
     
-    # Ordem de prioridade
-    for region in ['CAPITAL', 'RMF', 'INTERIOR']:
-        if region not in gdfs_mapas: continue
-        
-        mapa = gdfs_mapas[region]
-        
-        # JOIN ESPACIAL: Ponto dentro de Polígono
-        # op='within' ou predicate='within' dependendo da versão do geopandas
-        try:
-            joined = gpd.sjoin(remaining, mapa, how="inner", predicate="within")
-        except:
-            joined = gpd.sjoin(remaining, mapa, how="inner", op="within")
-            
-        if not joined.empty:
-            print(f"    [+] {region}: {len(joined)} ocorrências localizadas.")
-            
-            # Adiciona metadados da região
-            joined['regiao_sistema'] = region
-            joined['local_oficial'] = joined['name'].str.upper().str.strip() # Nome oficial do polígono (Bairro ou Cidade)
-            
-            # Remove duplicatas de colunas criadas pelo sjoin
-            cols_to_keep = ['id_ocorrencia', 'data', 'hora', 'natureza', 'lat', 'lng', 'regiao_sistema', 'local_oficial']
-            dfs_final.append(joined[cols_to_keep])
-            
-            # Remove os processados da fila
-            remaining = remaining[~remaining.index.isin(joined.index)]
+    # Ordena: Menor peso (RMF) aparece primeiro
+    joined = joined.sort_values('peso_prioridade')
     
-    if not dfs_final:
-        print("[X] ERRO: Nenhum crime caiu dentro dos mapas fornecidos. Verifique Lat/Lng e CRS.")
-        return
+    # Remove duplicatas de ID de ocorrência, mantendo a primeira (RMF ganha de Capital)
+    before_dedup = len(joined)
+    joined = joined.drop_duplicates(subset=['id_ocorrencia'], keep='first')
+    print(f"    [i] {before_dedup - len(joined)} conflitos de fronteira resolvidos (Prioridade RMF).")
 
-    df_consolidado = pd.concat(dfs_final)
-    
-    # 4. Cruzar com Inteligência de Facções (CSV)
-    # Agora que temos o 'local_oficial' garantido pelo mapa, cruzamos com o CSV de facções
+    # 5. Cruzar Facções
     csv_intel = DATA_RAW / "inteligencia_faccoes.csv"
     if csv_intel.exists():
-        print("[-] Aplicando Inteligência de Facções...")
+        print("[-] Aplicando Inteligência...")
         df_intel = pd.read_csv(csv_intel)
         df_intel['local_norm'] = df_intel['local'].astype(str).str.upper().str.strip()
         
-        # Merge
-        df_consolidado = df_consolidado.merge(
+        joined = joined.merge(
             df_intel[['local_norm', 'faccao_predominante']],
             left_on='local_oficial',
             right_on='local_norm',
             how='left'
         )
-        df_consolidado['faccao_predominante'] = df_consolidado['faccao_predominante'].fillna('DESCONHECIDO')
+        joined['faccao_predominante'] = joined['faccao_predominante'].fillna('DESCONHECIDO')
     else:
-        print("[!] CSV de facções não encontrado. Definindo como DESCONHECIDO.")
-        df_consolidado['faccao_predominante'] = 'DESCONHECIDO'
+        joined['faccao_predominante'] = 'DESCONHECIDO'
 
-    # Tratamento de Data
-    df_consolidado['data_hora'] = pd.to_datetime(df_consolidado['data'] + ' ' + df_consolidado['hora'], errors='coerce')
+    # Finalização
+    joined['data_hora'] = pd.to_datetime(joined['data'] + ' ' + joined['hora'], errors='coerce')
     
-    # Salvar
+    # Seleção de colunas finais
+    cols = ['id_ocorrencia', 'data_hora', 'natureza', 'lat', 'lng', 
+            'regiao_sistema', 'local_oficial', 'bairro_ciops', 'faccao_predominante', 'tipo']
+            
+    # Garante que existem
+    cols = [c for c in cols if c in joined.columns]
+    df_final = pd.DataFrame(joined[cols])
+    
     os.makedirs(DATA_PROCESSED, exist_ok=True)
     out_file = DATA_PROCESSED / "base_consolidada.parquet"
-    df_consolidado.to_parquet(out_file, index=False)
+    df_final.to_parquet(out_file, index=False)
     
-    print(f"\n[V] SUCESSO: Base Consolidada salva em {out_file}")
-    print(f"    Total de Crimes Processados: {len(df_consolidado)}")
-    print("    Amostra de Facções:")
-    print(df_consolidado['faccao_predominante'].value_counts().head())
+    print(f"\n[V] SUCESSO. Base salva em: {out_file}")
+    print(f"    Total: {len(df_final)}")
+    print("    Distribuição por Região:")
+    print(df_final['regiao_sistema'].value_counts())
 
 if __name__ == "__main__":
     run_pipeline()

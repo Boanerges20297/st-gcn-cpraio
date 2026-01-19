@@ -3,126 +3,358 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIGERAIO | Inteligência</title>
+    <title>SALA DE SITUAÇÃO | CPRAIO</title>
     
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     
     <style>
-        body { margin: 0; padding: 0; background-color: #0f111a; color: #e0e0e0; font-family: 'Roboto Mono', monospace; }
+        :root {
+            /* Tema Claro - Gestão Visual */
+            --bg-color: #f4f6f8;
+            --sidebar-bg: #ffffff;
+            --text-main: #2c3e50;
+            --border-color: #e1e4e8;
+            --accent-red: #d32f2f;
+            --accent-blue: #1976d2;
+            --shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        body { margin: 0; padding: 0; background-color: var(--bg-color); color: var(--text-main); font-family: 'Inter', sans-serif; overflow: hidden; }
         
-        /* Layout Grid */
-        .container { display: grid; grid-template-columns: 300px 1fr; height: 100vh; }
+        .grid-container {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            height: 100vh;
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--border-color);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+        }
+
+        .header {
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--text-main);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 { margin: 0; font-size: 22px; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px; }
+        .header span { font-size: 12px; color: #666; font-weight: 600; text-transform: uppercase; }
+
+        .btn-dashboard {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            display: inline-block;
+            white-space: nowrap;
+        }
+        .btn-dashboard:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Inputs */
+        .control-label { font-size: 11px; font-weight: 700; color: #555; text-transform: uppercase; margin-bottom: 6px; display: block; }
+        select {
+            width: 100%;
+            background: #fff;
+            color: #333;
+            border: 1px solid #ccc;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+            transition: border 0.2s;
+        }
+        select:focus { border-color: var(--accent-blue); }
+
+        /* Lista de Alvos */
+        .target-list { flex-grow: 1; overflow-y: auto; padding-right: 5px; }
         
-        /* Sidebar */
-        .sidebar { background-color: #1a1d29; border-right: 2px solid #333; padding: 20px; overflow-y: auto; }
-        .logo { font-size: 24px; color: #ff4b4b; font-weight: bold; margin-bottom: 30px; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        .target-card {
+            background: #fff;
+            border: 1px solid #eee;
+            border-left: 4px solid #ccc;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .target-card:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
         
-        /* Map Area */
-        .map-wrapper { position: relative; }
-        #map { width: 100%; height: 100%; z-index: 1; }
+        /* Cores de Alerta */
+        .target-card.CRÍTICO { border-left-color: #d32f2f; background: #fff5f5; }
+        .target-card.ALTO { border-left-color: #f57c00; }
+        .target-card.MÉDIO { border-left-color: #fbc02d; }
+
+        .target-name { font-weight: 700; font-size: 15px; display: block; color: #000; }
+        .target-meta { font-size: 12px; color: #666; display: flex; justify-content: space-between; margin-top: 5px; }
+
+        /* Status */
+        .system-status {
+            background: #e3f2fd;
+            color: #0d47a1;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* --- MAPA --- */
+        #map { width: 100%; height: 100%; background: #e0e0e0; }
         
-        /* Cards */
-        .stat-card { background: #252936; padding: 15px; margin-bottom: 15px; border-radius: 4px; border-left: 4px solid #ff4b4b; }
-        .stat-value { font-size: 20px; font-weight: bold; }
-        .stat-label { font-size: 12px; color: #888; }
-        
-        /* Controls */
-        select { width: 100%; padding: 10px; background: #0f111a; color: white; border: 1px solid #444; margin-bottom: 20px; }
-        
+        /* Custom Tooltip */
+        .tactical-tooltip {
+            background: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+        }
+
+        /* Loading Overlay */
+        #loading {
+            position: absolute; top: 20px; right: 20px;
+            background: #fff; padding: 10px 20px; border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-weight: 600; font-size: 13px; color: #333;
+            display: none; z-index: 9999;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .spinner {
+            width: 12px; height: 12px; border: 2px solid #ccc; border-top-color: #333; border-radius: 50%; animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
-<div class="container">
+<div class="grid-container">
     <div class="sidebar">
-        <div class="logo">🦅 SIGERAIO</div>
-        
-        <label>FILTRO DE FACÇÃO</label>
-        <select id="faccaoFilter" onchange="updateMap()">
-            <option value="TODAS">TODAS AS FORÇAS</option>
-            <option value="CV">COMANDO VERMELHO</option>
-            <option value="GDE">G.D.E.</option>
-            <option value="PCC">P.C.C.</option>
-            <option value="DESCONHECIDO">SEM INFORMAÇÃO</option>
-        </select>
-        
-        <div id="stats-container">
-            <div class="stat-card">
-                <div class="stat-value" id="total-count">...</div>
-                <div class="stat-label">OCORRÊNCIAS TOTAIS</div>
+        <div class="header">
+            <div>
+                <h1>SIGERAIO</h1>
+                <span>Painel de Comando Operacional</span>
             </div>
+            <a href="/dashboard-estrategico" class="btn-dashboard" title="Abrir Dashboard Estratégico com análise de IA">
+                🤖 Dashboard
+            </a>
         </div>
-        
-        <div style="margin-top: 20px; font-size: 10px; color: #555;">
-            SISTEMA DE INTELIGÊNCIA GEORREFERENCIADA<br>
-            VERSÃO FLASK 1.0
+
+        <div>
+            <label class="control-label">Região</label>
+            <select id="regionSelect" onchange="refreshData()">
+                <option value="CAPITAL">Fortaleza</option>
+                <option value="RMF">Região Metropolitana</option>
+                <option value="INTERIOR">Interior</option>
+            </select>
+        </div>
+
+        <div>
+            <label class="control-label">Filtro Territorial (Facção)</label>
+            <select id="factionSelect" onchange="refreshData()">
+                <option value="TODAS">Todas as Facções</option>
+                <option value="CV">Comando Vermelho (CV)</option>
+                <option value="TCP">Terceiro Comando Puro (TCP)</option>
+                <option value="MASSA">Massa</option>
+                <option value="PCC">Primeiro Comando da Capital (PCC)</option>
+                <option value="DISPUTA">Áreas em Disputa</option>
+                <option value="GDE">Guardiões do Estado (GDE)</option>
+                <option value="NEUTRO">Comunidades Neutras</option>
+            </select>
+        </div>
+
+        <div>
+            <label class="control-label">Tipo de Crime</label>
+            <select id="crimeTypeSelect" onchange="refreshData()">
+                <option value="TODOS">Todos</option>
+                <option value="CVP">CVP - Violência Patrimonial</option>
+                <option value="CVLI">CVLI - Letais e Intencionais</option>
+            </select>
+        </div>
+
+        <label class="control-label" style="margin-top:10px;">Áreas Críticas (Top 5)</label>
+        <div id="targetList" class="target-list">
+            </div>
+
+        <div class="system-status">
+            ● SISTEMA INTEGRADO
         </div>
     </div>
 
-    <div class="map-wrapper">
+    <div style="position:relative;">
+        <div id="loading"><div class="spinner"></div> Atualizando...</div>
         <div id="map"></div>
     </div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 
 <script>
-    // Inicialização do Mapa (Dark Mode)
-    var map = L.map('map').setView([-3.79, -38.56], 12);
-    
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    // Mapa Light (Positron) - Muito mais limpo
+    const map = L.map('map', { zoomControl: false }).setView([-3.79, -38.56], 12);
+    L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: 'Dados: CPRAIO/CIOPS',
         subdomains: 'abcd',
-        maxZoom: 20
+        maxZoom: 19
     }).addTo(map);
 
-    var markersLayer = new L.LayerGroup();
-    map.addLayer(markersLayer);
+    let riskLayer = L.geoJSON(null).addTo(map);
+    let markers = L.markerClusterGroup({ showCoverageOnHover: false });
+    map.addLayer(markers);
 
-    // Função para carregar dados
-    function updateMap() {
-        var faccao = document.getElementById('faccaoFilter').value;
+    // Cores táticas
+    const colors = {
+        'CRÍTICO': '#d32f2f', // Vermelho Forte
+        'ALTO': '#f57c00',    // Laranja
+        'MÉDIO': '#fbc02d',   // Amarelo
+        'BAIXO': 'transparent' // INVISÍVEL
+    };
+
+    function styleRisk(feature) {
+        let nivel = feature.properties.nivel_alerta;
+        let cor = colors[nivel] || 'transparent';
         
-        // Carregar Pontos
-        fetch(`/api/crimes?faccao=${faccao}`)
-            .then(response => response.json())
-            .then(data => {
-                markersLayer.clearLayers();
-                
-                L.geoJSON(data, {
-                    pointToLayer: function (feature, latlng) {
-                        return L.circleMarker(latlng, {
-                            radius: 6,
-                            fillColor: feature.properties.cor,
-                            color: "#000",
-                            weight: 1,
-                            opacity: 1,
-                            fillOpacity: 0.8
-                        });
-                    },
-                    onEachFeature: function (feature, layer) {
-                        layer.bindPopup(`
-                            <strong>${feature.properties.natureza}</strong><br>
-                            Bairro: ${feature.properties.bairro}<br>
-                            Facção: ${feature.properties.faccao}<br>
-                            Data: ${feature.properties.data}
-                        `);
-                    }
-                }).addTo(markersLayer);
-            });
-            
-        // Atualizar Stats
-        fetch('/api/stats')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('total-count').innerText = data.total_ocorrencias || 0;
-            });
+        // Se for baixo, nem desenha a borda
+        let opacity = (nivel === 'BAIXO' || !nivel) ? 0 : 0.4;
+        let stroke = (nivel === 'BAIXO' || !nivel) ? 0 : 1;
+
+        return {
+            fillColor: cor,
+            weight: stroke,
+            opacity: 1,
+            color: cor, // Borda da mesma cor do preenchimento
+            fillOpacity: opacity
+        };
     }
 
-    // Carga inicial
-    updateMap();
-</script>
+    async function refreshData() {
+        document.getElementById('loading').style.display = 'flex';
+        const region = document.getElementById('regionSelect').value;
+        const faccao = document.getElementById('factionSelect').value;
+        const tipoCrime = document.getElementById('crimeTypeSelect').value;
 
+        try {
+            const res = await fetch(`/api/dashboard_data?region=${region}&faccao=${faccao}&tipo_crime=${tipoCrime}`);
+            const data = await res.json();
+
+            // Constrói descritor de filtros ativos
+            let filtros = [];
+            if (faccao !== 'TODAS') filtros.push(`Facção: ${faccao}`);
+            if (tipoCrime !== 'TODOS') {
+                filtros.push(tipoCrime === 'CVP' ? 'Patrimoniais' : 'Letais');
+            }
+            let descritor = filtros.length > 0 ? ` [${filtros.join(' • ')}]` : '';
+
+            // 1. Polígonos (Risco ou Território)
+            riskLayer.clearLayers();
+            if (data.polygons) {
+                riskLayer.addData(data.polygons);
+                riskLayer.setStyle(styleRisk);
+                
+                riskLayer.eachLayer(layer => {
+                    let p = layer.feature.properties;
+                    if (p.nivel_alerta && p.nivel_alerta !== 'BAIXO') {
+                        let info = `<strong>${p.name || p.bairro}</strong><br>Status: ${p.nivel_alerta}`;
+                        if (p.count_tipo_crime !== undefined) {
+                            info += `<br>Crimes: ${p.count_tipo_crime}`;
+                        }
+                        if (p.percentual !== undefined) {
+                            info += `<br>Dominância: ${p.percentual}%`;
+                        }
+                        layer.bindTooltip(info, { sticky: true, className: 'tactical-tooltip' });
+                    }
+                });
+            }
+
+            // 2. Pontos (Clusters) - Apenas quando não há filtro de facção
+            markers.clearLayers();
+            if (faccao === 'TODAS' && data.points && data.points.length > 0) {
+                data.points.forEach(p => {
+                    if (p.latitude && p.longitude) {
+                        let m = L.circleMarker([p.latitude, p.longitude], {
+                            radius: 5,
+                            fillColor: '#333',
+                            color: '#fff',
+                            weight: 1,
+                            fillOpacity: 0.8
+                        });
+                        m.bindPopup(`<b>${p.natureza}</b><br>Local: ${p.local_oficial}<br>Facção: ${p.faccao}<br>Tipo: ${p.tipo}`);
+                        markers.addLayer(m);
+                    }
+                });
+            }
+
+            // 3. Lista Lateral
+            updateList(data.targets);
+            
+            // Auto-Zoom
+            if (data.polygons && data.polygons.features.length > 0) {
+                map.fitBounds(riskLayer.getBounds());
+            }
+
+        } catch (e) {
+            console.error(e);
+        } finally {
+            document.getElementById('loading').style.display = 'none';
+        }
+    }
+
+    function updateList(targets) {
+        const div = document.getElementById('targetList');
+        div.innerHTML = '';
+        if (!targets || targets.length === 0) {
+            div.innerHTML = '<div style="padding:10px; color:#999; text-align:center;">Nenhum alerta crítico.</div>';
+            return;
+        }
+        targets.forEach(t => {
+            let el = document.createElement('div');
+            el.className = `target-card ${t.nivel}`;
+            el.innerHTML = `
+                <span class="target-name">${t.local}</span>
+                <div class="target-meta">
+                    <span>${t.nivel}</span>
+                    <span>IA: ${t.score.toFixed(2)}</span>
+                </div>
+            `;
+            el.onclick = () => {
+                riskLayer.eachLayer(l => {
+                    let p = l.feature.properties;
+                    if ((p.name || p.bairro) === t.local) {
+                        map.fitBounds(l.getBounds());
+                        l.openTooltip();
+                    }
+                });
+            };
+            div.appendChild(el);
+        });
+    }
+
+    refreshData();
+</script>
 </body>
 </html>

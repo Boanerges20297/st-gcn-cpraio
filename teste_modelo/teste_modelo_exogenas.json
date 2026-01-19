@@ -1,0 +1,29 @@
+{
+  "titulo": "Teste de Modelo com Dados Exógenos (RAIO)",
+  "data": "2026-01-18T22:32:52.184569",
+  "comparacao": {
+    "baseline": {
+      "MAE": 4.47,
+      "RMSE": 21.77,
+      "R2": 0.811,
+      "n_predicoes": 2695
+    },
+    "com_exogenas": {
+      "MAE": 4.47,
+      "RMSE": 21.77,
+      "R2": 0.811,
+      "n_predicoes": 2695
+    },
+    "melhorias": {
+      "MAE_percentual": -0.0,
+      "RMSE_percentual": -0.0,
+      "R2_percentual": -0.0
+    }
+  },
+  "bairros_raio_cobertos": 1,
+  "recomendacao": {
+    "conclusao": "⚠️ AVALIAR MELHOR",
+    "confianca": "Baixa",
+    "proximo_passo": "Incorporar prisões no modelo ST-GCN real"
+  }
+}

@@ -16,7 +16,17 @@ DATA_GRAPH = BASE_DIR / "data" / "graph"
 DATA_PROCESSED = BASE_DIR / "data" / "processed"
 
 # NOVO ALVO CENTRAL
-CONSOLIDATED_FILE = DATA_PROCESSED / "base_consolidada.parquet"
+CONSOLIDATED_FILE_V1 = DATA_PROCESSED / "base_consolidada.parquet"
+CONSOLIDATED_FILE_V2 = DATA_PROCESSED / "base_consolidada_orcrim_v2.parquet"
+CONSOLIDATED_FILE_V3 = DATA_PROCESSED / "base_consolidada_orcrim_v3.parquet"
+
+# Usar v3 (sjoin corrigido) se existir, senão v2, senão v1
+if CONSOLIDATED_FILE_V3.exists():
+    CONSOLIDATED_FILE = CONSOLIDATED_FILE_V3
+elif CONSOLIDATED_FILE_V2.exists():
+    CONSOLIDATED_FILE = CONSOLIDATED_FILE_V2
+else:
+    CONSOLIDATED_FILE = CONSOLIDATED_FILE_V1
 
 # Mapas (Geometria) - Mantidos para definir quem é vizinho físico
 GEOJSON_PATHS = {
@@ -37,7 +47,7 @@ ARTIFACTS = {
         'dataset': TENSOR_DIR / "dataset_capital.pt",
         'model': MODEL_DIR / "model_capital.pth",
         'stats': MODEL_DIR / "stats_capital.pt",
-        'prediction': REPORT_DIR / "pred_capital.csv"
+        'prediction': REPORT_DIR / "pred_capital_bairros.csv"
     },
     'RMF': {
         'dataset': TENSOR_DIR / "dataset_rmf.pt",

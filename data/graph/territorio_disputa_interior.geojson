@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "territorio_disputa_interior",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "codarea": "2304004", "id_match": "230400", "name": "COREAÚ", "name_upper": "COREAÚ", "local_oficial": "COREAÚ", "faccao_predominante": "DISPUTA", "percentual": 100.0, "criticidade_territorio": "CRÍTICO" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -40.554, -3.5381 ], [ -40.5589, -3.5304 ], [ -40.6701, -3.5299 ], [ -40.7619, -3.5051 ], [ -40.8568, -3.5359 ], [ -40.904, -3.5753 ], [ -40.8909, -3.6679 ], [ -40.8287, -3.6337 ], [ -40.7663, -3.6484 ], [ -40.7336, -3.689 ], [ -40.7831, -3.7429 ], [ -40.7796, -3.7862 ], [ -40.7897, -3.8372 ], [ -40.7662, -3.8631 ], [ -40.7236, -3.8211 ], [ -40.7154, -3.806 ], [ -40.6557, -3.7973 ], [ -40.6105, -3.65 ], [ -40.5487, -3.6537 ], [ -40.5877, -3.639 ], [ -40.6071, -3.5958 ], [ -40.554, -3.5381 ] ] ] } }
+]
+}

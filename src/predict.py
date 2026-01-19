@@ -1,163 +1,130 @@
+import sys
+import os
 import torch
 import pandas as pd
 import numpy as np
-import os
-import config
-from model import STGCN_Cpraio
-from datetime import datetime, timedelta
+from datetime import timedelta
 
-def load_region_artifacts(region_name):
-    """
-    Carrega o 'Kit de Inteligência' específico da região:
-    - Grafo (Dataset)
-    - Estatísticas (Média/Desvio para desnormalizar)
-    - Modelo Treinado (Cérebro)
-    """
-    print(f"[-] Carregando artefatos: {region_name}...")
+# --- BLINDAGEM DE IMPORTS ---
+current_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, current_dir)
+sys.path.insert(0, os.path.dirname(current_dir))
+
+import config
+try:
+    from model import STGCN_Cpraio
+except ImportError:
+    from src.model import STGCN_Cpraio
+
+def load_artifacts(region_name):
+    """Carrega o Modelo Treinado e os Dados da Região."""
     paths = config.ARTIFACTS[region_name]
     
-    # 1. Dataset (Topologia e Calendário)
+    # 1. Checagens
+    if not paths['model'].exists():
+        print(f"    [!] Modelo não encontrado: {paths['model']}")
+        return None
     if not paths['dataset'].exists():
-        print(f"    [!] Dataset não encontrado. Pule esta região.")
+        print(f"    [!] Dataset não encontrado.")
         return None
-    
-    # weights_only=False para permitir carregar a estrutura completa do dicionário
-    dataset = torch.load(paths['dataset'], weights_only=False)
-    
-    # 2. Estatísticas (Para trazer a previsão de volta à escala real)
     if not paths['stats'].exists():
-        print(f"    [!] Estatísticas não encontradas. O modelo foi treinado?")
+        print(f"    [!] Estatísticas (stats.pt) não encontradas. Rode o trainer.py.")
         return None
+
+    # 2. Carregar
+    # weights_only=False para carregar dicionários complexos
+    dataset = torch.load(paths['dataset'], weights_only=False)
     stats = torch.load(paths['stats'], weights_only=False)
     
-    # 3. Modelo
-    if not paths['model'].exists():
-        print(f"    [!] Modelo treinado não encontrado.")
-        return None
-        
     return dataset, stats, paths['model']
 
 def predict_region(region_name):
-    print(f"\n>>> INICIANDO PREDIÇÃO TÁTICA: {region_name}")
+    print(f"\n>>> PREVENDO FUTURO: {region_name}")
     
-    artifacts = load_region_artifacts(region_name)
-    if not artifacts:
-        return
+    loaded = load_artifacts(region_name)
+    if not loaded: return
 
-    data, stats, model_path = artifacts
-    
-    X_full = data['X']          # (Days, Nodes, Features)
+    data, stats, model_path = loaded
+    X_full = data['X']          # Histórico completo
     edge_index = data['edge_index']
-    nodes = data['nodes']
-    dates = data['dates']
-    mean, std = stats['mean'], stats['std']
+    nodes = data['nodes']       # Lista de Bairros/Cidades
     
-    # Hiperparâmetros
+    # 3. Preparar Input (Última Janela)
     window_size = config.HyperParams['window_size']
-    target_window = config.HyperParams['target_window']
-    hidden_dim = config.HyperParams['hidden_dim']
-    
-    # Validação de Histórico
     if len(X_full) < window_size:
-        print("    [!] Histórico insuficiente para gerar previsão.")
+        print("    [!] Histórico insuficiente.")
         return
 
-    # --- 1. Preparar a Janela de Entrada (Últimos 14 dias) ---
-    last_window = X_full[-window_size:] # Shape: (14, Nodes, 1)
+    # Pega os últimos 14 dias
+    last_window = X_full[-window_size:] 
     
-    # Normalizar (usando a mesma régua do treino)
+    # Normalizar (Usando a média/desvio salvos no treino)
+    mean = stats['mean']
+    std = stats['std']
     last_window_norm = (last_window - mean) / std
     
-    # Adicionar dimensão de Batch: (1, 14, Nodes, 1)
+    # Formato de Batch: (1, 14, Nodes, 1)
     input_tensor = last_window_norm.unsqueeze(0)
-    
-    # --- 2. Inicializar e Carregar Modelo ---
+
+    # 4. Inicializar e Carregar Modelo
     num_nodes = X_full.shape[1]
     num_features = X_full.shape[2]
     
     model = STGCN_Cpraio(
         num_nodes=num_nodes,
         in_channels=num_features,
-        hidden_channels=hidden_dim,
+        hidden_channels=config.HyperParams['hidden_dim'],
         out_channels=num_features,
-        dropout=0.0 # Sem dropout na inferência
+        dropout=0.0
     )
     
     try:
         model.load_state_dict(torch.load(model_path, weights_only=True))
-        model.eval() # Modo de avaliação (congela camadas)
+        model.eval()
     except Exception as e:
-        print(f"    [X] Erro ao carregar pesos do modelo: {e}")
+        print(f"    [X] Erro ao carregar pesos: {e}")
         return
 
-    # --- 3. Inferência ---
-    print("    [-] Executando rede neural (ST-GCN)...")
+    # 5. Inferência
     with torch.no_grad():
-        prediction_norm = model(input_tensor, edge_index)
+        # Saída: (1, Nodes, 1) -> Média Quinzenal Normalizada
+        out_norm = model(input_tensor, edge_index)
+        
+    # 6. Desnormalizar
+    out_real = out_norm.squeeze() * std + mean
     
-    # --- 4. Desnormalização e Interpretação ---
-    # O modelo prevê a MÉDIA quinzenal normalizada. Precisamos trazer para a escala real.
-    # Prediction shape: (1, Nodes, 1)
-    
-    # Remove batch e feature extra -> (Nodes,)
-    pred_values = prediction_norm.squeeze().numpy()
-    
-    # Desnormalizar: Valor * Std + Mean
-    mean_val = mean.item() if isinstance(mean, torch.Tensor) else mean
-    std_val = std.item() if isinstance(std, torch.Tensor) else std
-    
-    pred_real = pred_values * std_val + mean_val
-    
-    # Limpeza: Não existe crime negativo, zerar valores < 0
-    pred_final = np.maximum(pred_real, 0)
-    
-    # --- 5. Relógio Tático ---
-    try:
-        last_date = pd.to_datetime(dates[-1])
-        start_pred = last_date + timedelta(days=1)
-        end_pred = last_date + timedelta(days=target_window)
-        periodo_str = f"{start_pred.strftime('%d/%m')} a {end_pred.strftime('%d/%m')}"
-    except:
-        periodo_str = "Próxima Quinzena"
+    # Zerar negativos (não existe crime negativo) e converter para numpy
+    pred_values = torch.relu(out_real).numpy().flatten() # (Nodes,)
 
-    # --- 6. Gerar Relatório CSV ---
+    # 7. Gerar Relatório
     df_result = pd.DataFrame({
-        'bairro': nodes,
-        'CVLI': pred_final
+        'local': nodes,
+        'risco_previsto': pred_values,
+        'regiao': region_name
     })
     
-    # Ordenar por Risco
-    df_result = df_result.sort_values(by='CVLI', ascending=False)
+    # Ordenar por risco
+    df_result = df_result.sort_values(by='risco_previsto', ascending=False)
     
     # Salvar
-    output_path = config.ARTIFACTS[region_name]['prediction']
-    df_result.to_csv(output_path, index=False)
+    out_csv = config.ARTIFACTS[region_name]['prediction']
+    df_result.to_csv(out_csv, index=False)
     
-    print(f"    [V] Previsão salva: {output_path}")
-    print(f"    [i] Horizonte Tático: {periodo_str}")
-    
-    # Preview
-    top_3 = df_result.head(3)
-    print(f"    ⚠️  Top 3 Riscos Detectados:")
-    for _, row in top_3.iterrows():
-        print(f"       - {row['bairro']}: {row['CVLI']:.2f}")
+    print(f"    [V] Previsão salva: {out_csv}")
+    print("    ⚠️  TOP 3 ALVOS:")
+    for i, row in df_result.head(3).iterrows():
+        print(f"       {i+1}. {row['local']}: {row['risco_previsto']:.2f}")
 
 def main():
     print("==============================================")
-    print("   SISTEMA DE PREDIÇÃO CRIMINAL MULTI-ESCALA  ")
+    print("      SISTEMA DE PREDIÇÃO TÁTICA (IA)         ")
     print("==============================================")
     
-    regions = ['CAPITAL', 'RMF', 'INTERIOR']
-    
-    for region in regions:
+    for region in ['CAPITAL', 'RMF', 'INTERIOR']:
         try:
             predict_region(region)
         except Exception as e:
-            print(f"[X] Falha crítica ao processar {region}: {e}")
-            import traceback
-            traceback.print_exc()
-            
-    print("\n[V] Ciclo de Inteligência Concluído.")
+            print(f"    [X] Falha em {region}: {e}")
 
 if __name__ == "__main__":
     main()
