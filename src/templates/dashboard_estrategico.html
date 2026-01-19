@@ -481,6 +481,54 @@
             color: #999;
             margin-top: 10px;
         }
+        /* Overlay moderno de carregamento */
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(10,18,28,0.45);
+            backdrop-filter: blur(4px) saturate(1.1);
+            z-index: 9999;
+        }
+
+        .loader-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 24px 28px;
+            border-radius: 14px;
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            color: white;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.45);
+            min-width: 320px;
+            max-width: 520px;
+        }
+
+        .loader-graphic {
+            width: 72px;
+            height: 72px;
+            flex: none;
+        }
+
+        .loader-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .loader-title {
+            font-size: 1.1em;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #fff;
+        }
+
+        .loader-sub {
+            font-size: 0.9em;
+            color: rgba(255,255,255,0.85);
+        }
     </style>
 </head>
 <body>
@@ -700,21 +748,39 @@
                 `<small>⏱️ Período: ${formatarExibicao(dataInicio)} até ${formatarExibicao(dataFim)} (${dias} dias)</small>`;
         }
 
+        // Mostrar / esconder overlay de carregamento
+        function showLoading(message) {
+            const overlay = document.getElementById('loading-overlay');
+            if (!overlay) return;
+            if (message) overlay.querySelector('.loader-sub').textContent = message;
+            overlay.style.display = 'flex';
+        }
+
+        function hideLoading() {
+            const overlay = document.getElementById('loading-overlay');
+            if (!overlay) return;
+            overlay.style.display = 'none';
+        }
+
         async function carregarDados() {
+            showLoading('Carregando dados...');
             try {
                 const response = await fetch('/api/strategic_insights');
                 const data = await response.json();
                 
                 if (data.sucesso) {
                     preencherDashboard(data.data);
-                    carregarRecomendacoes();
+                    await carregarRecomendacoes();
                 }
             } catch (error) {
                 console.error('Erro ao carregar dados:', error);
+            } finally {
+                hideLoading();
             }
         }
 
         async function carregarDadosComFiltro() {
+            showLoading('Atualizando dados...');
             try {
                 const params = new URLSearchParams();
                 if (dataInicio) params.append('data_inicio', dataInicio);
@@ -725,12 +791,15 @@
                 
                 if (data.sucesso) {
                     preencherDashboard(data.data);
-                    carregarRecomendacoes();
+                    await carregarRecomendacoes();
+                    hideLoading();
                 } else {
+                    hideLoading();
                     alert('Erro: ' + (data.detalhes || data.erro));
                 }
             } catch (error) {
                 console.error('Erro ao carregar dados com filtro:', error);
+                hideLoading();
                 alert('Erro ao buscar dados. Verifique o console.');
             }
         }
@@ -1056,5 +1125,33 @@
             }
         }
     </script>
+    <!-- Overlay de carregamento global -->
+    <div id="loading-overlay" class="loading-overlay" aria-hidden="true">
+        <div class="loader-card" role="status" aria-live="polite">
+            <svg class="loader-graphic" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="g1" x1="0%" x2="100%" y1="0%" y2="100%">
+                        <stop offset="0%" stop-color="#7bdff6"/>
+                        <stop offset="50%" stop-color="#2c7aa3"/>
+                        <stop offset="100%" stop-color="#1e5a7a"/>
+                    </linearGradient>
+                </defs>
+                <circle cx="60" cy="60" r="44" stroke="url(#g1)" stroke-width="8" fill="none" stroke-linecap="round">
+                    <animateTransform attributeName="transform" type="rotate" from="0 60 60" to="360 60 60" dur="1.2s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="60" cy="20" r="6" fill="#fff">
+                    <animateMotion dur="1.2s" repeatCount="indefinite">
+                        <mpath xlink:href="#pathOrbit" />
+                    </animateMotion>
+                </circle>
+                <path id="pathOrbit" d="M60,16 a44,44 0 1,0 0.0001,0" fill="none" stroke="none"/>
+            </svg>
+
+            <div class="loader-text">
+                <div class="loader-title">Atualizando Dados</div>
+                <div class="loader-sub">Buscando informações e recalculando indicadores...</div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

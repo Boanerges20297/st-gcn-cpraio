@@ -96,7 +96,20 @@ def train_region(region_name):
     
     # Salvar Estatísticas
     torch.save({'mean': mean, 'std': std}, paths['stats'])
-    print(f"[-] Stats salvas: Mean={mean.item():.4f}, Std={std.item():.4f}")
+    # mean/std podem ser vetores (quando há features exógenas). Formatamos de forma segura.
+    try:
+        mean_val = mean.squeeze().cpu().numpy()
+        std_val = std.squeeze().cpu().numpy()
+        if mean_val.ndim == 0:
+            mean_str = f"{float(mean_val):.4f}"
+            std_str = f"{float(std_val):.4f}"
+        else:
+            mean_str = ','.join([f"{float(m):.4f}" for m in mean_val.flatten()])
+            std_str = ','.join([f"{float(s):.4f}" for s in std_val.flatten()])
+    except Exception:
+        mean_str = str(mean)
+        std_str = str(std)
+    print(f"[-] Stats salvas: Mean=[{mean_str}], Std=[{std_str}]")
 
     # 3. Divisão Treino / Validação (80/20)
     split_idx = int(len(X_norm) * 0.8)
