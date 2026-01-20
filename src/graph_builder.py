@@ -9,6 +9,7 @@ import random
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 import config
+from exogenous import load_inmet_aggregated, build_exog_matrix
 
 def build_graph(region_name, df_full):
     print(f"\n>>> CONSTRUINDO GRAFO: {region_name}")
@@ -82,28 +83,61 @@ def build_graph(region_name, df_full):
     
     num_days = len(all_dates)
     num_nodes = len(nodes)
-    X = torch.zeros((num_days, num_nodes, 1), dtype=torch.float)
-    
-    # Preencher
+
+    # Preencher matriz básica de contagens (CVLI)
+    X_base = torch.zeros((num_days, num_nodes, 1), dtype=torch.float)
     daily = df_region.groupby([df_region['data_hora'].dt.date, 'local_oficial']).size().reset_index(name='count')
     date_map = {d.date(): i for i, d in enumerate(all_dates)}
-    
+
     for _, row in daily.iterrows():
         d_idx = date_map.get(row['data_hora'])
         n_idx = node_map.get(row['local_oficial'])
         if d_idx is not None and n_idx is not None:
-            X[d_idx, n_idx, 0] = row['count']
-            
+            X_base[d_idx, n_idx, 0] = row['count']
+
+    # Carregar exógenos (INMET + Feriados)
+    try:
+        gdf_nodes = gpd.read_file(geo_path)
+    except Exception:
+        gdf_nodes = gdf
+
+    inmet_df = None
+    try:
+        inmet_df = load_inmet_aggregated(str(config.INMET_CSV), gdf_nodes)
+        if inmet_df.empty:
+            inmet_df = None
+    except Exception as e:
+        print(f"    [!] Falha ao agregar INMET: {e}")
+
+    # Gera matriz exógena (num_days, num_nodes, K)
+    try:
+        exog_mat, exog_features = build_exog_matrix(all_dates, nodes, inmet_df)
+    except Exception as e:
+        print(f"    [!] Erro ao construir exógenos: {e}")
+        exog_mat = None
+        exog_features = []
+
+    if exog_mat is not None:
+        import numpy as np
+        # Converter exog_mat -> tensor e concatenar
+        exog_tensor = torch.from_numpy(exog_mat).float()
+        # Normaliza escala simples? Mantemos sem normalização aqui; trainer cuida da normalização global
+        X = torch.cat([X_base, exog_tensor], dim=2)
+        features = ['CVLI'] + exog_features
+    else:
+        X = X_base
+        features = ['CVLI']
+
     # 5. Salvar
     dataset = {
         'X': X,
         'edge_index': edge_index,
         'nodes': nodes,
         'dates': all_dates,
-        'features': ['CVLI']
+        'features': features
     }
     torch.save(dataset, config.ARTIFACTS[region_name]['dataset'])
-    print(f"    [V] Dataset salvo.")
+    print(f"    [V] Dataset salvo. Features: {features}")
 
 if __name__ == "__main__":
     if not config.CONSOLIDATED_FILE.exists():

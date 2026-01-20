@@ -35,6 +35,12 @@ GEOJSON_PATHS = {
     'INTERIOR': DATA_GRAPH / "ceara_interior.geojson"
 }
 
+# Caminho para dados meteorológicos (INMET) — CSV com colunas de estação/coord/variáveis por data
+INMET_CSV = BASE_DIR / "data" / "raw" / "inmet_stations.csv"
+
+# Lista de features exógenas que podem ser agregadas (ordenadas)
+EXOGENEOUS_FEATURES = ['precip_mm', 'temp_mean', 'holiday']
+
 # --- ARTEFATOS (GRAFOS E MODELOS) ---
 TENSOR_DIR = BASE_DIR / "data" / "tensors"
 MODEL_DIR = BASE_DIR / "outputs" / "models"
