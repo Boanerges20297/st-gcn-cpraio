@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-01-19T19:35:13.305392",
+  "periodo_treino": "2022-2024",
+  "periodo_validacao": "2025",
+  "criterio": "CVLI-CENTRIC",
+  "notes": [
+    "CVP usado apenas como contexto histórico",
+    "Criticidade determinada APENAS por CVLI",
+    "Validação com prisões RAIO",
+    "Análise de eficiência de operações"
+  ]
+}

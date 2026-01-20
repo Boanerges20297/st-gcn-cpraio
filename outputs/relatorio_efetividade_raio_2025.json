@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-01-19T20:25:42.635909",
+  "correlacao_geral": 0.09238922833992085,
+  "total_comparacoes": 3816,
+  "total_prisoes_2025": 2553,
+  "recomendacoes": [
+    "Correlação > 0.5: Modelo validado para alocação de recursos",
+    "Correlação 0.3-0.5: Modelo tem validade mas ajustes necessários",
+    "Correlação < 0.3: Modelo não alinhado com operações reais"
+  ]
+}

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, send_file
 import pandas as pd
 import geopandas as gpd
 import json
@@ -7,10 +7,10 @@ import os
 import re
 from pathlib import Path
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-import config
+# Import local config
+from . import config
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../data', static_url_path='/data')
 
 # --- FUNÇÕES AUXILIARES ---
 def get_alert_level(score, region):
@@ -430,7 +430,7 @@ def get_strategic_insights():
 
 @app.route('/api/strategic_insights_range')
 def get_strategic_insights_range():
-    """Coleta dados agregados com filtro de data
+    """Coleta dados agregados com filtro de data e região
     
     IMPORTANTE: Crimes NÃO = Facção autora
     - Homicídios por TERRITÓRIO (AID), não por facção
@@ -441,6 +441,7 @@ def get_strategic_insights_range():
         # Parâmetros de data
         data_inicio_str = request.args.get('data_inicio')
         data_fim_str = request.args.get('data_fim')
+        regiao_filtro = request.args.get('regiao', '').upper()  # NOVO: Parâmetro de região
         
         if not data_inicio_str or not data_fim_str:
             # Fallback para último 30 dias
@@ -464,6 +465,16 @@ def get_strategic_insights_range():
                 (df_crimes['data_hora'].dt.date >= data_inicio) & 
                 (df_crimes['data_hora'].dt.date <= data_fim)
             ]
+        
+        # NOVO: Filtrar por região se especificada
+        if regiao_filtro and regiao_filtro.upper() not in ['TODOS', '']:
+            if regiao_filtro.upper() in ['CAPITAL', 'RMF', 'INTERIOR']:
+                print(f"[DEBUG] Filtrando por região: {regiao_filtro}")
+                df_crimes_before = len(df_crimes)
+                # Fazer filtro case-insensitive
+                df_crimes = df_crimes[df_crimes['regiao_sistema'].fillna('').str.upper() == regiao_filtro.upper()]
+                df_crimes_after = len(df_crimes)
+                print(f"[DEBUG] Crimes: {df_crimes_before} -> {df_crimes_after}")
         
         # Carregar predições por bairro
         pred_file = config.ARTIFACTS['CAPITAL']['prediction']
@@ -835,6 +846,20 @@ def serve_geojson(filename):
     except Exception as e:
         return jsonify({"erro": str(e)}), 500
 
+@app.route('/data/raw/<filename>')
+def serve_raw_geojson(filename):
+    """Serve arquivos GeoJSON de data/raw (limites do Ceará, etc)."""
+    try:
+        raw_path = Path(__file__).parent.parent / 'data' / 'raw' / filename
+        if raw_path.exists() and raw_path.suffix == '.geojson':
+            with open(raw_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            return jsonify(data)
+        else:
+            return jsonify({"erro": "Arquivo não encontrado"}), 404
+    except Exception as e:
+        return jsonify({"erro": str(e)}), 500
+
 @app.route('/api/recomendacoes_operacionais')
 def get_recomendacoes_operacionais():
     """Recomendações táticas para gestor de policiamento com validação de predição.
@@ -850,6 +875,7 @@ def get_recomendacoes_operacionais():
         # Parâmetros de data
         data_inicio_str = request.args.get('data_inicio')
         data_fim_str = request.args.get('data_fim')
+        regiao_filtro = request.args.get('regiao', '').upper()  # NOVO: Parâmetro de região
         
         if not data_inicio_str or not data_fim_str:
             hoje = datetime.now().date()
@@ -864,6 +890,13 @@ def get_recomendacoes_operacionais():
             return jsonify({"sucesso": False, "erro": "Dados não disponíveis"})
         
         df_crimes = pd.read_parquet(config.CONSOLIDATED_FILE)
+        
+        # NOVO: Filtrar por região se especificada
+        if regiao_filtro and regiao_filtro not in ['TODOS', '']:
+            if regiao_filtro in ['CAPITAL', 'RMF', 'INTERIOR']:
+                print(f"[DEBUG] Recomendações - Filtrando por região: {regiao_filtro}")
+                df_crimes = df_crimes[df_crimes['regiao_sistema'].fillna('').str.upper() == regiao_filtro]
+        
         pred_file = config.ARTIFACTS['CAPITAL']['prediction']
         if not pred_file.exists():
             return jsonify({"sucesso": False, "erro": "Predições não disponíveis"})

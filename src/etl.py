@@ -142,6 +142,17 @@ def run_pipeline():
     joined = joined.drop_duplicates(subset=['id_ocorrencia'], keep='first')
     print(f"    [i] {before_dedup - len(joined)} conflitos de fronteira resolvidos (Prioridade RMF).")
 
+    # FILTRO CRÍTICO: Manter apenas CVLI (Crimes Violentos com Lesão Intencional)
+    # CVP (Crimes Contra Patrimônio) NÃO devem gerar criticidade
+    if 'tipo' in joined.columns:
+        before_filter = len(joined)
+        # Normalizar tipo para comparação
+        joined['tipo_norm'] = joined['tipo'].astype(str).str.upper().str.strip()
+        joined = joined[joined['tipo_norm'] == 'CVLI']
+        removed_cvp = before_filter - len(joined)
+        if removed_cvp > 0:
+            print(f"    [i] {removed_cvp} registros CVP (Patrimônio) removidos - apenas CVLI mantido.")
+    
     # 5. Cruzar Facções
     csv_intel = DATA_RAW / "inteligencia_faccoes.csv"
     if csv_intel.exists():
@@ -169,6 +180,10 @@ def run_pipeline():
     # Garante que existem
     cols = [c for c in cols if c in joined.columns]
     df_final = pd.DataFrame(joined[cols])
+    
+    # Remover coluna temporária de normalização se existir
+    if 'tipo_norm' in df_final.columns:
+        df_final = df_final.drop(columns=['tipo_norm'])
     
     os.makedirs(DATA_PROCESSED, exist_ok=True)
     out_file = DATA_PROCESSED / "base_consolidada.parquet"

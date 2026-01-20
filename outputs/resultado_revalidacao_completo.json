@@ -1,0 +1,36 @@
+{
+  "r_anterior": 0.348,
+  "r_novo": 0.40803445314132053,
+  "bairros_raio": 80,
+  "bairros_modelo": 388,
+  "matching": 76,
+  "gaps": 4,
+  "cobertura_percent": 95.0,
+  "top_correlacoes": [
+    [
+      "MARECHAL RONDON",
+      0.7461738586425781,
+      35
+    ],
+    [
+      "ARATURI",
+      0.0,
+      27
+    ],
+    [
+      "POTIRA",
+      0.13333334028720856,
+      26
+    ],
+    [
+      "JARDIM ICARAI",
+      0.13333334028720856,
+      10
+    ],
+    [
+      "JUREMA",
+      0.10000001639127731,
+      10
+    ]
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "pearson_r_inversa": -0.006125919579772469,
+  "pearson_p": 0.6635871490516769,
+  "taxa_acerto_inversa_percent": 0.5970149253731344,
+  "validacoes_totais": 5044,
+  "bairros_validados": 388,
+  "periodos": 13,
+  "operacoes_raio_2025": 315,
+  "hipotese": "Policiamento reduz crimes (correlacao inversa)",
+  "resultado": "INEFICAZ"
+}

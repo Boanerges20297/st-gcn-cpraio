@@ -1,0 +1,11 @@
+{
+  "metodo": "Janela Movel 90 dias",
+  "total_registros": 75248,
+  "treino_dias": 348528,
+  "validacao_dias": 116070,
+  "bairros": 318,
+  "treino_cvli": 804927,
+  "validacao_cvli": 282362,
+  "criticidade_mean_treino": 0.5015723270440252,
+  "criticidade_mean_val": 0.5015723270440252
+}

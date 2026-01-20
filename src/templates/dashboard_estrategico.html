@@ -429,6 +429,7 @@
             color: #2c7aa3;
         }
 
+        /* Loading Spinner Moderno */
         .spinner {
             border: 4px solid #f3f3f3;
             border-top: 4px solid #2c7aa3;
@@ -437,6 +438,172 @@
             height: 40px;
             animation: spin 1s linear infinite;
             margin: 0 auto 20px;
+        }
+
+        /* Loading Overlay Moderno para Filtro */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .loading-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .loading-box {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .loading-box h3 {
+            color: #2c7aa3;
+            margin: 0 0 20px 0;
+            font-size: 1.3em;
+        }
+
+        /* Spinner Moderno - Pulsante */
+        .pulse-spinner {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+
+        .pulse-spinner div {
+            position: absolute;
+            border: 3px solid #2c7aa3;
+            opacity: 1;
+            border-radius: 50%;
+            animation: pulse 1.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+        }
+
+        .pulse-spinner div:nth-child(2) {
+            animation-delay: -0.5s;
+        }
+
+        .pulse-spinner div:nth-child(3) {
+            animation-delay: -1s;
+        }
+
+        @keyframes pulse {
+            0% {
+                top: 30px;
+                left: 30px;
+                width: 0;
+                height: 0;
+                opacity: 1;
+            }
+            100% {
+                top: 0;
+                left: 0;
+                width: 60px;
+                height: 60px;
+                opacity: 0;
+            }
+        }
+
+        /* Spinner Moderno - Dots */
+        .dots-spinner {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 20px;
+            margin: 0 auto 20px;
+        }
+
+        .dots-spinner div {
+            position: absolute;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #2c7aa3;
+            animation: dots 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+        }
+
+        .dots-spinner div:nth-child(1) {
+            left: 8px;
+            animation-delay: -0.24s;
+        }
+
+        .dots-spinner div:nth-child(2) {
+            left: 32px;
+            animation-delay: -0.12s;
+        }
+
+        .dots-spinner div:nth-child(3) {
+            left: 56px;
+            animation-delay: 0;
+        }
+
+        @keyframes dots {
+            0%, 20%, 80%, 100% {
+                top: 8px;
+                height: 12px;
+            }
+            50% {
+                top: 0;
+                height: 20px;
+            }
+        }
+
+        /* Loading para Mapa */
+        #mapa-faccoes-loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.98);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 8px;
+            z-index: 1000;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            backdrop-filter: blur(2px);
+        }
+
+        #mapa-faccoes-loading.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        #mapa-faccoes-loading .dots-spinner {
+            margin: 0 0 15px 0;
+        }
+
+        /* Contorno do Ceará */
+        .ceara-boundary {
+            stroke: #2c7aa3;
+            stroke-width: 3;
+            fill: rgba(44, 122, 163, 0.05);
+            pointer-events: none;
+        }
+
+        .ceara-boundary:hover {
+            stroke: #1e5a7a;
+            stroke-width: 4;
+            fill: rgba(44, 122, 163, 0.1);
         }
 
         @keyframes spin {
@@ -484,6 +651,19 @@
     </style>
 </head>
 <body>
+    <!-- Loading Overlay Moderno -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-box">
+            <h3>Atualizando Dashboard...</h3>
+            <div class="pulse-spinner">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <p style="color: #666; margin: 0; font-size: 0.9em;">Processando dados com filtro temporal</p>
+        </div>
+    </div>
+
     <div class="container">
         <header>
             <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
@@ -531,7 +711,16 @@
                 <div id="info-periodo" style="color: rgba(255,255,255,0.9); font-size: 0.85em; font-weight: 500;">
                     ⏱️ Carregando...
                 </div>
-                <button class="btn btn-primary" onclick="aplicarFiltroData()" style="padding: 10px 25px; height: fit-content; background: white; color: #2c7aa3; font-weight: bold; border: none; cursor: pointer;">
+                <div>
+                    <label style="display: block; font-weight: 600; margin-bottom: 6px; color: white; font-size: 0.85em;">📍 Filtrar por Região</label>
+                    <select id="filtro-regiao" onchange="aplicarFiltroRegiao()" style="width: 100%; padding: 10px; border: 2px solid white; border-radius: 6px; font-size: 0.95em; background: white; color: #333;">
+                        <option value="todos">🗺️ Todos - Ceará Completo</option>
+                        <option value="CAPITAL">🏙️ Capital - Fortaleza</option>
+                        <option value="RMF">🌆 RMF - Região Metropolitana</option>
+                        <option value="INTERIOR">🌄 Interior - Cidades do Interior</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" onclick="aplicarFiltroData()" style="padding: 10px 25px; height: fit-content; background: white; color: #2c7aa3; font-weight: bold; border: none; cursor: pointer; margin-top: 10px;">
                     🔍 Filtrar
                 </button>
             </div>
@@ -608,7 +797,16 @@
                 <!-- Mapa de Facções (Geolocalização) -->
                 <div style="border-top: 2px solid #eee; padding-top: 15px;">
                     <h3 style="font-size: 0.95em; color: #666; margin-bottom: 10px;">🗺️ Territórios Geográficos</h3>
-                    <div id="mapa-faccoes"></div>
+                    <div id="mapa-faccoes" style="position: relative;">
+                        <div id="mapa-faccoes-loading">
+                            <div class="dots-spinner">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                            <p style="color: #666; margin: 10px 0 0 0;">Carregando mapa...</p>
+                        </div>
+                    </div>
                     <div class="faccao-legenda" id="legenda-faccoes">
                         <!-- Legenda preenchida via JavaScript -->
                     </div>
@@ -624,13 +822,15 @@
     </div>
 
     <script>
-        // Variáveis globais para filtro de data
+        // Variáveis globais para filtro de data e região
         let dataInicio = null;
         let dataFim = null;
+        let regiao_selecionada = 'todos';  // Padrão: mostrar todos
 
         // Carregar dados ao abrir página
         window.addEventListener('load', () => {
             inicializarFiltroData();
+            mostrarLoading('Carregando dados iniciais do dashboard...');
             aplicarPeriodoRapido();  // Já carrega com filtro padrão de 30 dias
         });
 
@@ -679,6 +879,9 @@
                 return;
             }
             
+            // Mostrar loading
+            mostrarLoading('Atualizando dados com filtro temporal...');
+            
             atualizarInfoPeriodo();
             carregarDadosComFiltro();
         }
@@ -700,6 +903,15 @@
                 `<small>⏱️ Período: ${formatarExibicao(dataInicio)} até ${formatarExibicao(dataFim)} (${dias} dias)</small>`;
         }
 
+        function aplicarFiltroRegiao() {
+            regiao_selecionada = document.getElementById('filtro-regiao').value;
+            console.log('Filtro de região alterado para:', regiao_selecionada);
+            
+            // Recarregar dados com novo filtro
+            mostrarLoading(`Carregando dados de ${regiao_selecionada === 'todos' ? 'todo o Ceará' : regiao_selecionada}...`);
+            carregarDadosComFiltro();
+        }
+
         async function carregarDados() {
             try {
                 const response = await fetch('/api/strategic_insights');
@@ -719,6 +931,10 @@
                 const params = new URLSearchParams();
                 if (dataInicio) params.append('data_inicio', dataInicio);
                 if (dataFim) params.append('data_fim', dataFim);
+                // Passar região se não for "todos"
+                if (regiao_selecionada && regiao_selecionada !== 'todos') {
+                    params.append('regiao', regiao_selecionada);
+                }
                 
                 const response = await fetch(`/api/strategic_insights_range?${params}`);
                 const data = await response.json();
@@ -726,11 +942,14 @@
                 if (data.sucesso) {
                     preencherDashboard(data.data);
                     carregarRecomendacoes();
+                    ocultarLoading();
                 } else {
+                    ocultarLoading();
                     alert('Erro: ' + (data.detalhes || data.erro));
                 }
             } catch (error) {
                 console.error('Erro ao carregar dados com filtro:', error);
+                ocultarLoading();
                 alert('Erro ao buscar dados. Verifique o console.');
             }
         }
@@ -740,6 +959,10 @@
                 const params = new URLSearchParams();
                 if (dataInicio) params.append('data_inicio', dataInicio);
                 if (dataFim) params.append('data_fim', dataFim);
+                // Passar região se não for "todos"
+                if (regiao_selecionada && regiao_selecionada !== 'todos') {
+                    params.append('regiao', regiao_selecionada);
+                }
                 
                 const response = await fetch(`/api/recomendacoes_operacionais?${params}`);
                 const data = await response.json();
@@ -747,8 +970,12 @@
                 if (data.sucesso && data.data.recomendacoes) {
                     preencherRecomendacoes(data.data);
                 }
+                
+                // Ocultar loading após todas as requisições serem completadas
+                ocultarLoading();
             } catch (error) {
                 console.error('Erro ao carregar recomendações:', error);
+                ocultarLoading();
             }
         }
 
@@ -808,6 +1035,25 @@
                 (resumo.impacto_esperado_percentual || 0).toFixed(0) + '%';
         }
 
+        // Funções para controlar loading moderno
+        function mostrarLoading(mensagem = 'Carregando dados...') {
+            const overlay = document.getElementById('loading-overlay');
+            if (overlay) {
+                // Atualizar mensagem de status
+                const statusText = overlay.querySelector('p');
+                if (statusText) {
+                    statusText.textContent = mensagem;
+                }
+                overlay.classList.add('active');
+            }
+        }
+
+        function ocultarLoading() {
+            const overlay = document.getElementById('loading-overlay');
+            if (overlay) {
+                overlay.classList.remove('active');
+            }
+        }
 
         function preencherDashboard(stats) {
             // Estatísticas gerais
@@ -992,6 +1238,10 @@
         let mapaFaccoes = null;
 
         async function carregarMapaFaccoes() {
+            // Mostrar loading
+            const loadingElement = document.getElementById('mapa-faccoes-loading');
+            if (loadingElement) loadingElement.classList.remove('hidden');
+
             try {
                 // Inicializar mapa se não existir
                 if (!mapaFaccoes) {
@@ -1002,6 +1252,26 @@
                         attribution: '© OpenStreetMap contributors',
                         maxZoom: 18
                     }).addTo(mapaFaccoes);
+                    
+                    // Adicionar contorno do Ceará
+                    try {
+                        const response = await fetch('/data/raw/limites_ceara.geojson');
+                        if (response.ok) {
+                            const ceara = await response.json();
+                            L.geoJSON(ceara, {
+                                style: {
+                                    color: '#2c7aa3',
+                                    weight: 3,
+                                    opacity: 1,
+                                    dashArray: '5, 5',
+                                    fill: false
+                                },
+                                className: 'ceara-boundary'
+                            }).addTo(mapaFaccoes);
+                        }
+                    } catch (e) {
+                        console.warn('Erro ao carregar limites do Ceará:', e);
+                    }
                 }
 
                 // Tentar carregar GeoJSON das facções
@@ -1049,10 +1319,16 @@
                         '<p style="font-size: 0.85em; color: #999;">⚠️ Aguardando integração de dados GeoJSON. Execute: python scripts_ajuste/integrar_faccoes_geojson.py</p>';
                 }
 
+                // Ocultar loading
+                if (loadingElement) loadingElement.classList.add('hidden');
+
             } catch (error) {
                 console.error('Erro ao carregar mapa de facções:', error);
                 document.getElementById('legenda-faccoes').innerHTML = 
                     '<p style="font-size: 0.85em; color: #999;">⚠️ Erro ao carregar mapa. Verifique console.</p>';
+                
+                // Ocultar loading
+                if (loadingElement) loadingElement.classList.add('hidden');
             }
         }
     </script>
