@@ -223,6 +223,35 @@
         maxZoom: 19
     }).addTo(map);
 
+    // Carregar limites do Ceará
+    async function carregarLimitesCeara() {
+        try {
+            let url = '/data/raw/limites_ceara_ibge_linhas.geojson';
+            let response = await fetch(url);
+            
+            if (!response.ok) {
+                url = '/data/raw/limites_ceara.geojson';
+                response = await fetch(url);
+            }
+            
+            if (response.ok) {
+                const ceara = await response.json();
+                L.geoJSON(ceara, {
+                    style: {
+                        color: '#000000',
+                        weight: 1,
+                        opacity: 0.6,
+                        fill: false,
+                        fillOpacity: 0
+                    }
+                }).addTo(map);
+            }
+        } catch (e) {
+            console.log('Limites do Ceará não carregados');
+        }
+    }
+    carregarLimitesCeara();
+
     let riskLayer = L.geoJSON(null).addTo(map);
     let markers = L.markerClusterGroup({ showCoverageOnHover: false });
     map.addLayer(markers);

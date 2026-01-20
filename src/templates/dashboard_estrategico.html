@@ -594,16 +594,11 @@
 
         /* Contorno do Ceará */
         .ceara-boundary {
-            stroke: #2c7aa3;
-            stroke-width: 3;
-            fill: rgba(44, 122, 163, 0.05);
+            stroke: #000000 !important;
+            stroke-width: 1 !important;
+            fill: none !important;
             pointer-events: none;
-        }
-
-        .ceara-boundary:hover {
-            stroke: #1e5a7a;
-            stroke-width: 4;
-            fill: rgba(44, 122, 163, 0.1);
+            z-index: 10;
         }
 
         @keyframes spin {
@@ -1137,6 +1132,7 @@
                 '</div>';
 
             // Carregar mapa de facções como contexto geográfico
+            console.log('[CHAMANDO] carregarMapaFaccoes...');
             carregarMapaFaccoes();
 
             // ===== AJUSTE 3: Bairros com facções presentes =====
@@ -1237,7 +1233,33 @@
 
         let mapaFaccoes = null;
 
+        // Função auxiliar para carregar limites do Ceará
+        function carregarLimitesNoMapa(ceara, mapa) {
+            console.log('[DEBUG] Carregando limites...', ceara);
+            const borderLayer = L.geoJSON(ceara, {
+                style: function(feature) {
+                    return {
+                        color: '#000000',
+                        weight: 1,
+                        opacity: 1,
+                        fill: false,
+                        fillOpacity: 0
+                    };
+                },
+                className: 'ceara-boundary'
+            });
+            
+            borderLayer.addTo(mapa);
+            console.log('[DEBUG] Limites adicionados ao mapa');
+            const bounds = borderLayer.getBounds();
+            if (bounds && bounds.isValid()) {
+                console.log('[DEBUG] Bounds válidos, fazendo zoom');
+                mapa.fitBounds(bounds, { padding: [50, 50] });
+            }
+        }
+
         async function carregarMapaFaccoes() {
+            console.log('[INICIO] carregarMapaFaccoes chamada');
             // Mostrar loading
             const loadingElement = document.getElementById('mapa-faccoes-loading');
             if (loadingElement) loadingElement.classList.remove('hidden');
@@ -1245,6 +1267,7 @@
             try {
                 // Inicializar mapa se não existir
                 if (!mapaFaccoes) {
+                    console.log('[DEBUG] Criando novo mapa de facções');
                     mapaFaccoes = L.map('mapa-faccoes').setView([-3.7319, -38.5267], 11);
                     
                     // Adicionar tile layer
@@ -1252,26 +1275,28 @@
                         attribution: '© OpenStreetMap contributors',
                         maxZoom: 18
                     }).addTo(mapaFaccoes);
+                }
+                
+                // ★ SEMPRE carregar limites (fora do if)
+                console.log('[DEBUG] Carregando limites do Ceará...');
+                try {
+                    let url_ceara = '/data/raw/limites_ceara_ibge_linhas.geojson';
+                    const response = await fetch(url_ceara);
                     
-                    // Adicionar contorno do Ceará
-                    try {
-                        const response = await fetch('/data/raw/limites_ceara.geojson');
-                        if (response.ok) {
-                            const ceara = await response.json();
-                            L.geoJSON(ceara, {
-                                style: {
-                                    color: '#2c7aa3',
-                                    weight: 3,
-                                    opacity: 1,
-                                    dashArray: '5, 5',
-                                    fill: false
-                                },
-                                className: 'ceara-boundary'
-                            }).addTo(mapaFaccoes);
-                        }
-                    } catch (e) {
-                        console.warn('Erro ao carregar limites do Ceará:', e);
+                    if (!response.ok) {
+                        url_ceara = '/data/raw/limites_ceara.geojson';
+                        const response2 = await fetch(url_ceara);
+                        if (!response2.ok) throw new Error('Arquivo não encontrado');
+                        const ceara = await response2.json();
+                        console.log('[DEBUG] Ceará carregado (fallback)');
+                        carregarLimitesNoMapa(ceara, mapaFaccoes);
+                    } else {
+                        const ceara = await response.json();
+                        console.log('[DEBUG] Ceará carregado (1ª tentativa)');
+                        carregarLimitesNoMapa(ceara, mapaFaccoes);
                     }
+                } catch (e) {
+                    console.error('[ERRO] Falha ao carregar limites:', e);
                 }
 
                 // Tentar carregar GeoJSON das facções
@@ -1323,13 +1348,14 @@
                 if (loadingElement) loadingElement.classList.add('hidden');
 
             } catch (error) {
-                console.error('Erro ao carregar mapa de facções:', error);
+                console.error('[ERRO FATAL] Erro ao carregar mapa de facções:', error);
                 document.getElementById('legenda-faccoes').innerHTML = 
                     '<p style="font-size: 0.85em; color: #999;">⚠️ Erro ao carregar mapa. Verifique console.</p>';
                 
                 // Ocultar loading
                 if (loadingElement) loadingElement.classList.add('hidden');
             }
+            console.log('[FIM] carregarMapaFaccoes completada');
         }
     </script>
 </body>

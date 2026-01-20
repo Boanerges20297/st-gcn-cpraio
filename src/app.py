@@ -25,8 +25,8 @@ def get_alert_level(score, region):
     return "BAIXO", "#00ff0000"                        # Transparente (não poluir)
 
 def load_risk_map(region_name, tipo_crime='TODOS'):
-    """Carrega mapa de risco baseado em PREDIÇÃO (futuro), com filtro opcional de tipo_crime."""
-    # 1. Carregar GeoJSON da região (SUPREMO - não mistura regiões)
+    """Carrega mapa de risco baseado em CVLI (criticidade = SEMPRE CVLI, independente do filtro)."""
+    # 1. Carregar GeoJSON da região
     geo_path = config.GEOJSON_PATHS.get(region_name)
     if not geo_path or not geo_path.exists(): 
         return None
@@ -39,21 +39,23 @@ def load_risk_map(region_name, tipo_crime='TODOS'):
         
     df_pred = pd.read_csv(pred_path)
     
-    # 3. Se tipo_crime está filtrado, marca apenas áreas com crimes desse tipo
-    if tipo_crime != 'TODOS':
-        # Carrega dados históricos apenas para identificar áreas com esse tipo
+    # ★ IMPORTANTE: Criticidade é SEMPRE calculada baseada em CVLI
+    # Mesmo que o filtro seja TODOS, a criticidade vem de CVLI
+    # O filtro tipo_crime apenas filtra os PONTOS de crimes, não a criticidade
+    
+    # Se tipo_crime está filtrado para algo que NÃO é CVLI,
+    # marca risco=0 mas MANTÉM a criticidade do GeoJSON
+    if tipo_crime != 'TODOS' and tipo_crime != 'CVLI':
+        # Apenas CVP ou outro - mantém criticidade de CVLI, risco fica 0
         df_crimes = load_occurrences()
         df_crimes = df_crimes[(df_crimes['regiao_sistema'] == region_name) & 
                               (df_crimes['tipo'] == tipo_crime)]
-        
-        # Áreas com crimes desse tipo
         areas_com_tipo = set(df_crimes['local_oficial'].unique())
         
-        # Marca na predição: risco_previsto = 0 para áreas SEM esse tipo de crime
+        # Marca: para fins de visualização de pontos apenas
         df_pred['tem_tipo'] = df_pred['local_oficial'].isin(areas_com_tipo)
-        df_pred.loc[~df_pred['tem_tipo'], 'risco_previsto'] = 0
     
-    # 4. Merge com GeoJSON (sem misturar com outras regiões)
+    # 4. Merge com GeoJSON
     gdf['name_upper'] = gdf['name'].astype(str).str.upper().str.strip()
     df_pred['local_upper'] = df_pred['local_oficial'].astype(str).str.upper().str.strip()
     
@@ -65,7 +67,7 @@ def load_risk_map(region_name, tipo_crime='TODOS'):
     )
     gdf_risk['risco'] = gdf_risk['risco_previsto'].fillna(0)
     
-    # 5. Calcular nível de alerta baseado em PREDIÇÃO
+    # 5. Calcular nível de alerta baseado em PREDIÇÃO (que é baseada em CVLI)
     gdf_risk['nivel_alerta'], gdf_risk['cor_alerta'] = zip(*gdf_risk['risco'].apply(lambda x: get_alert_level(x, region_name)))
     
     return json.loads(gdf_risk.to_json())
