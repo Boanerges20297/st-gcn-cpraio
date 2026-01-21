@@ -1,73 +1,125 @@
-# PROJETO STGCN - CPRAIO
+# ST-GCN for Ceará Crime Prediction
 
-Sistema de análise e predição de crimes com ST-GCN (Spatial-Temporal Graph Convolutional Networks) para gestão estratégica de segurança pública.
+Spatio-Temporal Graph Convolutional Networks applied to seizure and crime pattern detection in Fortaleza neighborhoods.
 
-## 📚 Documentação
+## 🎯 Status: Phase 2 Complete - Feature Engineering Done
 
-Toda documentação está organizada em [`docs/`](docs/):
+- ✅ **Phase 1:** Data normalization & deduplication (neighborhood standardization, city validation)
+- ✅ **Phase 2:** Feature engineering (temporal features, moving averages, intensity scores)
+- 🔄 **Phase 3:** Spatial graph construction & ST-GCN integration (in progress)
 
-- **[INDICE_DOCUMENTACAO.md](docs/INDICE_DOCUMENTACAO.md)** - Navegação completa por tipo de leitor (gestor, dev, QA, DevOps)
-- **[MAPA_MENTAL_AJUSTES.md](docs/MAPA_MENTAL_AJUSTES.md)** - Visão geral dos ajustes implementados (janeiro 2026)
-- **[IMPLEMENTACOES_17JAN2026.md](docs/IMPLEMENTACOES_17JAN2026.md)** - Detalhes técnicos de cada implementação
-- **[RESUMO_VISUAL_AJUSTES.md](docs/RESUMO_VISUAL_AJUSTES.md)** - Diagramas, flowcharts e comparações visuais
-- **[CHANGELOG.md](docs/CHANGELOG.md)** - Histórico de versões e mudanças
-- **[SUMARIO_EXECUTIVO_AJUSTES.md](docs/SUMARIO_EXECUTIVO_AJUSTES.md)** - Resumo executivo para tomadores de decisão
-- **[ORGANIZACAO_SCRIPTS.md](docs/ORGANIZACAO_SCRIPTS.md)** - Documentação de scripts de ajuste
+---
+
+## 📁 Project Structure
+
+```
+st-gcn_cpraio/
+├── data/processed/
+│   ├── prisoes_normalized_deduplicated.parquet      (51,750 records - MAIN)
+│   ├── prisoes_with_features.parquet               (same + 27 new features)
+│   ├── feature_metadata.json
+│   └── normalization_params_deduplicated.json
+├── src/
+│   ├── data/
+│   │   ├── neighborhood_deduplicator.py
+│   │   ├── city_deduplicator.py
+│   │   └── ceara_municipalities.py
+│   ├── features/
+│   │   ├── temporal_features.py
+│   │   └── node_matrix.py
+│   └── graph/ (Phase 3)
+├── scripts/
+│   ├── 01_deduplicate_neighborhoods.py
+│   ├── 02_normalize_with_deduplication.py
+│   ├── 03_deduplicate_cities.py
+│   ├── 04_temporal_features.py
+│   └── inspect_cities.py
+├── docs/
+│   ├── CONSOLIDACAO_NORMALIZACAO_FINAL.md
+│   ├── QUICK_REFERENCE_DEDUPLICATED_DATA.md
+│   ├── FUZZY_MATCHING_DEDUPLICATION_COMPLETE.md
+│   └── VERIFICACAO_CidadeOcor_REPORT.md
+└── README.md (this file)
+```
+
+---
 
 ## 🚀 Quick Start
 
 ```bash
-# Instalar dependências
+# Setup
+python -m venv venv
+.\venv\Scripts\activate
 pip install -r requirements.txt
 
-# Iniciar aplicação
-python src/app.py
+# Run data pipeline
+python scripts/02_normalize_with_deduplication.py
+python scripts/04_temporal_features.py
 
-# Ou via script seguro (sem auto-reload)
-python run_app.py
+# Load data in Python
+import pandas as pd
+df = pd.read_parquet('data/processed/prisoes_with_features.parquet')
 ```
 
-Dashboard disponível em: `http://localhost:5000/dashboard-estrategico`
+---
 
-## 📁 Estrutura do Projeto
+## 📊 Data Overview
 
-```
-projeto-stgcn-cpraio/
-├── src/                    # Código-fonte principal
-│   ├── app.py             # Flask application
-│   ├── config.py          # Configuração (CVLI weight: 5.0)
-│   ├── model.py           # ST-GCN neural network
-│   ├── predict.py         # Predições de crime
-│   └── templates/         # HTML dashboards
-├── scripts_ajuste/        # Scripts de ajuste/manutenção
-│   └── integrar_faccoes_geojson.py  # Integração de dados de facção
-├── data/                  # Dados (cache, processed, raw, tensors, graph)
-├── notebooks/             # Análises exploratórias Jupyter
-├── docs/                  # 📚 DOCUMENTAÇÃO (LEIA AQUI!)
-├── outputs/               # Relatórios, mapas, modelos
-└── requirements.txt       # Dependências Python
-```
+**Input:** 9,060 seizure operations (2025-2026)  
+**Output:** 51,750 records (375 days × 138 neighborhoods)
 
-## ✅ Configuração Atual
+**Features:** 32 columns
+- 3 normalized seizure types (drugs, weapons, money)
+- 9 lag features (t-1, t-7, t-30 days)
+- 6 moving averages (7-day, 30-day windows)
+- 3 volatility measures
+- 1 intensity score
+- 4 cyclical temporal features (day/month)
 
-- **CVLI Priority**: ✅ Implementado (weight: 5.0x)
-- **Date Filter**: ✅ Implementado (UI + Backend route `/api/strategic_insights_range`)
-- **Faction Geolocation**: ✅ Script criado (`integrar_faccoes_geojson.py`)
-- **Scripts Organization**: ✅ Todos em `/scripts_ajuste/`
-- **Documentation**: ✅ Centralizada em `/docs/`
+---
 
-## 🔧 Guias Práticos
+## 🔧 Core Modules
 
-Para começar rapidamente:
-1. Leia [INDICE_DOCUMENTACAO.md](docs/INDICE_DOCUMENTACAO.md) conforme seu perfil
-2. Para visão geral: [MAPA_MENTAL_AJUSTES.md](docs/MAPA_MENTAL_AJUSTES.md)
-3. Para integração: Acesse `/scripts_ajuste/integrar_faccoes_geojson.py`
+**`src/data/neighborhood_deduplicator.py`**  
+Fuzzy matching for neighborhood name standardization (93% success rate)
 
-## 📋 Próximos Passos
+**`src/features/temporal_features.py`**  
+Lag features, moving averages, intensity scores, volatility, cyclical encoding
 
-1. Executar script de integração de facção:
-   ```bash
-   python scripts_ajuste/integrar_faccoes_geojson.py
+**`src/features/node_matrix.py`**  
+Convert time-series to tensor format (T=375, N=138 neighborhoods, F=variable)
+
+---
+
+## 📈 Data Quality
+
+✅ No NaN values  
+✅ All normalized features in [0.0, 1.0]  
+✅ 100% temporal coverage (375 consecutive days)  
+✅ Zero duplicate (neighborhood, date) pairs  
+✅ 100% neighborhood mapping to official names
+
+---
+
+## 📝 Documentation
+
+| File | Content |
+|------|---------|
+| [CONSOLIDACAO_NORMALIZACAO_FINAL.md](docs/CONSOLIDACAO_NORMALIZACAO_FINAL.md) | Phase 1 summary & metrics |
+| [QUICK_REFERENCE_DEDUPLICATED_DATA.md](docs/QUICK_REFERENCE_DEDUPLICATED_DATA.md) | How to use the dataset |
+| [FUZZY_MATCHING_DEDUPLICATION_COMPLETE.md](docs/FUZZY_MATCHING_DEDUPLICATION_COMPLETE.md) | Technical details |
+| [VERIFICACAO_CidadeOcor_REPORT.md](docs/VERIFICACAO_CidadeOcor_REPORT.md) | City validation report |
+
+---
+
+## 🔜 Phase 3
+
+- [ ] Build spatial adjacency matrix
+- [ ] Construct graph edge indices  
+- [ ] Build node feature tensors
+- [ ] Validate tensor shapes
+- [ ] Integrate PyTorch Geometric
+- [ ] Train ST-GCN
    ```
 
 2. Testar filtro de data no dashboard

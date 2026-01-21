@@ -1,0 +1,11 @@
+Métrica,Valor
+Total de Registros,5044
+Taxa de Acerto (%),14.04
+Acertos,9
+Erros,5035
+Bairros Testados,388
+Períodos,13
+Correlação Pearson,0.9758
+Correlação p-value,0.0000
+Previsões ESTÁVEL (%),18.83
+Realidade ESTÁVEL (%),93.93

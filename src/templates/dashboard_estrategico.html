@@ -204,6 +204,23 @@
             line-height: 1.4;
         }
 
+        .recomendacao-explicacao {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.08), rgba(41, 128, 185, 0.08));
+            padding: 10px 10px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #2c3e50;
+            margin: 8px 0;
+            border-left: 3px solid #3498db;
+            line-height: 1.5;
+        }
+
+        .recomendacao-explicacao strong {
+            color: #2980b9;
+            display: block;
+            margin-bottom: 4px;
+        }
+
         .recomendacao-detalhes-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -709,8 +726,7 @@
                 <div>
                     <label style="display: block; font-weight: 600; margin-bottom: 6px; color: white; font-size: 0.85em;">📍 Filtrar por Região</label>
                     <select id="filtro-regiao" onchange="aplicarFiltroRegiao()" style="width: 100%; padding: 10px; border: 2px solid white; border-radius: 6px; font-size: 0.95em; background: white; color: #333;">
-                        <option value="todos">🗺️ Todos - Ceará Completo</option>
-                        <option value="CAPITAL">🏙️ Capital - Fortaleza</option>
+                        <option value="CAPITAL" selected>🏙️ Capital - Fortaleza</option>
                         <option value="RMF">🌆 RMF - Região Metropolitana</option>
                         <option value="INTERIOR">🌄 Interior - Cidades do Interior</option>
                     </select>
@@ -744,6 +760,22 @@
                     <div style="opacity: 0.8;">📈 Impacto Esperado</div>
                     <div style="font-size: 1.3em; font-weight: bold;" id="impacto-total">--</div>
                 </div>
+            </div>
+            <!-- Simulação rápida (gestor) -->
+            <div style="background: rgba(255,255,255,0.10); padding: 12px; border-radius: 8px; color: white; font-size: 0.9em; margin-top:10px; display:flex; gap:8px; align-items:center;">
+                <div style="flex:1;">
+                    <label style="font-size:0.85em; opacity:0.9;">Simular equipes adicionais</label>
+                    <input id="sim_teams" type="number" min="0" value="1" style="width:100%; padding:8px; border-radius:4px; border:none;"/>
+                </div>
+                <div style="width:180px;">
+                    <label style="font-size:0.85em; opacity:0.9;">Área por equipe (km²)</label>
+                    <input id="sim_area" type="number" min="0" step="0.1" value="1" style="width:100%; padding:8px; border-radius:4px; border:none;"/>
+                </div>
+                <div style="width:160px; display:flex; flex-direction:column; gap:6px;">
+                    <button id="btnSimular" style="background:white;color:#2c7aa3;padding:8px;border-radius:6px;border:none;">Simular</button>
+                    <a href="/exogenous-event" style="text-align:center; font-size:0.85em; color:white; text-decoration:underline;">Inserir evento exógeno</a>
+                </div>
+                <div id="simulation-result" style="min-width:160px; text-align:right; font-weight:bold; padding-left:8px; color:white;"></div>
             </div>
         </div>
 
@@ -820,7 +852,7 @@
         // Variáveis globais para filtro de data e região
         let dataInicio = null;
         let dataFim = null;
-        let regiao_selecionada = 'todos';  // Padrão: mostrar todos
+        let regiao_selecionada = 'CAPITAL';  // Padrão: Capital - Fortaleza
 
         // Carregar dados ao abrir página
         window.addEventListener('load', () => {
@@ -901,9 +933,9 @@
         function aplicarFiltroRegiao() {
             regiao_selecionada = document.getElementById('filtro-regiao').value;
             console.log('Filtro de região alterado para:', regiao_selecionada);
-            
+
             // Recarregar dados com novo filtro
-            mostrarLoading(`Carregando dados de ${regiao_selecionada === 'todos' ? 'todo o Ceará' : regiao_selecionada}...`);
+            mostrarLoading(`Carregando dados de ${regiao_selecionada}...`);
             carregarDadosComFiltro();
         }
 
@@ -926,8 +958,8 @@
                 const params = new URLSearchParams();
                 if (dataInicio) params.append('data_inicio', dataInicio);
                 if (dataFim) params.append('data_fim', dataFim);
-                // Passar região se não for "todos"
-                if (regiao_selecionada && regiao_selecionada !== 'todos') {
+                // Passar região (sempre presente; padrão CAPITAL)
+                if (regiao_selecionada) {
                     params.append('regiao', regiao_selecionada);
                 }
                 
@@ -954,18 +986,26 @@
                 const params = new URLSearchParams();
                 if (dataInicio) params.append('data_inicio', dataInicio);
                 if (dataFim) params.append('data_fim', dataFim);
-                // Passar região se não for "todos"
-                if (regiao_selecionada && regiao_selecionada !== 'todos') {
+                // Passar região (sempre presente; padrão CAPITAL)
+                if (regiao_selecionada) {
                     params.append('regiao', regiao_selecionada);
                 }
                 
                 const response = await fetch(`/api/recomendacoes_operacionais?${params}`);
                 const data = await response.json();
-                
-                if (data.sucesso && data.data.recomendacoes) {
+                console.debug('recomendacoes response', data);
+
+                if (!data.sucesso) {
+                    // Mostrar erro leve no container
+                    const container = document.getElementById('recomendacoes-container');
+                    container.innerHTML = `<div style="background: rgba(255,255,255,0.06); padding: 12px; border-radius: 8px; text-align: center; color: white;">Erro ao carregar recomendações: ${data.erro || 'não especificado'}</div>`;
+                } else if (data.data && data.data.recomendacoes && data.data.recomendacoes.length > 0) {
                     preencherRecomendacoes(data.data);
+                } else {
+                    const container = document.getElementById('recomendacoes-container');
+                    container.innerHTML = `<div style="background: rgba(255,255,255,0.06); padding: 12px; border-radius: 8px; text-align: center; color: white;">Nenhuma recomendação disponível para o período/região selecionada.</div>`;
                 }
-                
+
                 // Ocultar loading após todas as requisições serem completadas
                 ocultarLoading();
             } catch (error) {
@@ -999,6 +1039,10 @@
                             <div class="recomendacao-motivo">
                                 <strong>Fatores de Risco:</strong><br/>
                                 <small>CVP: ${rec.cvp || 0} | CVLI: ${rec.cvli || 0} | Risco ST-GCN: ${(rec.risco_previsto * 100).toFixed(0)}% | Tendência: ${(rec.tendencia_percentual || 0).toFixed(0)}%</small>
+                            </div>
+                            <div class="recomendacao-explicacao">
+                                <strong>🔍 Por que desta forma?</strong><br/>
+                                <small style="color: #555; line-height: 1.4;">${rec.explicacao_modelo || 'Análise em progresso...'}</small>
                             </div>
                             <div class="recomendacao-detalhes-grid">
                                 <div class="detalhe-item">
@@ -1357,6 +1401,30 @@
             }
             console.log('[FIM] carregarMapaFaccoes completada');
         }
+    </script>
+    <script>
+        // Simulação: envia current_equipes (do resumo) + teams_added
+        document.getElementById('btnSimular')?.addEventListener('click', async () => {
+            const teamsAdded = parseInt(document.getElementById('sim_teams').value || 0, 10);
+            const areaKm2 = parseFloat(document.getElementById('sim_area').value || 0);
+            const current = parseInt(document.getElementById('equipes-total').textContent || 0, 10) || 0;
+
+            try {
+                const res = await fetch('/api/simulate_teams', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ teams_added: teamsAdded, current_equipes: current, area_km2_per_team: areaKm2 })
+                });
+                const data = await res.json();
+                if (data.sucesso) {
+                    document.getElementById('simulation-result').textContent = `Novo total: ${data.new_total_equipes} — Impacto: ${data.impact_percent.toFixed(0)}%`;
+                } else {
+                    document.getElementById('simulation-result').textContent = 'Erro na simulação';
+                }
+            } catch (e) {
+                document.getElementById('simulation-result').textContent = 'Erro de rede';
+            }
+        });
     </script>
 </body>
 </html>

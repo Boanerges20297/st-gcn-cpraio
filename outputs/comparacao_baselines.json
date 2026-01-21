@@ -1,0 +1,8 @@
+{
+  "timestamp": "2026-01-21T14:31:02.022543",
+  "st_gcn_taxa": 14.04,
+  "baseline_always_estavel": 93.93338620142744,
+  "baseline_ema": 37.371134020618555,
+  "baseline_linear_regression": null,
+  "conclusao": "ST-GCN n\u00e3o agrega valor significativo"
+}

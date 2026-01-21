@@ -25,23 +25,60 @@ def get_alert_level(score, region):
     if intensity > 0.2: return "MÉDIO", "#ffcc00"      # Amarelo
     return "BAIXO", "#00ff0000"                        # Transparente (não poluir)
 
-def load_risk_map(region_name, tipo_crime='TODOS'):
-    """Carrega mapa de risco baseado em CVLI (criticidade = SEMPRE CVLI, independente do filtro)."""
+
+def load_prediction_csv(path):
+    """Carrega e normaliza CSV de predição garantindo colunas esperadas.
+    Retorna DataFrame com `local_oficial`, `risco_previsto` e `local_upper`."""
+    df = pd.read_csv(path)
+    # Garantir coluna de local_oficial
+    if 'local_oficial' not in df.columns:
+        if 'local' in df.columns:
+            df['local_oficial'] = df['local']
+        elif 'bairro' in df.columns:
+            df['local_oficial'] = df['bairro']
+        elif 'name' in df.columns:
+            df['local_oficial'] = df['name']
+        else:
+            first_col = df.columns[0]
+            df['local_oficial'] = df[first_col].astype(str)
+    # Garantir coluna de risco
+    if 'risco_previsto' not in df.columns:
+        risco_cols = [c for c in df.columns if 'risco' in c.lower()]
+        if risco_cols:
+            df['risco_previsto'] = pd.to_numeric(df[risco_cols[0]], errors='coerce')
+        elif len(df.columns) > 1:
+            df['risco_previsto'] = pd.to_numeric(df.iloc[:,1], errors='coerce')
+        else:
+            df['risco_previsto'] = np.nan
+    # Normalizar local_upper
+    df['local_upper'] = df['local_oficial'].astype(str).str.upper().str.strip()
+    return df
+
+
+def load_risk_map(region_name, tipo_crime='CVLI'):
     # 1. Carregar GeoJSON da região
     geo_path = config.GEOJSON_PATHS.get(region_name)
-    if not geo_path or not geo_path.exists(): 
+    if not geo_path or not geo_path.exists():
         return None
     gdf = gpd.read_file(geo_path)
-    
+
     # 2. Carregar Predição do modelo treinado para essa região
     pred_path = config.ARTIFACTS[region_name]['prediction']
-    if not pred_path.exists(): 
+    if not pred_path.exists():
         return json.loads(gdf.to_json())
-        
-    df_pred = pd.read_csv(pred_path)
-    # Normalizar nome de coluna para compatibilidade com CSVs gerados
-    if 'local_oficial' not in df_pred.columns and 'local' in df_pred.columns:
-        df_pred['local_oficial'] = df_pred['local']
+
+    try:
+        df_pred = load_prediction_csv(pred_path)
+    except Exception:
+        df_pred = pd.DataFrame()
+
+    # Defensive: garantir DataFrame com colunas mínimas para evitar UnboundLocalError
+    if not isinstance(df_pred, pd.DataFrame):
+        df_pred = pd.DataFrame()
+    if 'local_oficial' not in df_pred.columns:
+        df_pred['local_oficial'] = ''
+    if 'risco_previsto' not in df_pred.columns:
+        df_pred['risco_previsto'] = 0
 
     # Calcular limiar crítico com base no percentil configurado e multiplicador
     try:
@@ -64,16 +101,22 @@ def load_risk_map(region_name, tipo_crime='TODOS'):
     
     # Se tipo_crime está filtrado para algo que NÃO é CVLI,
     # marca risco=0 mas MANTÉM a criticidade do GeoJSON
-    if tipo_crime != 'TODOS' and tipo_crime != 'CVLI':
-        # Apenas CVP ou outro - mantém criticidade de CVLI, risco fica 0
+    # Se o filtro especificar CVP, marcar as áreas que têm CVP histórico
+    if tipo_crime == 'CVP':
         df_crimes = load_occurrences()
-        df_crimes = df_crimes[(df_crimes['regiao_sistema'] == region_name) & 
-                              (df_crimes['tipo'] == tipo_crime)]
-        areas_com_tipo = set(df_crimes['local_oficial'].unique())
-        
-        # Marca: para fins de visualização de pontos apenas
-        df_pred['tem_tipo'] = df_pred['local_oficial'].isin(areas_com_tipo)
-    
+        df_crimes = df_crimes[(df_crimes['regiao_sistema'] == region_name) & (df_crimes['tipo'] == 'CVP')]
+        # Normalizar nome de coluna para compatibilidade com CSVs gerados
+        if 'local_oficial' not in df_pred.columns:
+            if 'local' in df_pred.columns:
+                df_pred['local_oficial'] = df_pred['local']
+            elif 'bairro' in df_pred.columns:
+                df_pred['local_oficial'] = df_pred['bairro']
+            elif 'name' in df_pred.columns:
+                df_pred['local_oficial'] = df_pred['name']
+            else:
+                # fallback: use first column as local
+                first_col = df_pred.columns[0]
+                df_pred['local_oficial'] = df_pred[first_col].astype(str)
     # 4. Merge com GeoJSON
     gdf['name_upper'] = gdf['name'].astype(str).str.upper().str.strip()
     df_pred['local_upper'] = df_pred['local_oficial'].astype(str).str.upper().str.strip()
@@ -93,7 +136,7 @@ def load_risk_map(region_name, tipo_crime='TODOS'):
 
     # Marcar áreas críticas usando o limiar calculado (percentil * multiplicador)
     try:
-        if df_pred.get('_critical_threshold').notnull().any():
+        if df_pred.get('_critical_threshold') is not None and df_pred.get('_critical_threshold').notnull().any():
             thr = float(df_pred['_critical_threshold'].dropna().unique()[0])
         else:
             thr = None
@@ -114,42 +157,42 @@ def load_risk_map(region_name, tipo_crime='TODOS'):
     try:
         df_crimes = load_occurrences()
         if not df_crimes.empty:
-            df_region = df_crimes[df_crimes['regiao_sistema'] == region_name]
-            # Normalizar local para comparação
-            df_region['local_upper'] = df_region['local_oficial'].astype(str).str.upper().str.strip()
-            # Contar por tipo
-            pivot = df_region.groupby(['local_upper', 'tipo']).size().unstack(fill_value=0)
-            # Garantir colunas CVLI/CVP
-            if 'CVLI' not in pivot.columns:
-                pivot['CVLI'] = 0
-            if 'CVP' not in pivot.columns:
-                pivot['CVP'] = 0
+                df_region = df_crimes[df_crimes['regiao_sistema'] == region_name].copy()
+                # Normalizar local para comparação
+                df_region['local_upper'] = df_region['local_oficial'].astype(str).str.upper().str.strip()
+                # Contar por tipo
+                pivot = df_region.groupby(['local_upper', 'tipo']).size().unstack(fill_value=0)
+                # Garantir colunas CVLI/CVP
+                if 'CVLI' not in pivot.columns:
+                    pivot['CVLI'] = 0
+                if 'CVP' not in pivot.columns:
+                    pivot['CVP'] = 0
 
-            # Map counts back to gdf_risk
-            def dominant_type(row):
-                key = row.get('name_upper', '')
-                try:
-                    counts = pivot.loc[key]
-                    cvli_c = int(counts.get('CVLI', 0))
-                    cvp_c = int(counts.get('CVP', 0))
-                except Exception:
-                    cvli_c = 0
-                    cvp_c = 0
-                # If there is historical dominance, return that type
-                if (cvp_c > cvli_c) and (cvp_c > 0):
-                    return 'CVP', cvli_c, cvp_c
-                elif (cvli_c > cvp_c) and (cvli_c > 0):
-                    return 'CVLI', cvli_c, cvp_c
-                else:
-                    # No clear historical evidence - mark as prediction-driven
-                    return None, cvli_c, cvp_c
+                # Map counts back to gdf_risk
+                def dominant_type(row):
+                    key = row.get('name_upper', '')
+                    try:
+                        counts = pivot.loc[key]
+                        cvli_c = int(counts.get('CVLI', 0))
+                        cvp_c = int(counts.get('CVP', 0))
+                    except Exception:
+                        cvli_c = 0
+                        cvp_c = 0
+                    # If there is historical dominance, return that type
+                    if (cvp_c > cvli_c) and (cvp_c > 0):
+                        return 'CVP', cvli_c, cvp_c
+                    elif (cvli_c > cvp_c) and (cvli_c > 0):
+                        return 'CVLI', cvli_c, cvp_c
+                    else:
+                        # No clear historical evidence - mark as prediction-driven
+                        return None, cvli_c, cvp_c
 
-            doms = gdf_risk.apply(dominant_type, axis=1)
-            gdf_risk['risk_by'] = [d[0] for d in doms]
-            gdf_risk['historical_cvli_count'] = [d[1] for d in doms]
-            gdf_risk['historical_cvp_count'] = [d[2] for d in doms]
-            # Indicar tipo previsto pelo modelo (modelo atual prevê CVLI density)
-            gdf_risk['predicted_target'] = 'CVLI'
+                doms = gdf_risk.apply(dominant_type, axis=1)
+                gdf_risk['risk_by'] = [d[0] for d in doms]
+                gdf_risk['historical_cvli_count'] = [d[1] for d in doms]
+                gdf_risk['historical_cvp_count'] = [d[2] for d in doms]
+                # Indicar tipo previsto pelo modelo (modelo atual prevê CVLI density)
+                gdf_risk['predicted_target'] = 'CVLI'
     except Exception:
         # se falhar ao calcular dominância histórica, NÃO atribuir
         # um tipo histórico por padrão — marcar como prediction-driven
@@ -157,6 +200,28 @@ def load_risk_map(region_name, tipo_crime='TODOS'):
         gdf_risk['historical_cvli_count'] = 0
         gdf_risk['historical_cvp_count'] = 0
         gdf_risk['predicted_target'] = 'CVLI'
+
+    # Integrar eventos exógenos (se houverem) e expor contagem por área
+    try:
+        exog_file = config.DATA_RAW / 'exogenous_events.json'
+        if exog_file.exists():
+            with open(exog_file, 'r', encoding='utf-8') as f:
+                exog_list = json.load(f)
+            exog_counts = {}
+            for ev in exog_list:
+                local = str(ev.get('bairro') or ev.get('local') or '').upper().strip()
+                if not local:
+                    continue
+                exog_counts[local] = exog_counts.get(local, 0) + 1
+
+            gdf_risk['exogenous_events_count'] = gdf_risk['name_upper'].apply(lambda x: int(exog_counts.get(x, 0)))
+            gdf_risk['has_exogenous'] = gdf_risk['exogenous_events_count'] > 0
+        else:
+            gdf_risk['exogenous_events_count'] = 0
+            gdf_risk['has_exogenous'] = False
+    except Exception:
+        gdf_risk['exogenous_events_count'] = 0
+        gdf_risk['has_exogenous'] = False
     
     return json.loads(gdf_risk.to_json())
 
@@ -222,7 +287,7 @@ def dashboard_data():
     try:
         region = request.args.get('region', 'CAPITAL')
         faccao = request.args.get('faccao', 'TODAS')
-        tipo_crime = request.args.get('tipo_crime', 'TODOS')
+        tipo_crime = request.args.get('tipo_crime', 'CVLI')
         
         # LÓGICA DE CASCATA:
         # Cada filtro refina progressivamente os dados
@@ -237,29 +302,28 @@ def dashboard_data():
                 try:
                     pred_path = config.ARTIFACTS.get(region, {}).get('prediction')
                     if pred_path and pred_path.exists():
-                        df_pred = pd.read_csv(pred_path)
-                        if 'local_oficial' not in df_pred.columns and 'local' in df_pred.columns:
-                            df_pred['local_oficial'] = df_pred['local']
-                        df_pred['local_upper'] = df_pred['local_oficial'].astype(str).str.upper().str.strip()
+                        df_pred = load_prediction_csv(pred_path)
                         mapping = dict(zip(df_pred['local_upper'], df_pred['risco_previsto']))
+                    else:
+                        mapping = {}
 
-                        # Aplicar risco previsto a cada feature; manter contadores históricos se solicitados
-                        for feature in risk_geojson.get('features', []):
-                            props = feature.setdefault('properties', {})
-                            local = str(props.get('name') or props.get('bairro') or '').upper().strip()
-                            risco_prev = mapping.get(local)
-                            if risco_prev is not None:
-                                props['risco_previsto'] = float(risco_prev)
-                                props['risco'] = float(risco_prev)
-                                nivel, cor = get_alert_level(float(risco_prev), region)
-                                props['nivel_alerta'] = nivel
-                                props['cor_alerta'] = cor
-                            else:
-                                # default quando não houver predição
-                                props['risco_previsto'] = props.get('risco_previsto', 0)
-                                props['risco'] = props.get('risco', 0)
-                                props['nivel_alerta'] = props.get('nivel_alerta', 'BAIXO')
-                                props['cor_alerta'] = props.get('cor_alerta', '#000000')
+                    # Aplicar risco previsto a cada feature; manter contadores históricos se solicitados
+                    for feature in risk_geojson.get('features', []):
+                        props = feature.setdefault('properties', {})
+                        local = str(props.get('name') or props.get('bairro') or '').upper().strip()
+                        risco_prev = mapping.get(local)
+                        if risco_prev is not None:
+                            props['risco_previsto'] = float(risco_prev)
+                            props['risco'] = float(risco_prev)
+                            nivel, cor = get_alert_level(float(risco_prev), region)
+                            props['nivel_alerta'] = nivel
+                            props['cor_alerta'] = cor
+                        else:
+                            # default quando não houver predição
+                            props['risco_previsto'] = props.get('risco_previsto', 0)
+                            props['risco'] = props.get('risco', 0)
+                            props['nivel_alerta'] = props.get('nivel_alerta', 'BAIXO')
+                            props['cor_alerta'] = props.get('cor_alerta', '#000000')
                 except Exception:
                     # Em caso de falha ao ler predições, manter comportamento anterior de fallback
                     for feature in risk_geojson.get('features', []):
@@ -271,7 +335,7 @@ def dashboard_data():
 
             # Se houver filtro por tipo de crime, ainda calculamos contadores históricos para exibição,
             # mas NÃO alteramos o nível do polígono que continua baseado na predição
-            if tipo_crime != 'TODOS':
+            if tipo_crime in ['CVLI', 'CVP']:
                 try:
                     df = load_occurrences()
                     df = df[(df['regiao_sistema'] == region) & 
@@ -285,8 +349,7 @@ def dashboard_data():
                         props['count_tipo_crime'] = count
                 except Exception:
                     pass
-            else:
-                risk_geojson = None
+            
             
             points = []
             top_targets = []
@@ -303,7 +366,7 @@ def dashboard_data():
                 df = df[df['regiao_sistema'] == region]
                 
                 # FILTRO: Tipo de Crime (se especificado)
-                if tipo_crime != 'TODOS':
+                if tipo_crime in ['CVLI', 'CVP']:
                     df = df[df['tipo'] == tipo_crime]
                 
                 # FILTRO: Facção (apenas se não estiver em modo territorial)
@@ -371,13 +434,70 @@ def get_strategic_insights():
             return jsonify({"sucesso": False, "erro": "Dados não disponíveis"})
         
         df_crimes = pd.read_parquet(config.CONSOLIDATED_FILE)
+        # Normalizar nomes de coluna para evitar KeyError (local/local_oficial/bairro/name)
+        if 'local_oficial' not in df_crimes.columns:
+            if 'local' in df_crimes.columns:
+                df_crimes['local_oficial'] = df_crimes['local']
+            elif 'bairro' in df_crimes.columns:
+                df_crimes['local_oficial'] = df_crimes['bairro']
+            elif 'name' in df_crimes.columns:
+                df_crimes['local_oficial'] = df_crimes['name']
+            else:
+                df_crimes['local_oficial'] = 'DESCONHECIDO'
+        # Normalizar nomes de coluna para evitar KeyError (local/local_oficial/bairro/name)
+        if 'local_oficial' not in df_crimes.columns:
+            if 'local' in df_crimes.columns:
+                df_crimes['local_oficial'] = df_crimes['local']
+            elif 'bairro' in df_crimes.columns:
+                df_crimes['local_oficial'] = df_crimes['bairro']
+            elif 'name' in df_crimes.columns:
+                df_crimes['local_oficial'] = df_crimes['name']
+            else:
+                # Garantir coluna presente para evitar erros posteriores
+                df_crimes['local_oficial'] = 'DESCONHECIDO'
         
         # Carregar predições por bairro
         pred_file = config.ARTIFACTS['CAPITAL']['prediction']
         if not pred_file.exists():
             return jsonify({"sucesso": False, "erro": "Predições não disponíveis"})
         
-        df_pred = pd.read_csv(pred_file)
+        df_pred = load_prediction_csv(pred_file)
+        # Normalizar coluna de local na predição para 'local_oficial'
+        if 'local_oficial' not in df_pred.columns:
+            if 'local' in df_pred.columns:
+                df_pred['local_oficial'] = df_pred['local']
+            elif 'bairro' in df_pred.columns:
+                df_pred['local_oficial'] = df_pred['bairro']
+            elif 'name' in df_pred.columns:
+                df_pred['local_oficial'] = df_pred['name']
+            else:
+                # usar primeira coluna como rótulo se necessário
+                first_col = df_pred.columns[0]
+                df_pred['local_oficial'] = df_pred[first_col].astype(str)
+        # Garantir coluna de risco
+        if 'risco_previsto' not in df_pred.columns:
+            # tentar encontrar coluna que contenha 'risco' no nome
+            risco_cols = [c for c in df_pred.columns if 'risco' in c.lower()]
+            if risco_cols:
+                df_pred['risco_previsto'] = pd.to_numeric(df_pred[risco_cols[0]], errors='coerce').fillna(0)
+            else:
+                # fallback: tentar usar a segunda coluna como valor de risco
+                if len(df_pred.columns) > 1:
+                    df_pred['risco_previsto'] = pd.to_numeric(df_pred.iloc[:,1], errors='coerce').fillna(0)
+                else:
+                    df_pred['risco_previsto'] = 0
+        # Normalizar coluna de local na predição para 'local_oficial'
+        if 'local_oficial' not in df_pred.columns:
+            if 'local' in df_pred.columns:
+                df_pred['local_oficial'] = df_pred['local']
+            elif 'bairro' in df_pred.columns:
+                df_pred['local_oficial'] = df_pred['bairro']
+            elif 'name' in df_pred.columns:
+                df_pred['local_oficial'] = df_pred['name']
+            else:
+                # tentar colunas alternativas (alguns CSVs usam 'index' ou nome na primeira coluna)
+                first_col = df_pred.columns[0]
+                df_pred['local_oficial'] = df_pred[first_col].astype(str)
         # Normalizar nome de coluna para compatibilidade com CSVs gerados
         if 'local_oficial' not in df_pred.columns and 'local' in df_pred.columns:
             df_pred['local_oficial'] = df_pred['local']
@@ -602,10 +722,7 @@ def get_strategic_insights_range():
         if not pred_file.exists():
             return jsonify({"sucesso": False, "erro": "Predições não disponíveis"})
         
-        df_pred = pd.read_csv(pred_file)
-        # Normalizar nome de coluna para compatibilidade com CSVs gerados
-        if 'local_oficial' not in df_pred.columns and 'local' in df_pred.columns:
-            df_pred['local_oficial'] = df_pred['local']
+        df_pred = load_prediction_csv(pred_file)
         
         # Análise por tipo de crime
         df_crimes_norm = df_crimes.copy()
@@ -833,7 +950,7 @@ def get_ai_analysis():
                 "timestamp": datetime.now().isoformat()
             })
         
-        df_pred = pd.read_csv(pred_file)
+        df_pred = load_prediction_csv(pred_file)
         
         # Normalizar tipo
         if 'tipo' not in df_crimes.columns:
@@ -984,6 +1101,82 @@ def serve_raw_geojson(filename):
     except Exception as e:
         return jsonify({"erro": str(e)}), 500
 
+
+@app.route('/exogenous-event')
+def exogenous_event_page():
+    """Página com formulário para inserir eventos exógenos relevantes."""
+    return render_template('exogenous_event.html')
+
+
+@app.route('/api/exogenous_event', methods=['POST'])
+def submit_exogenous_event():
+    """Recebe POST JSON com evento exógeno e salva em data/raw/exogenous_events.json"""
+    try:
+        data = request.get_json(force=True)
+        # Campos mínimos
+        event_type = data.get('event_type')
+        details = data.get('details')
+        date = data.get('date')
+        bairro = data.get('bairro') or data.get('local')
+
+        if not event_type or not date or not details:
+            return jsonify({"sucesso": False, "erro": "Campos obrigatórios: event_type, date, details"}), 400
+
+        out = {
+            'id': int(pd.Timestamp.now().timestamp()),
+            'event_type': event_type,
+            'date': date,
+            'details': details,
+            'bairro': bairro,
+            'criminosos': data.get('criminosos', ''),
+            'faccao': data.get('faccao', ''),
+            'lat': data.get('lat'),
+            'long': data.get('long')
+        }
+
+        exog_path = config.DATA_RAW / 'exogenous_events.json'
+        # Ler existente
+        events = []
+        if exog_path.exists():
+            try:
+                with open(exog_path, 'r', encoding='utf-8') as f:
+                    events = json.load(f)
+            except Exception:
+                events = []
+
+        events.append(out)
+        with open(exog_path, 'w', encoding='utf-8') as f:
+            json.dump(events, f, ensure_ascii=False, indent=2)
+
+        return jsonify({"sucesso": True, "evento": out})
+    except Exception as e:
+        import traceback
+        return jsonify({"sucesso": False, "erro": str(e), "detalhes": traceback.format_exc()}), 500
+
+
+@app.route('/api/simulate_teams', methods=['POST'])
+def simulate_teams():
+    """Simula adição de equipes e retorna impacto estimado."""
+    try:
+        payload = request.get_json(force=True)
+        teams_added = int(payload.get('teams_added', 0))
+        current_equipes = int(payload.get('current_equipes', 0))
+        area_km2 = float(payload.get('area_km2_per_team', 0) or 0)
+
+        new_total = current_equipes + teams_added
+        impact_percent = min(new_total * 6, 40)  # mesma heurística do sistema
+
+        return jsonify({
+            'sucesso': True,
+            'current_equipes': current_equipes,
+            'teams_added': teams_added,
+            'new_total_equipes': new_total,
+            'area_km2_per_team': area_km2,
+            'impact_percent': float(impact_percent)
+        })
+    except Exception as e:
+        return jsonify({"sucesso": False, "erro": str(e)}), 500
+
 @app.route('/api/recomendacoes_operacionais')
 def get_recomendacoes_operacionais():
     """Recomendações táticas para gestor de policiamento com validação de predição.
@@ -1022,11 +1215,23 @@ def get_recomendacoes_operacionais():
                 print(f"[DEBUG] Recomendações - Filtrando por região: {regiao_filtro}")
                 df_crimes = df_crimes[df_crimes['regiao_sistema'].fillna('').str.upper() == regiao_filtro]
         
-        pred_file = config.ARTIFACTS['CAPITAL']['prediction']
+        # Determinar região padrão para carregar predição
+        regiao_pred = regiao_filtro if (regiao_filtro and regiao_filtro in ['CAPITAL', 'RMF', 'INTERIOR']) else 'CAPITAL'
+        
+        # Carregar predição da região apropriada
+        pred_file = config.ARTIFACTS.get(regiao_pred, {}).get('prediction')
+        if not pred_file:
+            pred_file = config.ARTIFACTS['CAPITAL']['prediction']  # fallback
+        
         if not pred_file.exists():
             return jsonify({"sucesso": False, "erro": "Predições não disponíveis"})
         
-        df_pred = pd.read_csv(pred_file)
+        df_pred = load_prediction_csv(pred_file)
+        
+        # Filtrar predições para cidades presentes em df_crimes da região selecionada
+        if len(df_crimes) > 0 and 'local_oficial' in df_crimes.columns:
+            cidades_region = df_crimes['local_oficial'].dropna().unique()
+            df_pred = df_pred[df_pred['local_oficial'].isin(cidades_region)]
         
         # Classificar tipo de crime em TODOS os dados (para tendência histórica)
         if 'tipo' not in df_crimes.columns:
@@ -1080,7 +1285,31 @@ def get_recomendacoes_operacionais():
             with open(faccoes_map_path, 'r', encoding='utf-8') as f:
                 faccoes_map = json.load(f)
         
-        for bairro in df_pred.nlargest(15, 'risco_previsto')['local_oficial'].unique():
+        try:
+            top_locals = df_pred.nlargest(15, 'risco_previsto')['local_oficial'].unique()
+        except Exception as e:
+            # Retornar diagnóstico detalhado para facilitar depuração
+            cols_pred = list(df_pred.columns)
+            cols_crimes = list(df_crimes.columns)
+            sample_pred = df_pred.head(5).to_dict(orient='records') if not df_pred.empty else []
+            debug_msg = {
+                'sucesso': False,
+                'erro': str(e),
+                'diagnostico': {
+                    'df_pred_columns': cols_pred,
+                    'df_crimes_columns': cols_crimes,
+                    'df_pred_sample': sample_pred
+                }
+            }
+            # Log diagnostic JSON to console for easier debugging (usuário pediu)
+            try:
+                print(json.dumps(debug_msg, ensure_ascii=False, indent=2))
+            except Exception:
+                # fallback simple print
+                print(debug_msg)
+            return jsonify(debug_msg)
+
+        for bairro in top_locals:
             risco = df_pred[df_pred['local_oficial'] == bairro]['risco_previsto'].values[0] if bairro in df_pred['local_oficial'].values else 0
             
             # Obter facção dominante do mapa
@@ -1118,46 +1347,57 @@ def get_recomendacoes_operacionais():
             else:
                 tendencia = 0.0  # Ambos sem crimes
             
-            # LÓGICA DE RECOMENDAÇÃO MELHORADA
-            # Combina: risco previsto + atividade histórica + crimes observados
-            if risco > 0.32:
-                if homicidios_90d > 10:
-                    # Alto risco + histórico de homicídios = INTENSIFICAR (ação imediata)
-                    acao = "INTENSIFICAR"
-                    motivo = "Histórico recorrente de homicídios + predição de agravamento. Reforçar presença nas ruas."
-                    prioridade = "CRÍTICO"
-                    equipes_delta = 3
-                elif homicidios_90d > 0:
-                    # Alto risco + alguns homicídios = AUMENTAR (preparar)
-                    acao = "AUMENTAR"
-                    motivo = "Padrão histórico de violência detectado. Predição aponta intensificação. Preparar mobilidade."
-                    prioridade = "ALTO"
-                    equipes_delta = 2
-                else:
-                    # Alto risco + sem homicídios = MONITORAR (atenção)
-                    acao = "MONITORAR"
-                    motivo = "Modelo detecta fatores de risco sem incidentes recentes. Manter vigilância estratégica."
-                    prioridade = "ALTO"
-                    equipes_delta = 1
-            elif risco > 0.31:
-                if homicidios_90d > 5:
-                    acao = "AUMENTAR"
-                    motivo = "Histórico de atividade criminal persistente. Manter reforço preventivo."
-                    prioridade = "ALTO"
-                    equipes_delta = 2
-                else:
-                    acao = "MANTER"
-                    motivo = "Nível de vigilância compatível com risco identificado. Continuar monitoramento."
-                    prioridade = "MÉDIO"
-                    equipes_delta = 0
-            elif risco < 0.20:
+            # LÓGICA DE RECOMENDAÇÃO REVISADA - PRIORIZA DADOS REAIS DE HOMICÍDIOS
+            # Base: dados históricos (90 dias) + predição + atividade recente
+            
+            # Construir explicação da predição (para transparência)
+            explicacao_modelo = []
+            if homicidios_90d > 0:
+                explicacao_modelo.append(f"📊 Histórico: {homicidios_90d} homicídios em 90 dias")
+            if crimes_periodo_anterior > 0:
+                explicacao_modelo.append(f"📈 Tendência: {tendencia:+.0f}% vs período anterior")
+            if risco > 0:
+                explicacao_modelo.append(f"🤖 Modelo prevê risco de {risco:.1%} para próximos dias")
+            if len(explicacao_modelo) == 0:
+                explicacao_modelo.append("✅ Sem atividade criminal detectada no período")
+            
+            # CRÍTICO: Muitos homicídios nos últimos 90 dias
+            if homicidios_90d > 10:
+                acao = "INTENSIFICAR"
+                motivo = f"Histórico crítico: {homicidios_90d} homicídios em 90 dias. Reforço imediato necessário."
+                prioridade = "CRÍTICO"
+                equipes_delta = 3
+            # ALTO: Atividade significativa de homicídios
+            elif homicidios_90d > 5:
+                acao = "AUMENTAR"
+                motivo = f"Atividade persistente: {homicidios_90d} homicídios em 90 dias. Manter presença reforçada."
+                prioridade = "ALTO"
+                equipes_delta = 2
+            # MÉDIO-ALTO: Alguns homicídios OU predição sugere risco
+            elif homicidios_90d > 0 or risco > 0.25:
+                acao = "MANTER"
+                motivo = f"Padrão detectado: {homicidios_90d} homicídios (90d) + Risco previsto {risco:.1%}. Manter vigilância."
+                prioridade = "MÉDIO"
+                equipes_delta = 0
+            # BAIXO: Risco baixo E sem atividade criminal recente (explicável pelo modelo)
+            elif risco < 0.15 and homicidios_90d == 0 and crimes_periodo_anterior == 0:
                 acao = "REDUZIR"
-                motivo = "Risco baixo consolidado. Realocação de equipes para áreas prioritárias."
+                motivo = "Risco baixo consolidado: nenhum incidente em 90 dias e modelo prevê continuidade. Realocação possível."
                 prioridade = "BAIXO"
                 equipes_delta = -1
+                explicacao_modelo.append("✅ Modelo indica estabilidade mantida (baixo risco)")
+            # REDUÇÃO COM CAUTELA: Se há histórico mas tendência MUITO positiva
+            elif tendencia < -50 and homicidios_reais == 0 and risco < 0.20:
+                acao = "REDUZIR"
+                motivo = f"Redução significativa (-{abs(tendencia):.0f}% vs período anterior). Modelo corrobora: {risco:.1%} risco. Monitorar e realocação gradual."
+                prioridade = "BAIXO"
+                equipes_delta = -1
+                explicacao_modelo.append(f"📉 Redução forte observada: -{ abs(tendencia):.0f}% vs histórico recente")
+                explicacao_modelo.append("⚠️  Realocação viável, mas manter acompanhamento")
+            # DEFAULT: Risco médio
             else:
                 acao = "MANTER"
-                motivo = "Risco estável. Manter presença conforme planejado."
+                motivo = f"Nível intermediário: Risco {risco:.1%}. Continuar monitoramento."
                 prioridade = "MÉDIO"
                 equipes_delta = 0
             
@@ -1184,6 +1424,7 @@ def get_recomendacoes_operacionais():
                 'faccao_dominante': faccao_dominante,
                 'acao': acao,
                 'motivo': motivo,
+                'explicacao_modelo': ' | '.join(explicacao_modelo),  # Novo campo: justificativa da predição
                 'prioridade': prioridade,
                 'risco_previsto': float(risco),
                 # Dados do período atual (observado)

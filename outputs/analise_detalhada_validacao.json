@@ -1,0 +1,260 @@
+{
+  "timestamp": "2026-01-21T14:29:24.788814",
+  "periodo_validacao": "2025-01-01 até 2025-12-27",
+  "metricas_gerais": {
+    "total_registros": 5044,
+    "taxa_acerto_percent": 14.036478984932593,
+    "acertos": 9,
+    "bairros_testados": 388,
+    "periodos": 13
+  },
+  "correlacao": {
+    "pearson_r": 0.9758088980697932,
+    "pearson_p": 0.0,
+    "spearman_r": 0.9793503879437033,
+    "spearman_p": 0.0
+  },
+  "analise_viés": {
+    "modelo_aumento_percent": 40.06740681998414,
+    "modelo_diminuicao_percent": 41.098334655035686,
+    "modelo_estavel_percent": 18.834258524980175,
+    "realidade_aumento_percent": 3.1720856463124503,
+    "realidade_diminuicao_percent": 2.894528152260111,
+    "realidade_estavel_percent": 93.93338620142744
+  },
+  "performance_por_bairro": [
+    {
+      "bairro": "TUCUNDUBA",
+      "acertos": 12,
+      "total": 13,
+      "taxa": 92.3076923076923,
+      "correlacao": NaN
+    },
+    {
+      "bairro": "POTIRA 1",
+      "acertos": 11,
+      "total": 13,
+      "taxa": 84.61538461538461,
+      "correlacao": NaN
+    },
+    {
+      "bairro": "RONDON",
+      "acertos": 11,
+      "total": 13,
+      "taxa": 84.61538461538461,
+      "correlacao": NaN
+    },
+    {
+      "bairro": "RUA JOSE LINO DA SILVEIRA, 315, CONDOMINIO LINO III",
+      "acertos": 11,
+      "total": 13,
+      "taxa": 84.61538461538461,
+      "correlacao": NaN
+    },
+    {
+      "bairro": "SAO MIGUE",
+      "acertos": 11,
+      "total": 13,
+      "taxa": 84.61538461538461,
+      "correlacao": NaN
+    },
+    {
+      "bairro": "POTIRA III",
+      "acertos": 11,
+      "total": 13,
+      "taxa": 84.61538461538461,
+      "correlacao": NaN
+    },
+    {
+      "bairro": "TABAPUA BRASILIA",
+      "acertos": 11,
+      "total": 13,
+      "taxa": 84.61538461538461,
+      "correlacao": NaN
+    },
+    {
+      "bairro": "TABUBA",
+      "acertos": 11,
+      "total": 13,
+      "taxa": 84.61538461538461,
+      "correlacao": NaN
+    },
+    {
+      "bairro": "GRILO",
+      "acertos": 11,
+      "total": 13,
+      "taxa": 84.61538461538461,
+      "correlacao": NaN
+    },
+    {
+      "bairro": "GUAIE",
+      "acertos": 11,
+      "total": 13,
+      "taxa": 84.61538461538461,
+      "correlacao": NaN
+    },
+    {
+      "bairro": "ITAPUA",
+      "acertos": 11,
+      "total": 13,
+      "taxa": 84.61538461538461,
+      "correlacao": NaN
+    },
+    {
+      "bairro": "JARDIM DO AMOR",
+      "acertos": 11,
+      "total": 13,
+      "taxa": 84.61538461538461,
+      "correlacao": NaN
+    },
+    {
+      "bairro": "ITAMBE II",
+      "acertos": 11,
+      "total": 13,
+      "taxa": 84.61538461538461,
+      "correlacao": NaN
+    },
+    {
+      "bairro": "METROPOLES SUL",
+      "acertos": 11,
+      "total": 13,
+      "taxa": 84.61538461538461,
+      "correlacao": NaN
+    },
+    {
+      "bairro": "PLANAUTO CAUCAIA",
+      "acertos": 11,
+      "total": 13,
+      "taxa": 84.61538461538461,
+      "correlacao": NaN
+    },
+    {
+      "bairro": "POSTI IBIS",
+      "acertos": 11,
+      "total": 13,
+      "taxa": 84.61538461538461,
+      "correlacao": NaN
+    },
+    {
+      "bairro": "NOVA METROPOLE 5",
+      "acertos": 11,
+      "total": 13,
+      "taxa": 84.61538461538461,
+      "correlacao": NaN
+    },
+    {
+      "bairro": "PADRE ROMUALDO",
+      "acertos": 11,
+      "total": 13,
+      "taxa": 84.61538461538461,
+      "correlacao": NaN
+    },
+    {
+      "bairro": "MADUREIRA",
+      "acertos": 11,
+      "total": 13,
+      "taxa": 84.61538461538461,
+      "correlacao": NaN
+    },
+    {
+      "bairro": "CARRAPICHO",
+      "acertos": 11,
+      "total": 13,
+      "taxa": 84.61538461538461,
+      "correlacao": NaN
+    }
+  ],
+  "performance_por_periodo": [
+    {
+      "periodo": 0,
+      "data": "2025-01-01",
+      "acertos": 58,
+      "total": 388,
+      "taxa_percent": 14.948453608247423
+    },
+    {
+      "periodo": 1,
+      "data": "2025-01-31",
+      "acertos": 54,
+      "total": 388,
+      "taxa_percent": 13.917525773195877
+    },
+    {
+      "periodo": 2,
+      "data": "2025-03-02",
+      "acertos": 61,
+      "total": 388,
+      "taxa_percent": 15.721649484536082
+    },
+    {
+      "periodo": 3,
+      "data": "2025-04-01",
+      "acertos": 52,
+      "total": 388,
+      "taxa_percent": 13.402061855670103
+    },
+    {
+      "periodo": 4,
+      "data": "2025-05-01",
+      "acertos": 52,
+      "total": 388,
+      "taxa_percent": 13.402061855670103
+    },
+    {
+      "periodo": 5,
+      "data": "2025-05-31",
+      "acertos": 49,
+      "total": 388,
+      "taxa_percent": 12.628865979381443
+    },
+    {
+      "periodo": 6,
+      "data": "2025-06-30",
+      "acertos": 52,
+      "total": 388,
+      "taxa_percent": 13.402061855670103
+    },
+    {
+      "periodo": 7,
+      "data": "2025-07-30",
+      "acertos": 60,
+      "total": 388,
+      "taxa_percent": 15.463917525773196
+    },
+    {
+      "periodo": 8,
+      "data": "2025-08-29",
+      "acertos": 55,
+      "total": 388,
+      "taxa_percent": 14.175257731958762
+    },
+    {
+      "periodo": 9,
+      "data": "2025-09-28",
+      "acertos": 49,
+      "total": 388,
+      "taxa_percent": 12.628865979381443
+    },
+    {
+      "periodo": 10,
+      "data": "2025-10-28",
+      "acertos": 56,
+      "total": 388,
+      "taxa_percent": 14.432989690721648
+    },
+    {
+      "periodo": 11,
+      "data": "2025-11-27",
+      "acertos": 52,
+      "total": 388,
+      "taxa_percent": 13.402061855670103
+    },
+    {
+      "periodo": 12,
+      "data": "2025-12-27",
+      "acertos": 58,
+      "total": 388,
+      "taxa_percent": 14.948453608247423
+    }
+  ]
+}

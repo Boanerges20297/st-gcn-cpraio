@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Inserir Evento Exógeno</title>
+    <style>
+        body{font-family:Segoe UI,Arial;margin:20px;background:#f6f8fa}
+        .card{background:white;padding:20px;border-radius:8px;max-width:900px;margin:0 auto}
+        label{display:block;margin-top:10px;font-weight:600}
+        textarea, input, select{width:100%;padding:8px;margin-top:6px;border-radius:4px;border:1px solid #ccc}
+        button{margin-top:12px;padding:10px 16px;border-radius:6px;border:none;background:#2c7aa3;color:white}
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Registrar Evento Exógeno</h2>
+        <p>Use este formulário para registrar eventos como "Morte de liderança de facção", "Disputa de territórios", etc.</p>
+        <form id="exogForm">
+            <label>Tipo de Evento</label>
+            <select id="event_type">
+                <option value="Morte Lideranca">Morte de liderança de facção</option>
+                <option value="Aumento Roubos">Aumento de roubos a banco</option>
+                <option value="Disputa Territorio">Disputa de territórios</option>
+                <option value="Homicidios Faccao">Homicídios em área de facção</option>
+                <option value="Outro">Outro</option>
+            </select>
+
+            <label>Data do Evento</label>
+            <input id="event_date" type="date" />
+
+            <label>Bairro / Local</label>
+            <input id="bairro" type="text" placeholder="Ex: Bom Jardim" />
+
+            <label>Facção</label>
+            <input id="faccao" type="text" placeholder="Ex: CV" />
+
+            <label>Criminosos Conhecidos (qualificação completa)</label>
+            <textarea id="criminosos" rows="3" placeholder="Nome; mãe; idade; endereço; facção"></textarea>
+
+            <label>Detalhes (big text)</label>
+            <textarea id="details" rows="6" placeholder="Descreva o evento com o máximo de detalhes possíveis..."></textarea>
+
+            <label>Coordenadas (lat,long) — opcional</label>
+            <input id="coords" type="text" placeholder="-3.7,-38.5" />
+
+            <button type="submit">Enviar Evento</button>
+        </form>
+        <div id="status" style="margin-top:12px"></div>
+    </div>
+
+    <script>
+        document.getElementById('exogForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const event_type = document.getElementById('event_type').value;
+            const date = document.getElementById('event_date').value;
+            const bairro = document.getElementById('bairro').value;
+            const faccao = document.getElementById('faccao').value;
+            const criminosos = document.getElementById('criminosos').value;
+            const details = document.getElementById('details').value;
+            const coords = document.getElementById('coords').value;
+            let lat = null, long = null;
+            if (coords && coords.includes(',')){
+                const parts = coords.split(','); lat = parts[0].trim(); long = parts[1].trim();
+            }
+
+            const payload = { event_type, date, bairro, faccao, criminosos, details, lat, long };
+            try{
+                const res = await fetch('/api/exogenous_event', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+                const data = await res.json();
+                if (data.sucesso) {
+                    document.getElementById('status').innerText = 'Evento salvo com sucesso.';
+                    document.getElementById('exogForm').reset();
+                } else {
+                    document.getElementById('status').innerText = 'Erro: ' + (data.erro || JSON.stringify(data));
+                }
+            } catch (err) {
+                document.getElementById('status').innerText = 'Erro de rede: ' + err.message;
+            }
+        });
+    </script>
+</body>
+</html>

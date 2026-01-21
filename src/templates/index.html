@@ -188,9 +188,8 @@
         <div>
             <label class="control-label">Tipo de Crime</label>
             <select id="crimeTypeSelect" onchange="refreshData()">
-                <option value="TODOS">Todos</option>
+                <option value="CVLI" selected>CVLI - Letais e Intencionais</option>
                 <option value="CVP">CVP - Violência Patrimonial</option>
-                <option value="CVLI">CVLI - Letais e Intencionais</option>
             </select>
         </div>
 
@@ -294,7 +293,7 @@
             // Constrói descritor de filtros ativos
             let filtros = [];
             if (faccao !== 'TODAS') filtros.push(`Facção: ${faccao}`);
-            if (tipoCrime !== 'TODOS') {
+            if (tipoCrime) {
                 filtros.push(tipoCrime === 'CVP' ? 'Patrimoniais' : 'Letais');
             }
             let descritor = filtros.length > 0 ? ` [${filtros.join(' • ')}]` : '';

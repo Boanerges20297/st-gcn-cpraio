@@ -1,0 +1,88 @@
+================================================================================
+                   ANÁLISE DE VALIDAÇÃO - MODELO ST-GCN
+================================================================================
+
+📊 STATUS GERAL: 🔴 CRÍTICO
+
+Taxa de Acerto: 14.04% (PÉSSIMO)
+Baseline Trivial: 93.93% (para comparação)
+EMA Simples: 37.37% (para comparação)
+
+CONCLUSÃO: Modelo está abaixo de alternativas triviais
+RECOMENDAÇÃO: Ação imediata - Remediação em 4 semanas
+
+================================================================================
+
+📋 LEIA NESTA ORDEM:
+
+1️⃣  RESUMO_RAPIDO_VALIDACAO.md (3 min)
+    └─ O que houve, em poucas linhas
+
+2️⃣  RELATORIO_EXECUTIVO_VALIDACAO.md (10 min)
+    └─ Números principais e impacto
+
+3️⃣  PLANO_ACAO_REMEDIACAO_4SEMANAS.md (20 min)
+    └─ Como corrigir (Semana 1-4)
+
+4️⃣  ANALISE_CRITICA_VALIDACAO_MODELO.md (20 min)
+    └─ Detalhes técnicos profundos
+
+5️⃣  DIAGNOSTICO_MODELO_STGCN.md (15 min)
+    └─ Como validar se modelo realmente funciona
+
+================================================================================
+
+📂 ARQUIVOS GERADOS:
+
+Scripts:
+  - scripts/analise_detalhada_validacao_modelo.py (executável)
+  - scripts/comparar_modelo_vs_baselines.py (executável)
+
+Dados:
+  - outputs/analise_detalhada_validacao.json (métricas estruturadas)
+  - outputs/resumo_validacao_metricas.csv (10 principais métricas)
+  - outputs/comparacao_baselines.json (ST-GCN vs baselines)
+  - outputs/validacao_previsao_detalhado.csv (5.044 registros - dados brutos)
+
+Documentos:
+  - docs/RESUMO_RAPIDO_VALIDACAO.md
+  - docs/RELATORIO_EXECUTIVO_VALIDACAO.md
+  - docs/ANALISE_CRITICA_VALIDACAO_MODELO.md
+  - docs/DIAGNOSTICO_MODELO_STGCN.md
+  - docs/PLANO_ACAO_REMEDIACAO_4SEMANAS.md
+  - docs/INDICE_COMPLETO_VALIDACAO.md
+
+================================================================================
+
+🎯 AÇÃO IMEDIATA:
+
+  ❌ NÃO confiar em "AUMENTO/DIMINUIÇÃO" do modelo (14% acurácia = aleatório)
+  ✅ Usar score contínuo apenas como contexto (não como decisor)
+  ✅ Voltar a confiar em especialista + dados brutos
+
+================================================================================
+
+📞 PRÓXIMA ETAPA:
+
+  SEMANA 1 (22-28 Jan):
+    - Auditar código de treinamento
+    - Verificar features usadas
+    - Testar Linear Regression como baseline
+    - Validação cruzada temporal
+
+  META: Entender por que acurácia caiu de ~25% (2024) para 14% (2025)
+
+================================================================================
+
+💡 RESUMO EM UMA FRASE:
+
+"Modelo ST-GCN está apenas suavizando histórico (EMA), não predizendo.
+ Sem features exógenas (operações, sazonalidade, eventos).
+ Retreinamento com features melhoradas deve recuperar 30%+ acurácia."
+
+================================================================================
+
+Dúvidas? Veja docs/INDICE_COMPLETO_VALIDACAO.md para navegação por tópico.
+
+Data da Análise: 21 de Janeiro de 2026
+Gerado por: scripts/analise_detalhada_validacao_modelo.py
