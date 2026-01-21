@@ -308,7 +308,18 @@
                 riskLayer.eachLayer(layer => {
                     let p = layer.feature.properties;
                     if (p.nivel_alerta && p.nivel_alerta !== 'BAIXO') {
-                        let info = `<strong>${p.name || p.bairro}</strong><br>Status: ${p.nivel_alerta}`;
+                        // Mostrar origem quando for predição (ex.: Status: Crítico (CVLI))
+                        // Determinar o tipo que gerou a criticidade (risco previsto) ou histórico dominante
+                        // Tipo dominante histórico (p.risk_by) se existir
+                        let tipoLabel = null;
+                        if (p.risk_by) tipoLabel = p.risk_by;
+                        else if (p.source === 'prediction' || p.risco_previsto !== undefined) {
+                            // mostrar que vem da predição e qual alvo previsto
+                            const pred = p.predicted_target || 'CVLI';
+                            tipoLabel = `Pred: ${pred}`;
+                        }
+                        const origem = tipoLabel ? ` (${tipoLabel})` : '';
+                        let info = `<strong>${p.name || p.bairro}</strong><br>Status: ${p.nivel_alerta}${origem}`;
                         if (p.count_tipo_crime !== undefined) {
                             info += `<br>Crimes: ${p.count_tipo_crime}`;
                         }

@@ -71,8 +71,21 @@ ARTIFACTS = {
 
 # --- HIPERPARÂMETROS ---
 HyperParams = {
-    'window_size': 14,    # 14 dias de histórico
-    'target_window': 15,  # 15 dias de previsão
+    # Parâmetros gerais (podem ser sobrescritos por alvo específico)
+    'window_size': 14,    # dias de histórico (default genérico)
+    'target_window': 15,  # dias de previsão (default genérico)
+    # Parâmetros por tipo de evento: CVLI (homicídios) e CVP (patrimoniais)
+    'window_size_cvli': 180,   # histórico de 180 dias para CVLI
+    'target_window_cvli': 30,  # prever 30 dias à frente para CVLI
+    'window_size_cvp': 30,     # histórico de 30 dias para CVP
+    'target_window_cvp': 7,    # prever 7 dias à frente para CVP
+    # Limiar de criticidade em percentil (ex.: 0.90 significa top 10% como crítico)
+    'criticality_percentile': 0.90,
+    # Lista de features exógenas que NÃO entram no cálculo do limiar (podem influenciar vieses)
+    'threshold_excluded_features': EXOGENEOUS_FEATURES,
+    # Multiplicador aplicado ao limiar do percentil para tornar o corte mais conservador
+    # Ex.: 1.15 eleva o limiar em 15% (mais estrito)
+    'criticality_multiplier': 1.15,
     'hidden_dim': 32,     # Neurônios
     'batch_size': 32,
     'epochs': 200,

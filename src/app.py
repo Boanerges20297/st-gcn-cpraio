@@ -6,6 +6,7 @@ import sys
 import os
 import re
 from pathlib import Path
+import numpy as np
 
 # Import local config
 from . import config
@@ -38,6 +39,24 @@ def load_risk_map(region_name, tipo_crime='TODOS'):
         return json.loads(gdf.to_json())
         
     df_pred = pd.read_csv(pred_path)
+    # Normalizar nome de coluna para compatibilidade com CSVs gerados
+    if 'local_oficial' not in df_pred.columns and 'local' in df_pred.columns:
+        df_pred['local_oficial'] = df_pred['local']
+
+    # Calcular limiar crítico com base no percentil configurado e multiplicador
+    try:
+        scores = pd.to_numeric(df_pred['risco_previsto'].dropna(), errors='coerce')
+        scores = scores[~scores.isna()]
+        if len(scores) > 0:
+            p = float(config.HyperParams.get('criticality_percentile', 0.90))
+            mult = float(config.HyperParams.get('criticality_multiplier', 1.0))
+            threshold_value = float(np.quantile(scores.values, p)) * mult
+        else:
+            threshold_value = None
+    except Exception:
+        threshold_value = None
+    # expor limiar no df_pred para referência (mesmo valor para todas as linhas)
+    df_pred['_critical_threshold'] = threshold_value
     
     # ★ IMPORTANTE: Criticidade é SEMPRE calculada baseada em CVLI
     # Mesmo que o filtro seja TODOS, a criticidade vem de CVLI
@@ -69,6 +88,75 @@ def load_risk_map(region_name, tipo_crime='TODOS'):
     
     # 5. Calcular nível de alerta baseado em PREDIÇÃO (que é baseada em CVLI)
     gdf_risk['nivel_alerta'], gdf_risk['cor_alerta'] = zip(*gdf_risk['risco'].apply(lambda x: get_alert_level(x, region_name)))
+    # Marcar origem como predição (para frontend distinguir fonte)
+    gdf_risk['source'] = 'prediction'
+
+    # Marcar áreas críticas usando o limiar calculado (percentil * multiplicador)
+    try:
+        if df_pred.get('_critical_threshold').notnull().any():
+            thr = float(df_pred['_critical_threshold'].dropna().unique()[0])
+        else:
+            thr = None
+    except Exception:
+        thr = None
+
+    if thr is not None:
+        gdf_risk['is_critical'] = gdf_risk['risco'] >= thr
+        # Forçar nível visual para crítico nas áreas acima do limiar
+        gdf_risk.loc[gdf_risk['is_critical'], 'nivel_alerta'] = 'CRÍTICO'
+        gdf_risk.loc[gdf_risk['is_critical'], 'cor_alerta'] = '#ff0000'
+        gdf_risk['critical_threshold'] = thr
+    else:
+        gdf_risk['is_critical'] = False
+        gdf_risk['critical_threshold'] = None
+
+    # Calcular dominância histórica por tipo (CVLI vs CVP) para cada área
+    try:
+        df_crimes = load_occurrences()
+        if not df_crimes.empty:
+            df_region = df_crimes[df_crimes['regiao_sistema'] == region_name]
+            # Normalizar local para comparação
+            df_region['local_upper'] = df_region['local_oficial'].astype(str).str.upper().str.strip()
+            # Contar por tipo
+            pivot = df_region.groupby(['local_upper', 'tipo']).size().unstack(fill_value=0)
+            # Garantir colunas CVLI/CVP
+            if 'CVLI' not in pivot.columns:
+                pivot['CVLI'] = 0
+            if 'CVP' not in pivot.columns:
+                pivot['CVP'] = 0
+
+            # Map counts back to gdf_risk
+            def dominant_type(row):
+                key = row.get('name_upper', '')
+                try:
+                    counts = pivot.loc[key]
+                    cvli_c = int(counts.get('CVLI', 0))
+                    cvp_c = int(counts.get('CVP', 0))
+                except Exception:
+                    cvli_c = 0
+                    cvp_c = 0
+                # If there is historical dominance, return that type
+                if (cvp_c > cvli_c) and (cvp_c > 0):
+                    return 'CVP', cvli_c, cvp_c
+                elif (cvli_c > cvp_c) and (cvli_c > 0):
+                    return 'CVLI', cvli_c, cvp_c
+                else:
+                    # No clear historical evidence - mark as prediction-driven
+                    return None, cvli_c, cvp_c
+
+            doms = gdf_risk.apply(dominant_type, axis=1)
+            gdf_risk['risk_by'] = [d[0] for d in doms]
+            gdf_risk['historical_cvli_count'] = [d[1] for d in doms]
+            gdf_risk['historical_cvp_count'] = [d[2] for d in doms]
+            # Indicar tipo previsto pelo modelo (modelo atual prevê CVLI density)
+            gdf_risk['predicted_target'] = 'CVLI'
+    except Exception:
+        # se falhar ao calcular dominância histórica, NÃO atribuir
+        # um tipo histórico por padrão — marcar como prediction-driven
+        gdf_risk['risk_by'] = None
+        gdf_risk['historical_cvli_count'] = 0
+        gdf_risk['historical_cvp_count'] = 0
+        gdf_risk['predicted_target'] = 'CVLI'
     
     return json.loads(gdf_risk.to_json())
 
@@ -117,6 +205,9 @@ def load_occurrences():
             df['latitude'] = df['lat']
         if 'lng' in df.columns:
             df['longitude'] = df['lng']
+        # Normalizar nome de coluna local/local_oficial
+        if 'local_oficial' not in df.columns and 'local' in df.columns:
+            df['local_oficial'] = df['local']
         return df
     return pd.DataFrame()
 
@@ -128,106 +219,130 @@ def index():
 @app.route('/api/dashboard_data')
 def dashboard_data():
     """Rota otimizada com filtros em cascata (AND logic)."""
-    region = request.args.get('region', 'CAPITAL')
-    faccao = request.args.get('faccao', 'TODAS')
-    tipo_crime = request.args.get('tipo_crime', 'TODOS')
-    
-    # LÓGICA DE CASCATA:
-    # Cada filtro refina progressivamente os dados
-    
-    if faccao != 'TODAS':
-        # MODO 1: Filtro territorial ativado - mostra mapa da facção
-        territory_path = config.DATA_GRAPH / f"territorio_{faccao.lower()}_{region.lower()}.geojson"
-        if territory_path.exists():
-            with open(territory_path, 'r', encoding='utf-8') as f:
-                risk_geojson = json.load(f)
-            
-            # Se também tem filtro de tipo_crime, ajusta cores baseado no tipo
-            if tipo_crime != 'TODOS':
-                # Carrega dados de crimes por tipo nesse território
-                df = load_occurrences()
-                df = df[(df['regiao_sistema'] == region) & 
-                        (df['faccao'] == faccao) & 
-                        (df['tipo'] == tipo_crime)]
-                
-                # Calcula criticidade por local para esse tipo de crime
-                crime_counts = df.groupby('local_oficial').size()
-                max_crimes = crime_counts.max() if len(crime_counts) > 0 else 1
-                
-                # Aplica cores baseado na densidade de crimes desse tipo
-                for feature in risk_geojson.get('features', []):
-                    props = feature['properties']
-                    local = props.get('name', '').upper()
-                    count = crime_counts.get(local, 0)
-                    
-                    # Normaliza para score 0-1
-                    score = count / max_crimes if max_crimes > 0 else 0
-                    nivel, cor = get_alert_level(score, region)
-                    
-                    props['nivel_alerta'] = nivel
-                    props['cor_alerta'] = cor
-                    props['count_tipo_crime'] = count
-            else:
-                # Sem filtro de tipo, usa criticidade_territorio
-                for feature in risk_geojson.get('features', []):
-                    props = feature['properties']
-                    crit = props.get('criticidade_territorio', 'BAIXO')
-                    nivel, cor = get_alert_level(0.5 if crit == 'CRÍTICO' else 0.3 if crit == 'ALTO' else 0.1, region)
-                    props['nivel_alerta'] = crit
-                    props['cor_alerta'] = cor
-        else:
-            risk_geojson = None
+    try:
+        region = request.args.get('region', 'CAPITAL')
+        faccao = request.args.get('faccao', 'TODAS')
+        tipo_crime = request.args.get('tipo_crime', 'TODOS')
         
-        points = []
-        top_targets = []
-    
-    else:
-        # MODO 2: Sem filtro territorial - mostra mapa de risco geral
-        risk_geojson = load_risk_map(region, tipo_crime)
+        # LÓGICA DE CASCATA:
+        # Cada filtro refina progressivamente os dados
         
-        # Pontos com filtro de tipo_crime cascata
-        df = load_occurrences()
-        points = []
-        if not df.empty:
-            # Cascata de filtros
-            df = df[df['regiao_sistema'] == region]
-            
-            # FILTRO: Tipo de Crime (se especificado)
-            if tipo_crime != 'TODOS':
-                df = df[df['tipo'] == tipo_crime]
-            
-            # FILTRO: Facção (apenas se não estiver em modo territorial)
-            # Nesse modo, facção já é 'TODAS', então não filtra
-            
-            # Limite para performance
-            if not df.empty:
-                df = df.sort_values('data_hora', ascending=False).head(3000)
-                points = df[['latitude', 'longitude', 'natureza', 'local_oficial', 'faccao', 'data_hora', 'tipo']].to_dict(orient='records')
-        
-        # Top Alvos (apenas risco geral, sem filtro territorial)
-        top_targets = []
-        if risk_geojson:
-            features = risk_geojson['features']
-            features.sort(key=lambda x: x['properties'].get('risco', 0), reverse=True)
-            for f in features[:5]:
-                props = f['properties']
-                if props.get('risco', 0) > 0:
-                    top_targets.append({
-                        'local': props.get('name') or props.get('bairro'),
-                        'nivel': props.get('nivel_alerta'),
-                        'score': round(props.get('risco', 0), 3)
-                    })
+        if faccao != 'TODAS':
+            # MODO 1: Filtro territorial ativado - mostra mapa da facção
+            territory_path = config.DATA_GRAPH / f"territorio_{faccao.lower()}_{region.lower()}.geojson"
+            if territory_path.exists():
+                with open(territory_path, 'r', encoding='utf-8') as f:
+                    risk_geojson = json.load(f)
+                # Garantir que o mapa de calor represente a predição futura
+                try:
+                    pred_path = config.ARTIFACTS.get(region, {}).get('prediction')
+                    if pred_path and pred_path.exists():
+                        df_pred = pd.read_csv(pred_path)
+                        if 'local_oficial' not in df_pred.columns and 'local' in df_pred.columns:
+                            df_pred['local_oficial'] = df_pred['local']
+                        df_pred['local_upper'] = df_pred['local_oficial'].astype(str).str.upper().str.strip()
+                        mapping = dict(zip(df_pred['local_upper'], df_pred['risco_previsto']))
 
-    return jsonify({
-        "polygons": risk_geojson,
-        "points": points,
-        "targets": top_targets,
-        "filtros_ativos": {
-            "regiao": region,
-            "faccao": faccao,
-            "tipo_crime": tipo_crime
-        }
-    })
+                        # Aplicar risco previsto a cada feature; manter contadores históricos se solicitados
+                        for feature in risk_geojson.get('features', []):
+                            props = feature.setdefault('properties', {})
+                            local = str(props.get('name') or props.get('bairro') or '').upper().strip()
+                            risco_prev = mapping.get(local)
+                            if risco_prev is not None:
+                                props['risco_previsto'] = float(risco_prev)
+                                props['risco'] = float(risco_prev)
+                                nivel, cor = get_alert_level(float(risco_prev), region)
+                                props['nivel_alerta'] = nivel
+                                props['cor_alerta'] = cor
+                            else:
+                                # default quando não houver predição
+                                props['risco_previsto'] = props.get('risco_previsto', 0)
+                                props['risco'] = props.get('risco', 0)
+                                props['nivel_alerta'] = props.get('nivel_alerta', 'BAIXO')
+                                props['cor_alerta'] = props.get('cor_alerta', '#000000')
+                except Exception:
+                    # Em caso de falha ao ler predições, manter comportamento anterior de fallback
+                    for feature in risk_geojson.get('features', []):
+                        props = feature['properties']
+                        crit = props.get('criticidade_territorio', 'BAIXO')
+                        nivel, cor = get_alert_level(0.5 if crit == 'CRÍTICO' else 0.3 if crit == 'ALTO' else 0.1, region)
+                        props['nivel_alerta'] = crit
+                        props['cor_alerta'] = cor
+
+            # Se houver filtro por tipo de crime, ainda calculamos contadores históricos para exibição,
+            # mas NÃO alteramos o nível do polígono que continua baseado na predição
+            if tipo_crime != 'TODOS':
+                try:
+                    df = load_occurrences()
+                    df = df[(df['regiao_sistema'] == region) & 
+                            (df['faccao'] == faccao) & 
+                            (df['tipo'] == tipo_crime)]
+                    crime_counts = df.groupby('local_oficial').size()
+                    for feature in risk_geojson.get('features', []):
+                        props = feature.setdefault('properties', {})
+                        local = str(props.get('name') or props.get('bairro') or '').upper().strip()
+                        count = int(crime_counts.get(local, 0))
+                        props['count_tipo_crime'] = count
+                except Exception:
+                    pass
+            else:
+                risk_geojson = None
+            
+            points = []
+            top_targets = []
+        
+        else:
+            # MODO 2: Sem filtro territorial - mostra mapa de risco geral
+            risk_geojson = load_risk_map(region, tipo_crime)
+            
+            # Pontos com filtro de tipo_crime cascata
+            df = load_occurrences()
+            points = []
+            if not df.empty:
+                # Cascata de filtros
+                df = df[df['regiao_sistema'] == region]
+                
+                # FILTRO: Tipo de Crime (se especificado)
+                if tipo_crime != 'TODOS':
+                    df = df[df['tipo'] == tipo_crime]
+                
+                # FILTRO: Facção (apenas se não estiver em modo territorial)
+                # Nesse modo, facção já é 'TODAS', então não filtra
+                
+                # Limite para performance
+                if not df.empty:
+                    df = df.sort_values('data_hora', ascending=False).head(3000)
+                    points = df[['latitude', 'longitude', 'natureza', 'local_oficial', 'faccao', 'data_hora', 'tipo']].to_dict(orient='records')
+            
+            # Top Alvos (apenas risco geral, sem filtro territorial)
+            top_targets = []
+            if risk_geojson:
+                features = risk_geojson['features']
+                features.sort(key=lambda x: x['properties'].get('risco', 0), reverse=True)
+                for f in features[:5]:
+                    props = f['properties']
+                    if props.get('risco', 0) > 0:
+                        top_targets.append({
+                            'local': props.get('name') or props.get('bairro'),
+                            'nivel': props.get('nivel_alerta'),
+                            'score': round(props.get('risco', 0), 3)
+                        })
+
+        return jsonify({
+            "polygons": risk_geojson,
+            "points": points,
+            "targets": top_targets,
+            "filtros_ativos": {
+                "regiao": region,
+                "faccao": faccao,
+                "tipo_crime": tipo_crime
+            }
+        })
+    except Exception as e:
+        import traceback
+        erro_detalhes = traceback.format_exc()
+        print(f"[ERRO] /api/dashboard_data: {str(e)}\n{erro_detalhes}")
+        return jsonify({"sucesso": False, "erro": str(e), "detalhes": erro_detalhes}), 200
 
 # --- DASHBOARD ESTRATÉGICO COM IA ---
 
@@ -263,6 +378,9 @@ def get_strategic_insights():
             return jsonify({"sucesso": False, "erro": "Predições não disponíveis"})
         
         df_pred = pd.read_csv(pred_file)
+        # Normalizar nome de coluna para compatibilidade com CSVs gerados
+        if 'local_oficial' not in df_pred.columns and 'local' in df_pred.columns:
+            df_pred['local_oficial'] = df_pred['local']
         
         # Análise por tipo de crime
         df_crimes_norm = df_crimes.copy()
@@ -446,10 +564,11 @@ def get_strategic_insights_range():
         regiao_filtro = request.args.get('regiao', '').upper()  # NOVO: Parâmetro de região
         
         if not data_inicio_str or not data_fim_str:
-            # Fallback para último 30 dias
+            # Fallback: usar janela configurada para CVLI (padrão mais amplo)
             hoje = datetime.now().date()
             data_fim = hoje
-            data_inicio = hoje - timedelta(days=30)
+            dias_default = int(config.HyperParams.get('window_size_cvli', 180))
+            data_inicio = hoje - timedelta(days=dias_default)
         else:
             data_inicio = datetime.strptime(data_inicio_str, '%Y-%m-%d').date()
             data_fim = datetime.strptime(data_fim_str, '%Y-%m-%d').date()
@@ -484,6 +603,9 @@ def get_strategic_insights_range():
             return jsonify({"sucesso": False, "erro": "Predições não disponíveis"})
         
         df_pred = pd.read_csv(pred_file)
+        # Normalizar nome de coluna para compatibilidade com CSVs gerados
+        if 'local_oficial' not in df_pred.columns and 'local' in df_pred.columns:
+            df_pred['local_oficial'] = df_pred['local']
         
         # Análise por tipo de crime
         df_crimes_norm = df_crimes.copy()
@@ -882,7 +1004,8 @@ def get_recomendacoes_operacionais():
         if not data_inicio_str or not data_fim_str:
             hoje = datetime.now().date()
             data_fim = hoje
-            data_inicio = hoje - timedelta(days=30)  # Padrão: últimos 30 dias
+            dias_default = int(config.HyperParams.get('window_size_cvli', 180))
+            data_inicio = hoje - timedelta(days=dias_default)  # Padrão: janela configurada (CVLI)
         else:
             data_inicio = datetime.strptime(data_inicio_str, '%Y-%m-%d').date()
             data_fim = datetime.strptime(data_fim_str, '%Y-%m-%d').date()

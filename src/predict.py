@@ -51,13 +51,21 @@ def predict_region(region_name):
     features = data.get('features', ['CVLI'])
     
     # 3. Preparar Input (Última Janela)
-    window_size = config.HyperParams['window_size']
+    # Determinar janela com base no alvo previsto (CVLI ou CVP)
+    features = data.get('features', ['CVLI'])
+    if 'CVLI' in features:
+        window_size = int(config.HyperParams.get('window_size_cvli', config.HyperParams.get('window_size', 180)))
+    elif 'CVP' in features:
+        window_size = int(config.HyperParams.get('window_size_cvp', config.HyperParams.get('window_size', 30)))
+    else:
+        window_size = int(config.HyperParams.get('window_size', 14))
+
     if len(X_full) < window_size:
-        print("    [!] Histórico insuficiente.")
+        print(f"    [!] Histórico insuficiente. Necessário {window_size} registros, disponível {len(X_full)}")
         return
 
-    # Pega os últimos 14 dias
-    last_window = X_full[-window_size:] 
+    # Pega os últimos N dias conforme janela configurada
+    last_window = X_full[-window_size:]
     
     # Normalizar (Usando a média/desvio salvos no treino)
     mean = stats['mean']
