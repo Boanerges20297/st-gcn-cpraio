@@ -1,0 +1,25 @@
+{
+  "num_nodes": 18,
+  "num_features": 6,
+  "num_days": 1096,
+  "bairros": [
+    "MARACANAÚ",
+    "EUSÉBIO",
+    "PARACURU",
+    "GUAIÚBA",
+    "AQUIRAZ",
+    "PACATUBA",
+    "CAUCAIA",
+    "SÃO LUÍS DO CURU",
+    "PACAJUS",
+    "PINDORETAMA",
+    "HORIZONTE",
+    "ITAITINGA",
+    "SÃO GONÇALO DO AMARANTE",
+    "CHOROZINHO",
+    "MARANGUAPE",
+    "PARAIPABA",
+    "CASCAVEL",
+    "TRAIRI"
+  ]
+}
