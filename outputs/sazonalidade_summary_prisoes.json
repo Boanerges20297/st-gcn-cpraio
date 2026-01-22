@@ -1,0 +1,8 @@
+{
+  "total_rows": 22839,
+  "distinct_cidades": 251,
+  "distinct_bairros": 3641,
+  "monthly_file": "outputs\\sazonalidade_bairro_cidade_monthly.csv",
+  "weekday_file": "outputs\\sazonalidade_bairro_cidade_weekday.csv",
+  "hourly_file": "outputs\\sazonalidade_bairro_cidade_hourly.csv"
+}

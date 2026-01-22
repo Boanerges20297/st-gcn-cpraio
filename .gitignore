@@ -6,3 +6,8 @@ __pycache__
 .env
 *.key
 .env.local
+
+# Archive and cleanup (unused/old files)
+archive_cleanup/
+*.log
+logs/

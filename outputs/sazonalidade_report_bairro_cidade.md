@@ -45,3 +45,13 @@
 - Weekday index CSV: outputs\sazonalidade_bairro_cidade_weekday_index.csv
 - Hourly index CSV: outputs\sazonalidade_bairro_cidade_hourly_index.csv
 
+
+
+## Índices padronizados de sazonalidade (mês/dia/horário)
+
+
+- Monthly index CSV: outputs\sazonalidade_bairro_cidade_monthly_index.csv
+- Monthly index matrix: outputs\sazonalidade_bairro_cidade_monthly_index_matrix.csv
+- Weekday index CSV: outputs\sazonalidade_bairro_cidade_weekday_index.csv
+- Hourly index CSV: outputs\sazonalidade_bairro_cidade_hourly_index.csv
+

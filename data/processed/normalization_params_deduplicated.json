@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-01-21T15:56:07.829443",
+  "timestamp": "2026-01-22T14:16:33.780346",
   "method": "percentile-based with post-aggregation normalization",
   "threshold_fuzzy_matching": 0.5,
-  "drogas_max_p99": 1677.719999999994,
+  "drogas_max_p99": 1367.75,
   "armas_max_p99": 3.0,
-  "dinheiro_max_p99": 1832.5399999999954,
+  "dinheiro_max_p99": 1848.75,
   "neighborhood_mapping": {
     "AEROL\u00c2NDIA": 0,
     "AEROPORTO": 1,
@@ -146,15 +146,15 @@
     "\u00c1LVARO WEYNE": 137
   },
   "date_range": {
-    "start": "2025-01-02T00:00:00",
-    "end": "2026-01-11T00:00:00",
-    "days": 375
+    "start": "2020-06-03T00:00:00",
+    "end": "2026-01-22T00:00:00",
+    "days": 2060
   },
   "statistics": {
-    "total_operations": 8427,
-    "filtered_operations": 633,
+    "total_operations": 38126,
+    "filtered_operations": 2784,
     "unique_neighborhoods": 138,
-    "aggregated_records": 6155,
-    "final_records_with_zeropadding": 51750
+    "aggregated_records": 29360,
+    "final_records_with_zeropadding": 284280
   }
 }
