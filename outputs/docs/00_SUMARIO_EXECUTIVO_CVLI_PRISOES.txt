@@ -1,0 +1,125 @@
+✅ ANÁLISE CRUZADA CVLI × PRISÕES — CONCLUÍDA COM SUCESSO
+═══════════════════════════════════════════════════════════════════════
+
+📊 SUMÁRIO EXECUTIVO
+
+Data de Execução: 22 de janeiro de 2026
+Base de Dados: 12.339 CVLI + 9.060 Operações Policiais (Prisões)
+Período Coberto: 2025-2026 (conforme disponibilidade)
+Cidades Analisadas: 127+ municípios do Ceará
+
+───────────────────────────────────────────────────────────────────────
+
+🔑 PRINCIPAIS ACHADOS
+
+1️⃣ CORRELAÇÕES CVLI ↔ PRISÕES
+   ✅ 2 cidades com MUITO ALTA efetividade (correlação ≤ -0.5)
+      • MORRINHOS: -0.591 (23 prisões → 12 CVLI)
+      • OROS: -0.577 (6 prisões → 5 CVLI)
+   
+   🟡 10 cidades com ALTA efetividade (-0.5 a -0.2)
+      • FORTIM, INDEPENDÊNCIA, PARAMBU, SENADOR POMPEU
+      • BELA CRUZ, ICÓ, VARJOTA, GENERAL SAMPAIO
+      • GRANJA, MASSAPÉ
+   
+   ⚪ 62 cidades NEUTRAS (sem padrão claro)
+   
+   🔴 8 cidades com BAIXA efetividade (correlação ≥ 0.5)
+      • JARDIM: +0.972 (⚠️ ALERTA MÁXIMO - operações não reduzem crimes!)
+      • IPUEIRAS: +0.663
+      • JAGUARUANA, PORANGA, TAMBORIL, MARCO, OCARA, REDENCAO
+
+2️⃣ PADRÕES DE DIVERGÊNCIA FORTE
+   Total detectado: 154 padrões
+   • Aumento de prisões mas CVLI também ↑: 116 casos
+   • Aumento de prisões e CVLI ↓: 94 casos (sucesso)
+   
+   Maior diferença percentual:
+   • JIJOCA DE JERICOACOARA (Mês 5→6): +600% CVLI vs -33% Prisões
+   • MONSENHOR TABOSA (Mês 1→2): +500% CVLI vs -33% Prisões
+   • CEDRO (Mês 6→7): +400% CVLI vs -50% Prisões
+
+3️⃣ PADRÕES DE IMPACTO POSITIVO
+   Total: 94 operações com resultado observável
+   
+   Melhores exemplos:
+   • PACATUBA (Mês 7→8): +3 prisões → -14.3% CVLI
+   • MARACANAU (Mês 2→3): +4 prisões → -15% CVLI
+   • CASCAVEL (Mês 5→6): +2 prisões → -20% CVLI
+   • AQUIRAZ (Mês 10→11): +2 prisões → -25% CVLI
+   • SOBRAL (Mês 4→5): +3 prisões → -25% CVLI
+   • SÃO GONÇALO DO AMARANTE (Mês 10→11): +11 prisões → -25% CVLI
+
+4️⃣ CIDADES ALERTA (Investigar Urgentemente)
+   🚨 JARDIM: Correlação +0.972 (PIOR DO ESTADO)
+      → 26 prisões registradas
+      → Apenas 7 CVLI (correlação quase perfeita POSITIVA)
+      → Significa: Aumentar prisões está associado a MAIS homicídios!
+      → Possível causa: Retalho, reorganização de facções, falta de inteligência
+
+   🚨 IPUEIRAS: Correlação +0.663
+      → 27 prisões vs 6 CVLI
+      → Mesma tendência: operações não reduzem crimes
+
+───────────────────────────────────────────────────────────────────────
+
+📁 ARQUIVOS GERADOS (em outputs/docs/)
+
+DOCUMENTAÇÃO MARKDOWN
+├─ INDEX_ANALISE_CRUZADA_CVLI_PRISOES.md ⭐ COMECE AQUI!
+├─ ANALISE_IMPACTO_PRISOES_AVANCADA.md (ANÁLISE DETALHADA)
+├─ ANALISE_CVLI_PRISOES_CRUZADO.md (CORRELAÇÕES E DIVERGÊNCIAS)
+├─ RESUMO_ANALISE_SAZONALIDADE_CVLI.md (CONTEXTO HISTÓRICO)
+├─ INDEX.md (ÍNDICE GERAL)
+└─ 00_CHECKLIST_CONCLUSAO.txt
+
+DADOS TABULARES (CSV)
+├─ efetividade_prisoes_por_cidade.csv (127 cidades, efetividade)
+├─ impacto_prisoes_padroes.csv (210 padrões de impacto)
+├─ cvli_prisoes_correlacao_por_cidade.csv (correlações detalhadas)
+├─ cvli_prisoes_divergencias_forte.csv (154 divergências)
+└─ cvli_bairros_volume_analysis_min10.csv (consistência sazonal)
+
+───────────────────────────────────────────────────────────────────────
+
+🎯 RECOMENDAÇÕES IMEDIATAS
+
+✅ CURTO PRAZO (Esta semana)
+   1. Reunião urgente para JARDIM e IPUEIRAS (investigar retalho/reorganização)
+   2. Replicar modelo de MORRINHOS e OROS em 3 outras cidades
+   3. Preparar briefing para comando com cidades top-10 por efetividade
+
+🔄 MÉDIO PRAZO (Este mês)
+   1. Integrar dados de operações com ST-GCN como feature exógena
+   2. Criar "playbook operacional" baseado em MORRINHOS/OROS/FORTIM
+   3. Treinar equipes de cidades NEUTRAS para melhorar efetividade
+
+🚀 LONGO PRAZO (Próximos 3 meses)
+   1. Construir modelo preditivo: operações→CVLI com lag de 1-2 meses
+   2. Implementar feedback loop: predição → recomendação → operação → resultado
+   3. Integração com inteligência (drogas, fações) para contexto de divergências
+
+───────────────────────────────────────────────────────────────────────
+
+📞 PRÓXIMO CHECKPOINT
+
+[❌ NÃO INICIADO] Retomar PHASE-4 ST-GCN Training (sua solicitação inicial)
+   → Usar dados de sazonalidade como input
+   → Usar operações históricas como feature exógena
+   → Validar modelo contra resultados reais de prisões
+
+───────────────────────────────────────────────────────────────────────
+
+⚡ SCRIPTS EXECUTADOS
+✓ scripts/30_cruzar_cvli_prisoes.py
+✓ scripts/31_analise_impacto_prisoes_avancada.py
+
+Correlações: 4.604 registros cruzados
+Padrões detectados: 364 (210 impacto + 154 divergência)
+Cidades analisadas: 127
+
+───────────────────────────────────────────────────────────────────────
+
+Status: ✅ ANÁLISE CONCLUÍDA COM SUCESSO
+Próxima Fase: RETOMAR ST-GCN TRAINING (Phase-4)
+
