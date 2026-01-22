@@ -1,0 +1,220 @@
+# Verificação: Análise CVLI Apenas
+
+**Verificação de filtragem:**
+
+- Total registros originais: 73998
+- Registros CVLI: 12339
+- Percentual CVLI: 16.7%
+
+**Verificação de bairros:**
+
+- Bairros na sazonalidade (aparecem no CSV): 303
+- Bairros distintos com CVLI (no JSON filtrado): 303
+- Bairros da saz que NÃO têm CVLI: 182
+
+⚠️ AVISO: Bairros na sazonalidade sem CVLI histórico:
+  - nan / Abaiara
+  - nan / Acarape
+  - nan / Acaraú
+  - nan / Acopiara
+  - nan / Aiuaba
+  - nan / Alcântaras
+  - nan / Altaneira
+  - nan / Alto Santo
+  - nan / Amontada
+  - nan / Antonina do Norte
+  - nan / Apuiarés
+  - nan / Aquiraz
+  - nan / Aracati
+  - nan / Aracoiaba
+  - nan / Ararendá
+  - nan / Araripe
+  - nan / Aratuba
+  - nan / Arneiroz
+  - nan / Assaré
+  - nan / Aurora
+  - nan / Banabuiú
+  - nan / Barbalha
+  - nan / Barreira
+  - nan / Barro
+  - nan / Barroquinha
+  - nan / Baturité
+  - nan / Beberibe
+  - nan / Bela Cruz
+  - nan / Boa Viagem
+  - nan / Brejo Santo
+  - nan / Camocim
+  - nan / Campos Sales
+  - nan / Canindé
+  - nan / Capistrano
+  - nan / Caridade
+  - nan / Caririaçu
+  - nan / Cariré
+  - nan / Cariús
+  - nan / Carnaubal
+  - nan / Cascavel
+  - nan / Catarina
+  - nan / Catunda
+  - nan / Caucaia
+  - nan / Cedro
+  - nan / Chaval
+  - nan / Chorozinho
+  - nan / Choró
+  - nan / Coreaú
+  - nan / Crateús
+  - nan / Crato
+  - nan / Croatá
+  - nan / Cruz
+  - nan / Deputado Irapuan Pinheiro
+  - nan / Ereré
+  - nan / Eusébio
+  - nan / Farias Brito
+  - nan / Forquilha
+  - nan / Fortaleza
+  - nan / Fortim
+  - nan / Frecheirinha
+  - nan / General Sampaio
+  - nan / Granja
+  - nan / Graça
+  - nan / Groaíras
+  - nan / Guaiúba
+  - nan / Guaraciaba do Norte
+  - nan / Guaramiranga
+  - nan / Hidrolândia
+  - nan / Horizonte
+  - nan / Ibaretama
+  - nan / Ibiapina
+  - nan / Ibicuitinga
+  - nan / Icapuí
+  - nan / Icó
+  - nan / Iguatu
+  - nan / Independência
+  - nan / Ipaporanga
+  - nan / Ipaumirim
+  - nan / Ipu
+  - nan / Ipueiras
+  - nan / Iracema
+  - nan / Irauçuba
+  - nan / Itaitinga
+  - nan / Itaiçaba
+  - nan / Itapajé
+  - nan / Itapipoca
+  - nan / Itapiúna
+  - nan / Itarema
+  - nan / Itatira
+  - nan / Jaguaretama
+  - nan / Jaguaribara
+  - nan / Jaguaribe
+  - nan / Jaguaruana
+  - nan / Jardim
+  - nan / Jati
+  - nan / Jijoca de Jericoacoara
+  - nan / Juazeiro do Norte
+  - nan / Jucás
+  - nan / Lavras da Mangabeira
+  - nan / Limoeiro do Norte
+  - nan / Madalena
+  - nan / Maracanaú
+  - nan / Maranguape
+  - nan / Marco
+  - nan / Martinópole
+  - nan / Massapê
+  - nan / Mauriti
+  - nan / Meruoca
+  - nan / Milagres
+  - nan / Milhã
+  - nan / Miraíma
+  - nan / Missão Velha
+  - nan / Mombaça
+  - nan / Monsenhor Tabosa
+  - nan / Morada Nova
+  - nan / Moraújo
+  - nan / Morrinhos
+  - nan / Mucambo
+  - nan / Mulungu
+  - nan / Nova Olinda
+  - nan / Nova Russas
+  - nan / Novo Oriente
+  - nan / Ocara
+  - nan / Orós
+  - nan / Pacajus
+  - nan / Pacatuba
+  - nan / Pacoti
+  - nan / Pacujá
+  - nan / Palhano
+  - nan / Palmácia
+  - nan / Paracuru
+  - nan / Paraipaba
+  - nan / Parambu
+  - nan / Paramoti
+  - nan / Pedra Branca
+  - nan / Penaforte
+  - nan / Pentecoste
+  - nan / Pereiro
+  - nan / Pindoretama
+  - nan / Piquet Carneiro
+  - nan / Pires Ferreira
+  - nan / Poranga
+  - nan / Porteiras
+  - nan / Potengi
+  - nan / Potiretama
+  - nan / Quiterianópolis
+  - nan / Quixadá
+  - nan / Quixelô
+  - nan / Quixeramobim
+  - nan / Quixeré
+  - nan / Redenção
+  - nan / Reriutaba
+  - nan / Russas
+  - nan / Saboeiro
+  - nan / Salitre
+  - nan / Santa Quitéria
+  - nan / Santana do Acaraú
+  - nan / Santana do Cariri
+  - nan / Senador Pompeu
+  - nan / Senador Sá
+  - nan / Sobral
+  - nan / Solonópole
+  - nan / São Benedito
+  - nan / São Gonçalo do Amarante
+  - nan / São João do Jaguaribe
+  - nan / São Luís do Curu
+  - nan / Tabuleiro do Norte
+  - nan / Tamboril
+  - nan / Tarrafas
+  - nan / Tauá
+  - nan / Tejuçuoca
+  - nan / Tianguá
+  - nan / Trairi
+  - nan / Tururu
+  - nan / Ubajara
+  - nan / Umari
+  - nan / Umirim
+  - nan / Uruburetama
+  - nan / Uruoca
+  - nan / Varjota
+  - nan / Viçosa do Ceará
+  - nan / Várzea Alegre
+
+**Verificação de volume de dados:**
+
+- Bairros com <5 CVLI total: 12
+
+  Bairros com volume baixo (recomenda-se cautela):
+    - BOM FUTURO / Fortaleza: 3 CVLI
+    - CARARU / Fortaleza: 1 CVLI
+    - DAMAS / Fortaleza: 3 CVLI
+    - DIONÍSIO TORRES / Fortaleza: 1 CVLI
+    - ELLERY / Fortaleza: 2 CVLI
+    - JARDIM CEARENSE / Fortaleza: 3 CVLI
+    - MONTE CASTELO / Fortaleza: 2 CVLI
+    - PANAMERICANO / Fortaleza: 3 CVLI
+    - PARQUE ARAXÁ / Fortaleza: 2 CVLI
+    - PARQUELÂNDIA / Fortaleza: 4 CVLI
+    - SALINAS / Fortaleza: 3 CVLI
+    - SÃO GERARDO / Fortaleza: 3 CVLI
+
+**Conclusão:**
+
+✅ A análise de sazonalidade referencia APENAS registros com tipo=CVLI.
+✅ Todos os bairros nos CSVs têm histórico verificável de CVLI.

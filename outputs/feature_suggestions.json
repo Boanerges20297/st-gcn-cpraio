@@ -1,0 +1,30 @@
+[
+  {
+    "variable": "police_patrol_hours",
+    "reason": "Control for policing intensity that affects both occurrences and arrests."
+  },
+  {
+    "variable": "response_time_minutes",
+    "reason": "Longer response may reduce arrests even if occurrences high."
+  },
+  {
+    "variable": "population_density",
+    "reason": "Normalize occurrence rates by population at risk."
+  },
+  {
+    "variable": "socioeconomic_index",
+    "reason": "Capture underlying drivers correlated with both crime and arrests."
+  },
+  {
+    "variable": "reporting_rate",
+    "reason": "Distinguish between true occurrence change and reporting artifacts."
+  },
+  {
+    "variable": "camera_coverage",
+    "reason": "Affects detection and arrest likelihood."
+  },
+  {
+    "variable": "time_of_day_bucket",
+    "reason": "Temporal granularity (night vs day) may modulate arrest probability."
+  }
+]

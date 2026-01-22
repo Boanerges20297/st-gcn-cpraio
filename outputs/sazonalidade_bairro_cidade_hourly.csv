@@ -1,0 +1,3963 @@
+cidade,bairro,hour,count
+Abaiara,,12,1
+Abaiara,,18,1
+Abaiara,,19,1
+Abaiara,,20,1
+Abaiara,,23,1
+Acarape,,2,1
+Acarape,,3,1
+Acarape,,6,1
+Acarape,,7,1
+Acarape,,8,3
+Acarape,,9,2
+Acarape,,15,1
+Acarape,,17,1
+Acarape,,18,1
+Acarape,,19,1
+Acarape,,20,1
+Acarape,,22,1
+Acarape,,23,2
+Acaraú,,1,4
+Acaraú,,4,2
+Acaraú,,6,2
+Acaraú,,7,2
+Acaraú,,9,4
+Acaraú,,10,5
+Acaraú,,11,1
+Acaraú,,12,2
+Acaraú,,13,1
+Acaraú,,14,3
+Acaraú,,15,3
+Acaraú,,16,1
+Acaraú,,17,2
+Acaraú,,18,1
+Acaraú,,19,3
+Acaraú,,20,5
+Acaraú,,21,2
+Acaraú,,22,1
+Acaraú,,23,2
+Acopiara,,0,4
+Acopiara,,1,3
+Acopiara,,2,1
+Acopiara,,3,2
+Acopiara,,4,1
+Acopiara,,5,1
+Acopiara,,6,2
+Acopiara,,7,4
+Acopiara,,8,2
+Acopiara,,9,1
+Acopiara,,11,1
+Acopiara,,12,1
+Acopiara,,13,1
+Acopiara,,14,1
+Acopiara,,15,2
+Acopiara,,19,5
+Acopiara,,20,1
+Acopiara,,21,3
+Acopiara,,22,4
+Acopiara,,23,2
+Aiuaba,,1,1
+Aiuaba,,2,1
+Aiuaba,,4,1
+Aiuaba,,16,1
+Aiuaba,,17,1
+Aiuaba,,22,1
+Alcântaras,,6,2
+Alcântaras,,18,1
+Altaneira,,2,1
+Altaneira,,13,1
+Altaneira,,15,2
+Altaneira,,17,1
+Altaneira,,21,1
+Altaneira,,22,2
+Alto Santo,,0,1
+Alto Santo,,1,3
+Alto Santo,,2,3
+Alto Santo,,3,1
+Alto Santo,,4,1
+Alto Santo,,5,3
+Alto Santo,,6,1
+Alto Santo,,10,1
+Alto Santo,,11,1
+Alto Santo,,12,2
+Alto Santo,,13,1
+Alto Santo,,15,3
+Alto Santo,,16,3
+Alto Santo,,18,1
+Alto Santo,,19,2
+Alto Santo,,20,3
+Alto Santo,,21,4
+Alto Santo,,22,1
+Alto Santo,,23,5
+Amontada,,0,3
+Amontada,,1,7
+Amontada,,2,4
+Amontada,,3,5
+Amontada,,4,4
+Amontada,,5,4
+Amontada,,6,3
+Amontada,,7,5
+Amontada,,8,1
+Amontada,,9,6
+Amontada,,10,5
+Amontada,,11,6
+Amontada,,12,1
+Amontada,,13,3
+Amontada,,14,5
+Amontada,,15,10
+Amontada,,16,4
+Amontada,,17,10
+Amontada,,18,11
+Amontada,,19,9
+Amontada,,20,9
+Amontada,,21,6
+Amontada,,22,8
+Amontada,,23,1
+Antonina do Norte,,4,1
+Antonina do Norte,,13,1
+Antonina do Norte,,17,1
+Antonina do Norte,,19,1
+Apuiarés,,0,1
+Apuiarés,,4,2
+Apuiarés,,5,1
+Apuiarés,,6,1
+Apuiarés,,7,3
+Apuiarés,,9,1
+Apuiarés,,10,1
+Apuiarés,,12,2
+Apuiarés,,13,1
+Apuiarés,,16,1
+Apuiarés,,17,1
+Apuiarés,,18,1
+Apuiarés,,19,1
+Apuiarés,,20,1
+Apuiarés,,21,1
+Apuiarés,,22,1
+Aquiraz,,0,4
+Aquiraz,,1,1
+Aquiraz,,2,7
+Aquiraz,,3,13
+Aquiraz,,4,5
+Aquiraz,,5,4
+Aquiraz,,6,6
+Aquiraz,,7,10
+Aquiraz,,8,7
+Aquiraz,,9,8
+Aquiraz,,10,3
+Aquiraz,,11,2
+Aquiraz,,12,4
+Aquiraz,,13,3
+Aquiraz,,14,6
+Aquiraz,,15,9
+Aquiraz,,16,8
+Aquiraz,,17,9
+Aquiraz,,18,8
+Aquiraz,,19,15
+Aquiraz,,20,4
+Aquiraz,,21,10
+Aquiraz,,22,6
+Aquiraz,,23,6
+Aracati,,1,8
+Aracati,,3,3
+Aracati,,5,3
+Aracati,,6,4
+Aracati,,7,4
+Aracati,,8,5
+Aracati,,9,2
+Aracati,,10,5
+Aracati,,11,5
+Aracati,,12,3
+Aracati,,13,3
+Aracati,,14,2
+Aracati,,15,5
+Aracati,,16,6
+Aracati,,17,3
+Aracati,,18,3
+Aracati,,19,6
+Aracati,,20,1
+Aracati,,21,6
+Aracati,,22,9
+Aracati,,23,4
+Aracoiaba,,0,2
+Aracoiaba,,1,4
+Aracoiaba,,2,3
+Aracoiaba,,3,3
+Aracoiaba,,5,1
+Aracoiaba,,6,1
+Aracoiaba,,7,2
+Aracoiaba,,9,1
+Aracoiaba,,10,1
+Aracoiaba,,11,1
+Aracoiaba,,12,2
+Aracoiaba,,13,1
+Aracoiaba,,14,2
+Aracoiaba,,15,1
+Aracoiaba,,17,1
+Aracoiaba,,18,2
+Aracoiaba,,19,1
+Aracoiaba,,20,4
+Aracoiaba,,21,2
+Aracoiaba,,22,3
+Aracoiaba,,23,1
+Ararendá,,1,1
+Ararendá,,4,1
+Ararendá,,9,1
+Ararendá,,16,1
+Ararendá,,21,1
+Araripe,,3,1
+Araripe,,6,1
+Araripe,,7,2
+Araripe,,10,1
+Araripe,,17,1
+Araripe,,20,1
+Araripe,,22,1
+Aratuba,,0,1
+Aratuba,,1,1
+Aratuba,,2,1
+Aratuba,,3,1
+Aratuba,,4,1
+Aratuba,,5,1
+Aratuba,,6,2
+Aratuba,,7,3
+Aratuba,,8,2
+Aratuba,,10,1
+Aratuba,,12,2
+Aratuba,,13,1
+Aratuba,,14,1
+Aratuba,,16,1
+Aratuba,,18,1
+Aratuba,,19,2
+Aratuba,,20,6
+Aratuba,,21,4
+Aratuba,,22,2
+Aratuba,,23,1
+Arneiroz,,4,1
+Arneiroz,,12,1
+Assaré,,1,2
+Assaré,,2,1
+Assaré,,4,2
+Assaré,,6,1
+Assaré,,7,1
+Assaré,,11,1
+Assaré,,13,1
+Assaré,,15,1
+Assaré,,16,2
+Assaré,,17,3
+Assaré,,19,3
+Assaré,,20,1
+Assaré,,21,3
+Assaré,,22,1
+Assaré,,23,1
+Aurora,,1,1
+Aurora,,2,1
+Aurora,,6,1
+Aurora,,7,2
+Aurora,,17,1
+Aurora,,20,1
+Aurora,,21,1
+Banabuiú,,1,2
+Banabuiú,,4,3
+Banabuiú,,5,1
+Banabuiú,,6,1
+Banabuiú,,7,1
+Banabuiú,,10,3
+Banabuiú,,11,2
+Banabuiú,,13,1
+Banabuiú,,15,1
+Banabuiú,,16,2
+Banabuiú,,17,1
+Banabuiú,,19,1
+Banabuiú,,20,2
+Banabuiú,,21,2
+Banabuiú,,22,1
+Barbalha,,0,1
+Barbalha,,1,5
+Barbalha,,2,6
+Barbalha,,3,4
+Barbalha,,5,1
+Barbalha,,6,1
+Barbalha,,7,1
+Barbalha,,10,2
+Barbalha,,13,4
+Barbalha,,14,2
+Barbalha,,15,2
+Barbalha,,16,1
+Barbalha,,17,1
+Barbalha,,18,6
+Barbalha,,19,6
+Barbalha,,20,4
+Barbalha,,21,3
+Barbalha,,22,3
+Barbalha,,23,6
+Barreira,,4,1
+Barreira,,6,1
+Barreira,,8,2
+Barreira,,9,2
+Barreira,,10,1
+Barreira,,14,4
+Barreira,,15,1
+Barreira,,17,1
+Barreira,,19,3
+Barreira,,20,3
+Barreira,,22,1
+Barro,,1,1
+Barro,,8,1
+Barro,,11,2
+Barro,,13,1
+Barro,,17,1
+Barro,,20,1
+Barro,,22,1
+Barro,,23,1
+Barroquinha,,0,1
+Barroquinha,,1,4
+Barroquinha,,6,1
+Barroquinha,,7,1
+Barroquinha,,8,1
+Barroquinha,,11,1
+Barroquinha,,12,1
+Barroquinha,,14,2
+Barroquinha,,18,2
+Barroquinha,,20,1
+Barroquinha,,22,1
+Barroquinha,,23,1
+Baturité,,1,1
+Baturité,,2,4
+Baturité,,3,7
+Baturité,,4,2
+Baturité,,6,3
+Baturité,,7,1
+Baturité,,8,2
+Baturité,,9,2
+Baturité,,10,3
+Baturité,,12,5
+Baturité,,14,1
+Baturité,,16,1
+Baturité,,17,1
+Baturité,,18,5
+Baturité,,19,4
+Baturité,,20,1
+Baturité,,21,7
+Baturité,,22,2
+Beberibe,,0,4
+Beberibe,,1,6
+Beberibe,,2,3
+Beberibe,,4,1
+Beberibe,,5,2
+Beberibe,,6,2
+Beberibe,,7,4
+Beberibe,,8,3
+Beberibe,,9,3
+Beberibe,,10,4
+Beberibe,,12,1
+Beberibe,,14,6
+Beberibe,,15,1
+Beberibe,,16,3
+Beberibe,,17,3
+Beberibe,,18,5
+Beberibe,,19,2
+Beberibe,,20,5
+Beberibe,,21,6
+Beberibe,,22,4
+Beberibe,,23,2
+Bela Cruz,,0,1
+Bela Cruz,,3,1
+Bela Cruz,,6,1
+Bela Cruz,,7,1
+Bela Cruz,,8,3
+Bela Cruz,,12,2
+Bela Cruz,,14,2
+Bela Cruz,,15,1
+Bela Cruz,,16,2
+Bela Cruz,,17,1
+Bela Cruz,,18,1
+Bela Cruz,,21,1
+Bela Cruz,,23,3
+Boa Viagem,,0,7
+Boa Viagem,,1,1
+Boa Viagem,,2,5
+Boa Viagem,,3,6
+Boa Viagem,,4,1
+Boa Viagem,,5,1
+Boa Viagem,,6,7
+Boa Viagem,,7,3
+Boa Viagem,,8,3
+Boa Viagem,,9,4
+Boa Viagem,,10,5
+Boa Viagem,,11,3
+Boa Viagem,,12,3
+Boa Viagem,,13,6
+Boa Viagem,,14,1
+Boa Viagem,,15,2
+Boa Viagem,,16,1
+Boa Viagem,,17,7
+Boa Viagem,,18,4
+Boa Viagem,,19,7
+Boa Viagem,,20,8
+Boa Viagem,,21,8
+Boa Viagem,,22,6
+Boa Viagem,,23,10
+Brejo Santo,,0,2
+Brejo Santo,,1,1
+Brejo Santo,,4,3
+Brejo Santo,,5,1
+Brejo Santo,,10,2
+Brejo Santo,,11,1
+Brejo Santo,,13,1
+Brejo Santo,,14,1
+Brejo Santo,,15,2
+Brejo Santo,,16,1
+Brejo Santo,,17,1
+Brejo Santo,,18,4
+Brejo Santo,,19,2
+Brejo Santo,,20,2
+Brejo Santo,,21,1
+Brejo Santo,,22,1
+Brejo Santo,,23,1
+Camocim,,0,5
+Camocim,,1,1
+Camocim,,2,4
+Camocim,,3,5
+Camocim,,4,7
+Camocim,,5,1
+Camocim,,6,2
+Camocim,,8,2
+Camocim,,9,5
+Camocim,,10,2
+Camocim,,11,2
+Camocim,,12,1
+Camocim,,13,6
+Camocim,,14,1
+Camocim,,15,3
+Camocim,,16,1
+Camocim,,17,2
+Camocim,,18,5
+Camocim,,19,8
+Camocim,,20,10
+Camocim,,21,3
+Camocim,,22,3
+Camocim,,23,1
+Campos Sales,,1,1
+Campos Sales,,4,1
+Campos Sales,,5,1
+Campos Sales,,6,3
+Campos Sales,,9,2
+Campos Sales,,11,1
+Campos Sales,,14,2
+Campos Sales,,15,1
+Campos Sales,,16,2
+Campos Sales,,17,2
+Campos Sales,,18,1
+Campos Sales,,19,1
+Campos Sales,,20,1
+Campos Sales,,21,1
+Campos Sales,,22,1
+Campos Sales,,23,4
+Canindé,,0,7
+Canindé,,1,5
+Canindé,,2,6
+Canindé,,3,7
+Canindé,,4,2
+Canindé,,5,1
+Canindé,,6,2
+Canindé,,7,4
+Canindé,,8,1
+Canindé,,9,1
+Canindé,,10,4
+Canindé,,11,4
+Canindé,,12,5
+Canindé,,13,3
+Canindé,,14,3
+Canindé,,16,3
+Canindé,,17,4
+Canindé,,18,4
+Canindé,,19,9
+Canindé,,20,11
+Canindé,,21,4
+Canindé,,22,5
+Canindé,,23,4
+Capistrano,,0,3
+Capistrano,,5,1
+Capistrano,,7,3
+Capistrano,,8,1
+Capistrano,,9,1
+Capistrano,,10,1
+Capistrano,,11,4
+Capistrano,,12,1
+Capistrano,,15,1
+Capistrano,,16,2
+Capistrano,,17,1
+Capistrano,,19,1
+Capistrano,,20,5
+Capistrano,,21,1
+Capistrano,,22,2
+Caridade,,0,2
+Caridade,,2,1
+Caridade,,3,1
+Caridade,,6,1
+Caridade,,7,2
+Caridade,,8,1
+Caridade,,9,1
+Caridade,,12,1
+Caridade,,15,1
+Caridade,,16,1
+Caridade,,17,2
+Caridade,,18,2
+Caridade,,19,5
+Caridade,,21,2
+Caridade,,22,1
+Caririaçu,,4,1
+Caririaçu,,5,1
+Caririaçu,,8,1
+Caririaçu,,12,1
+Caririaçu,,13,1
+Caririaçu,,17,1
+Caririaçu,,18,5
+Caririaçu,,19,1
+Caririaçu,,20,1
+Caririaçu,,23,1
+Cariré,,0,2
+Cariré,,1,2
+Cariré,,2,2
+Cariré,,3,2
+Cariré,,4,5
+Cariré,,5,2
+Cariré,,7,5
+Cariré,,8,1
+Cariré,,9,1
+Cariré,,12,2
+Cariré,,15,3
+Cariré,,16,4
+Cariré,,17,1
+Cariré,,18,1
+Cariré,,19,4
+Cariré,,20,7
+Cariré,,21,3
+Cariré,,22,1
+Cariús,,0,1
+Cariús,,3,1
+Cariús,,4,1
+Cariús,,7,1
+Cariús,,10,1
+Cariús,,16,1
+Cariús,,18,1
+Cariús,,19,1
+Cariús,,20,1
+Cariús,,21,1
+Cariús,,22,1
+Cariús,,23,1
+Carnaubal,,1,4
+Carnaubal,,2,1
+Carnaubal,,4,1
+Carnaubal,,6,1
+Carnaubal,,10,1
+Carnaubal,,13,1
+Carnaubal,,18,1
+Carnaubal,,20,2
+Carnaubal,,23,1
+Cascavel,,0,5
+Cascavel,,1,4
+Cascavel,,2,3
+Cascavel,,3,4
+Cascavel,,4,2
+Cascavel,,5,4
+Cascavel,,6,10
+Cascavel,,7,12
+Cascavel,,8,6
+Cascavel,,9,8
+Cascavel,,10,5
+Cascavel,,11,4
+Cascavel,,12,7
+Cascavel,,13,6
+Cascavel,,14,6
+Cascavel,,15,8
+Cascavel,,16,4
+Cascavel,,17,9
+Cascavel,,18,9
+Cascavel,,19,9
+Cascavel,,20,12
+Cascavel,,21,10
+Cascavel,,22,18
+Cascavel,,23,15
+Catarina,,3,1
+Catarina,,4,2
+Catarina,,6,2
+Catarina,,9,1
+Catarina,,15,1
+Catarina,,19,1
+Catunda,,11,1
+Catunda,,14,2
+Catunda,,17,1
+Catunda,,19,1
+Catunda,,22,1
+Caucaia,,0,22
+Caucaia,,1,46
+Caucaia,,2,35
+Caucaia,,3,24
+Caucaia,,4,21
+Caucaia,,5,19
+Caucaia,,6,30
+Caucaia,,7,40
+Caucaia,,8,29
+Caucaia,,9,30
+Caucaia,,10,28
+Caucaia,,11,32
+Caucaia,,12,34
+Caucaia,,13,49
+Caucaia,,14,33
+Caucaia,,15,38
+Caucaia,,16,57
+Caucaia,,17,41
+Caucaia,,18,54
+Caucaia,,19,69
+Caucaia,,20,50
+Caucaia,,21,63
+Caucaia,,22,40
+Caucaia,,23,34
+Cedro,,0,1
+Cedro,,1,3
+Cedro,,2,1
+Cedro,,3,1
+Cedro,,7,1
+Cedro,,12,1
+Cedro,,13,2
+Cedro,,14,5
+Cedro,,15,1
+Cedro,,16,2
+Cedro,,18,2
+Cedro,,19,4
+Cedro,,20,6
+Cedro,,21,2
+Cedro,,22,2
+Cedro,,23,1
+Chaval,,0,1
+Chaval,,1,1
+Chaval,,2,1
+Chaval,,3,1
+Chaval,,4,3
+Chaval,,8,1
+Chaval,,9,1
+Chaval,,13,2
+Chaval,,17,2
+Chaval,,19,5
+Chaval,,20,1
+Chaval,,22,2
+Chorozinho,,0,2
+Chorozinho,,5,1
+Chorozinho,,6,3
+Chorozinho,,7,4
+Chorozinho,,8,1
+Chorozinho,,10,2
+Chorozinho,,11,1
+Chorozinho,,12,2
+Chorozinho,,13,1
+Chorozinho,,15,1
+Chorozinho,,16,1
+Chorozinho,,17,1
+Chorozinho,,18,1
+Chorozinho,,19,1
+Chorozinho,,20,3
+Chorozinho,,21,6
+Chorozinho,,22,1
+Chorozinho,,23,1
+Choró,,0,1
+Choró,,4,1
+Choró,,5,1
+Choró,,8,1
+Choró,,9,1
+Choró,,11,1
+Choró,,12,1
+Choró,,14,1
+Choró,,16,4
+Choró,,18,1
+Choró,,19,6
+Choró,,21,2
+Choró,,22,5
+Coreaú,,1,1
+Coreaú,,3,3
+Coreaú,,4,1
+Coreaú,,7,3
+Coreaú,,8,1
+Coreaú,,9,1
+Coreaú,,10,2
+Coreaú,,15,1
+Coreaú,,17,1
+Coreaú,,18,1
+Coreaú,,19,5
+Coreaú,,20,1
+Coreaú,,21,3
+Coreaú,,22,1
+Crateús,,0,6
+Crateús,,1,4
+Crateús,,2,2
+Crateús,,3,5
+Crateús,,4,2
+Crateús,,5,2
+Crateús,,7,2
+Crateús,,8,3
+Crateús,,9,1
+Crateús,,10,3
+Crateús,,11,2
+Crateús,,13,1
+Crateús,,14,1
+Crateús,,15,3
+Crateús,,16,2
+Crateús,,17,3
+Crateús,,18,7
+Crateús,,19,5
+Crateús,,20,3
+Crateús,,21,5
+Crateús,,22,6
+Crateús,,23,3
+Crato,,0,6
+Crato,,1,11
+Crato,,2,11
+Crato,,3,10
+Crato,,4,7
+Crato,,5,5
+Crato,,6,2
+Crato,,7,4
+Crato,,8,4
+Crato,,9,3
+Crato,,10,4
+Crato,,11,7
+Crato,,12,4
+Crato,,13,4
+Crato,,14,5
+Crato,,15,8
+Crato,,16,10
+Crato,,17,3
+Crato,,18,6
+Crato,,19,11
+Crato,,20,10
+Crato,,21,7
+Crato,,22,9
+Crato,,23,13
+Croatá,,5,1
+Croatá,,6,1
+Croatá,,7,1
+Croatá,,14,2
+Croatá,,19,2
+Croatá,,21,2
+Cruz,,1,3
+Cruz,,2,2
+Cruz,,3,2
+Cruz,,4,2
+Cruz,,6,2
+Cruz,,7,1
+Cruz,,8,4
+Cruz,,9,1
+Cruz,,10,1
+Cruz,,13,1
+Cruz,,14,1
+Cruz,,16,1
+Cruz,,17,1
+Cruz,,18,2
+Cruz,,19,1
+Cruz,,20,2
+Cruz,,21,1
+Cruz,,22,2
+Cruz,,23,1
+Deputado Irapuan Pinheiro,,7,1
+Deputado Irapuan Pinheiro,,13,1
+Deputado Irapuan Pinheiro,,17,1
+Deputado Irapuan Pinheiro,,20,2
+Ereré,,10,1
+Eusébio,,0,1
+Eusébio,,1,2
+Eusébio,,2,2
+Eusébio,,3,5
+Eusébio,,4,2
+Eusébio,,5,1
+Eusébio,,6,7
+Eusébio,,7,4
+Eusébio,,8,1
+Eusébio,,9,2
+Eusébio,,10,1
+Eusébio,,11,2
+Eusébio,,12,4
+Eusébio,,13,5
+Eusébio,,14,1
+Eusébio,,15,4
+Eusébio,,16,1
+Eusébio,,17,4
+Eusébio,,18,4
+Eusébio,,19,3
+Eusébio,,20,3
+Eusébio,,21,7
+Eusébio,,22,2
+Eusébio,,23,4
+Farias Brito,,0,2
+Farias Brito,,4,1
+Farias Brito,,7,1
+Farias Brito,,15,1
+Farias Brito,,18,1
+Farias Brito,,19,4
+Farias Brito,,20,3
+Forquilha,,1,8
+Forquilha,,2,6
+Forquilha,,3,5
+Forquilha,,4,3
+Forquilha,,5,3
+Forquilha,,7,3
+Forquilha,,8,3
+Forquilha,,9,3
+Forquilha,,10,2
+Forquilha,,11,1
+Forquilha,,12,2
+Forquilha,,13,2
+Forquilha,,14,3
+Forquilha,,15,3
+Forquilha,,16,5
+Forquilha,,17,4
+Forquilha,,18,5
+Forquilha,,19,12
+Forquilha,,20,4
+Forquilha,,21,7
+Forquilha,,22,5
+Forquilha,,23,3
+Fortaleza,,11,2
+Fortaleza,,21,1
+Fortaleza,AEROLÂNDIA,1,2
+Fortaleza,AEROLÂNDIA,2,1
+Fortaleza,AEROLÂNDIA,3,1
+Fortaleza,AEROLÂNDIA,5,2
+Fortaleza,AEROLÂNDIA,7,1
+Fortaleza,AEROLÂNDIA,8,1
+Fortaleza,AEROLÂNDIA,10,1
+Fortaleza,AEROLÂNDIA,12,1
+Fortaleza,AEROLÂNDIA,15,1
+Fortaleza,AEROLÂNDIA,16,1
+Fortaleza,AEROLÂNDIA,18,2
+Fortaleza,AEROLÂNDIA,19,4
+Fortaleza,AEROLÂNDIA,21,2
+Fortaleza,AEROLÂNDIA,22,1
+Fortaleza,AEROPORTO,0,1
+Fortaleza,AEROPORTO,1,1
+Fortaleza,AEROPORTO,10,1
+Fortaleza,AEROPORTO,13,1
+Fortaleza,AEROPORTO,14,2
+Fortaleza,AEROPORTO,15,1
+Fortaleza,AEROPORTO,16,1
+Fortaleza,AEROPORTO,17,2
+Fortaleza,AEROPORTO,18,1
+Fortaleza,AEROPORTO,20,1
+Fortaleza,AEROPORTO,23,2
+Fortaleza,ALDEOTA,1,1
+Fortaleza,ALDEOTA,4,1
+Fortaleza,ALDEOTA,5,1
+Fortaleza,ALDEOTA,6,1
+Fortaleza,ALDEOTA,10,1
+Fortaleza,ALDEOTA,16,1
+Fortaleza,ALDEOTA,18,1
+Fortaleza,ALDEOTA,19,2
+Fortaleza,ALDEOTA,20,2
+Fortaleza,ALDEOTA,22,1
+Fortaleza,ALTO DA BALANÇA,1,1
+Fortaleza,ALTO DA BALANÇA,3,2
+Fortaleza,ALTO DA BALANÇA,11,1
+Fortaleza,ALTO DA BALANÇA,14,1
+Fortaleza,ALTO DA BALANÇA,17,4
+Fortaleza,ALTO DA BALANÇA,19,2
+Fortaleza,ALTO DA BALANÇA,20,3
+Fortaleza,AMADEU FURTADO,4,2
+Fortaleza,AMADEU FURTADO,12,1
+Fortaleza,AMADEU FURTADO,17,1
+Fortaleza,AMADEU FURTADO,19,1
+Fortaleza,AMADEU FURTADO,20,2
+Fortaleza,AMADEU FURTADO,23,1
+Fortaleza,ANCURI,1,1
+Fortaleza,ANCURI,7,2
+Fortaleza,ANCURI,10,2
+Fortaleza,ANCURI,13,2
+Fortaleza,ANCURI,14,1
+Fortaleza,ANCURI,15,1
+Fortaleza,ANCURI,16,1
+Fortaleza,ANCURI,19,1
+Fortaleza,ANCURI,20,1
+Fortaleza,ANCURI,22,1
+Fortaleza,ANTÔNIO BEZERRA,1,4
+Fortaleza,ANTÔNIO BEZERRA,7,2
+Fortaleza,ANTÔNIO BEZERRA,8,2
+Fortaleza,ANTÔNIO BEZERRA,9,1
+Fortaleza,ANTÔNIO BEZERRA,10,3
+Fortaleza,ANTÔNIO BEZERRA,12,2
+Fortaleza,ANTÔNIO BEZERRA,14,2
+Fortaleza,ANTÔNIO BEZERRA,15,3
+Fortaleza,ANTÔNIO BEZERRA,16,3
+Fortaleza,ANTÔNIO BEZERRA,17,3
+Fortaleza,ANTÔNIO BEZERRA,18,2
+Fortaleza,ANTÔNIO BEZERRA,19,2
+Fortaleza,ANTÔNIO BEZERRA,20,2
+Fortaleza,ANTÔNIO BEZERRA,21,2
+Fortaleza,ANTÔNIO BEZERRA,22,8
+Fortaleza,ANTÔNIO BEZERRA,23,1
+Fortaleza,ARACAPÉ,2,1
+Fortaleza,ARACAPÉ,3,2
+Fortaleza,ARACAPÉ,4,1
+Fortaleza,ARACAPÉ,9,1
+Fortaleza,ARACAPÉ,11,2
+Fortaleza,ARACAPÉ,12,2
+Fortaleza,ARACAPÉ,13,2
+Fortaleza,ARACAPÉ,14,1
+Fortaleza,ARACAPÉ,15,2
+Fortaleza,ARACAPÉ,16,1
+Fortaleza,ARACAPÉ,17,1
+Fortaleza,ARACAPÉ,19,1
+Fortaleza,ARACAPÉ,20,2
+Fortaleza,ARACAPÉ,21,1
+Fortaleza,ARACAPÉ,23,2
+Fortaleza,AUTRAN NUNES,0,1
+Fortaleza,AUTRAN NUNES,1,2
+Fortaleza,AUTRAN NUNES,7,1
+Fortaleza,AUTRAN NUNES,8,1
+Fortaleza,AUTRAN NUNES,13,1
+Fortaleza,AUTRAN NUNES,15,1
+Fortaleza,AUTRAN NUNES,16,1
+Fortaleza,AUTRAN NUNES,19,2
+Fortaleza,AUTRAN NUNES,21,1
+Fortaleza,BARRA DO CEARÁ,0,8
+Fortaleza,BARRA DO CEARÁ,1,3
+Fortaleza,BARRA DO CEARÁ,2,3
+Fortaleza,BARRA DO CEARÁ,3,2
+Fortaleza,BARRA DO CEARÁ,4,6
+Fortaleza,BARRA DO CEARÁ,5,2
+Fortaleza,BARRA DO CEARÁ,6,1
+Fortaleza,BARRA DO CEARÁ,7,2
+Fortaleza,BARRA DO CEARÁ,8,1
+Fortaleza,BARRA DO CEARÁ,9,3
+Fortaleza,BARRA DO CEARÁ,10,3
+Fortaleza,BARRA DO CEARÁ,11,3
+Fortaleza,BARRA DO CEARÁ,12,5
+Fortaleza,BARRA DO CEARÁ,13,10
+Fortaleza,BARRA DO CEARÁ,14,6
+Fortaleza,BARRA DO CEARÁ,15,5
+Fortaleza,BARRA DO CEARÁ,16,10
+Fortaleza,BARRA DO CEARÁ,17,6
+Fortaleza,BARRA DO CEARÁ,18,14
+Fortaleza,BARRA DO CEARÁ,19,9
+Fortaleza,BARRA DO CEARÁ,20,17
+Fortaleza,BARRA DO CEARÁ,21,9
+Fortaleza,BARRA DO CEARÁ,22,7
+Fortaleza,BARRA DO CEARÁ,23,5
+Fortaleza,BARROSO,1,5
+Fortaleza,BARROSO,4,3
+Fortaleza,BARROSO,5,6
+Fortaleza,BARROSO,6,3
+Fortaleza,BARROSO,8,2
+Fortaleza,BARROSO,9,1
+Fortaleza,BARROSO,10,4
+Fortaleza,BARROSO,11,2
+Fortaleza,BARROSO,12,5
+Fortaleza,BARROSO,13,3
+Fortaleza,BARROSO,14,1
+Fortaleza,BARROSO,15,2
+Fortaleza,BARROSO,16,3
+Fortaleza,BARROSO,17,4
+Fortaleza,BARROSO,18,5
+Fortaleza,BARROSO,19,4
+Fortaleza,BARROSO,20,4
+Fortaleza,BARROSO,21,7
+Fortaleza,BARROSO,22,3
+Fortaleza,BARROSO,23,2
+Fortaleza,BELA VISTA,1,1
+Fortaleza,BELA VISTA,7,1
+Fortaleza,BELA VISTA,11,1
+Fortaleza,BELA VISTA,13,1
+Fortaleza,BELA VISTA,14,1
+Fortaleza,BELA VISTA,16,2
+Fortaleza,BENFICA,0,1
+Fortaleza,BENFICA,6,1
+Fortaleza,BENFICA,11,1
+Fortaleza,BENFICA,16,2
+Fortaleza,BENFICA,19,1
+Fortaleza,BENFICA,23,1
+Fortaleza,BOA VISTA/CASTELÃO,0,1
+Fortaleza,BOA VISTA/CASTELÃO,4,1
+Fortaleza,BOA VISTA/CASTELÃO,6,1
+Fortaleza,BOA VISTA/CASTELÃO,7,1
+Fortaleza,BOA VISTA/CASTELÃO,9,2
+Fortaleza,BOA VISTA/CASTELÃO,11,1
+Fortaleza,BOA VISTA/CASTELÃO,13,3
+Fortaleza,BOA VISTA/CASTELÃO,14,2
+Fortaleza,BOA VISTA/CASTELÃO,16,3
+Fortaleza,BOA VISTA/CASTELÃO,17,2
+Fortaleza,BOA VISTA/CASTELÃO,18,1
+Fortaleza,BOA VISTA/CASTELÃO,19,3
+Fortaleza,BOA VISTA/CASTELÃO,20,4
+Fortaleza,BOA VISTA/CASTELÃO,21,1
+Fortaleza,BOA VISTA/CASTELÃO,22,2
+Fortaleza,BOA VISTA/CASTELÃO,23,3
+Fortaleza,BOM FUTURO,20,3
+Fortaleza,BOM JARDIM,1,1
+Fortaleza,BOM JARDIM,2,3
+Fortaleza,BOM JARDIM,3,1
+Fortaleza,BOM JARDIM,4,1
+Fortaleza,BOM JARDIM,5,5
+Fortaleza,BOM JARDIM,6,2
+Fortaleza,BOM JARDIM,7,1
+Fortaleza,BOM JARDIM,8,1
+Fortaleza,BOM JARDIM,11,2
+Fortaleza,BOM JARDIM,12,1
+Fortaleza,BOM JARDIM,14,1
+Fortaleza,BOM JARDIM,15,2
+Fortaleza,BOM JARDIM,16,11
+Fortaleza,BOM JARDIM,17,2
+Fortaleza,BOM JARDIM,18,3
+Fortaleza,BOM JARDIM,19,6
+Fortaleza,BOM JARDIM,20,1
+Fortaleza,BOM JARDIM,21,2
+Fortaleza,BOM JARDIM,22,8
+Fortaleza,BONSUCESSO,1,3
+Fortaleza,BONSUCESSO,2,3
+Fortaleza,BONSUCESSO,3,1
+Fortaleza,BONSUCESSO,5,3
+Fortaleza,BONSUCESSO,6,3
+Fortaleza,BONSUCESSO,9,2
+Fortaleza,BONSUCESSO,10,1
+Fortaleza,BONSUCESSO,11,1
+Fortaleza,BONSUCESSO,12,2
+Fortaleza,BONSUCESSO,13,1
+Fortaleza,BONSUCESSO,14,2
+Fortaleza,BONSUCESSO,15,4
+Fortaleza,BONSUCESSO,16,2
+Fortaleza,BONSUCESSO,17,1
+Fortaleza,BONSUCESSO,18,2
+Fortaleza,BONSUCESSO,19,5
+Fortaleza,BONSUCESSO,20,5
+Fortaleza,BONSUCESSO,21,2
+Fortaleza,BONSUCESSO,22,2
+Fortaleza,BONSUCESSO,23,1
+Fortaleza,CAIS DO PORTO,1,1
+Fortaleza,CAIS DO PORTO,2,1
+Fortaleza,CAIS DO PORTO,5,2
+Fortaleza,CAIS DO PORTO,6,1
+Fortaleza,CAIS DO PORTO,7,2
+Fortaleza,CAIS DO PORTO,8,1
+Fortaleza,CAIS DO PORTO,11,1
+Fortaleza,CAIS DO PORTO,16,1
+Fortaleza,CAIS DO PORTO,17,3
+Fortaleza,CAIS DO PORTO,19,6
+Fortaleza,CAIS DO PORTO,21,1
+Fortaleza,CAIS DO PORTO,22,2
+Fortaleza,CAIS DO PORTO,23,1
+Fortaleza,CAJAZEIRAS,0,1
+Fortaleza,CAJAZEIRAS,3,1
+Fortaleza,CAJAZEIRAS,4,3
+Fortaleza,CAJAZEIRAS,5,1
+Fortaleza,CAJAZEIRAS,6,2
+Fortaleza,CAJAZEIRAS,7,2
+Fortaleza,CAJAZEIRAS,9,2
+Fortaleza,CAJAZEIRAS,10,2
+Fortaleza,CAJAZEIRAS,11,1
+Fortaleza,CAJAZEIRAS,13,2
+Fortaleza,CAJAZEIRAS,15,2
+Fortaleza,CAJAZEIRAS,17,3
+Fortaleza,CAJAZEIRAS,18,3
+Fortaleza,CAJAZEIRAS,19,1
+Fortaleza,CAJAZEIRAS,20,2
+Fortaleza,CAJAZEIRAS,21,2
+Fortaleza,CAJAZEIRAS,22,2
+Fortaleza,CAJAZEIRAS,23,3
+Fortaleza,CAMBEBA,1,1
+Fortaleza,CAMBEBA,8,1
+Fortaleza,CAMBEBA,12,1
+Fortaleza,CAMBEBA,13,1
+Fortaleza,CAMBEBA,14,1
+Fortaleza,CAMBEBA,19,1
+Fortaleza,CAMBEBA,20,1
+Fortaleza,CAMBEBA,22,1
+Fortaleza,CANINDEZINHO,0,2
+Fortaleza,CANINDEZINHO,1,2
+Fortaleza,CANINDEZINHO,2,2
+Fortaleza,CANINDEZINHO,3,1
+Fortaleza,CANINDEZINHO,4,1
+Fortaleza,CANINDEZINHO,5,1
+Fortaleza,CANINDEZINHO,6,2
+Fortaleza,CANINDEZINHO,7,5
+Fortaleza,CANINDEZINHO,10,2
+Fortaleza,CANINDEZINHO,11,1
+Fortaleza,CANINDEZINHO,12,3
+Fortaleza,CANINDEZINHO,13,2
+Fortaleza,CANINDEZINHO,14,2
+Fortaleza,CANINDEZINHO,15,2
+Fortaleza,CANINDEZINHO,16,3
+Fortaleza,CANINDEZINHO,17,2
+Fortaleza,CANINDEZINHO,18,2
+Fortaleza,CANINDEZINHO,19,2
+Fortaleza,CANINDEZINHO,20,2
+Fortaleza,CANINDEZINHO,21,1
+Fortaleza,CANINDEZINHO,22,2
+Fortaleza,CANINDEZINHO,23,3
+Fortaleza,CARARU,18,1
+Fortaleza,CARLITO PAMPLONA,0,2
+Fortaleza,CARLITO PAMPLONA,1,4
+Fortaleza,CARLITO PAMPLONA,2,1
+Fortaleza,CARLITO PAMPLONA,4,1
+Fortaleza,CARLITO PAMPLONA,5,1
+Fortaleza,CARLITO PAMPLONA,7,2
+Fortaleza,CARLITO PAMPLONA,8,1
+Fortaleza,CARLITO PAMPLONA,10,2
+Fortaleza,CARLITO PAMPLONA,11,2
+Fortaleza,CARLITO PAMPLONA,13,1
+Fortaleza,CARLITO PAMPLONA,14,1
+Fortaleza,CARLITO PAMPLONA,15,1
+Fortaleza,CARLITO PAMPLONA,16,7
+Fortaleza,CARLITO PAMPLONA,17,2
+Fortaleza,CARLITO PAMPLONA,18,2
+Fortaleza,CARLITO PAMPLONA,19,9
+Fortaleza,CARLITO PAMPLONA,20,6
+Fortaleza,CARLITO PAMPLONA,21,1
+Fortaleza,CARLITO PAMPLONA,22,1
+Fortaleza,CARLITO PAMPLONA,23,3
+Fortaleza,CENTRO,0,2
+Fortaleza,CENTRO,1,1
+Fortaleza,CENTRO,3,2
+Fortaleza,CENTRO,4,2
+Fortaleza,CENTRO,5,2
+Fortaleza,CENTRO,6,1
+Fortaleza,CENTRO,8,1
+Fortaleza,CENTRO,9,1
+Fortaleza,CENTRO,11,2
+Fortaleza,CENTRO,12,1
+Fortaleza,CENTRO,13,2
+Fortaleza,CENTRO,14,1
+Fortaleza,CENTRO,15,2
+Fortaleza,CENTRO,16,2
+Fortaleza,CENTRO,17,2
+Fortaleza,CENTRO,19,2
+Fortaleza,CENTRO,21,2
+Fortaleza,CENTRO,22,4
+Fortaleza,CENTRO,23,5
+Fortaleza,CIDADE 2000,10,1
+Fortaleza,CIDADE 2000,16,1
+Fortaleza,CIDADE 2000,19,2
+Fortaleza,CIDADE 2000,23,1
+Fortaleza,CIDADE DOS FUNCIONÁRIOS,0,1
+Fortaleza,CIDADE DOS FUNCIONÁRIOS,1,1
+Fortaleza,CIDADE DOS FUNCIONÁRIOS,2,1
+Fortaleza,CIDADE DOS FUNCIONÁRIOS,4,2
+Fortaleza,CIDADE DOS FUNCIONÁRIOS,5,1
+Fortaleza,CIDADE DOS FUNCIONÁRIOS,8,1
+Fortaleza,CIDADE DOS FUNCIONÁRIOS,9,2
+Fortaleza,CIDADE DOS FUNCIONÁRIOS,10,2
+Fortaleza,CIDADE DOS FUNCIONÁRIOS,11,1
+Fortaleza,CIDADE DOS FUNCIONÁRIOS,14,1
+Fortaleza,CIDADE DOS FUNCIONÁRIOS,15,1
+Fortaleza,CIDADE DOS FUNCIONÁRIOS,16,3
+Fortaleza,CIDADE DOS FUNCIONÁRIOS,18,1
+Fortaleza,CIDADE DOS FUNCIONÁRIOS,19,2
+Fortaleza,CIDADE DOS FUNCIONÁRIOS,21,3
+Fortaleza,CIDADE DOS FUNCIONÁRIOS,22,2
+Fortaleza,COAÇU,3,1
+Fortaleza,COAÇU,10,1
+Fortaleza,COAÇU,15,1
+Fortaleza,COAÇU,16,2
+Fortaleza,COAÇU,17,1
+Fortaleza,COAÇU,19,4
+Fortaleza,COAÇU,21,2
+Fortaleza,COAÇU,23,1
+Fortaleza,COCÓ,6,1
+Fortaleza,COCÓ,7,1
+Fortaleza,COCÓ,11,1
+Fortaleza,COCÓ,13,2
+Fortaleza,CONJUNTO CEARÁ I,0,1
+Fortaleza,CONJUNTO CEARÁ I,2,1
+Fortaleza,CONJUNTO CEARÁ I,3,1
+Fortaleza,CONJUNTO CEARÁ I,4,2
+Fortaleza,CONJUNTO CEARÁ I,5,1
+Fortaleza,CONJUNTO CEARÁ I,16,1
+Fortaleza,CONJUNTO CEARÁ I,17,1
+Fortaleza,CONJUNTO CEARÁ I,18,2
+Fortaleza,CONJUNTO CEARÁ I,19,1
+Fortaleza,CONJUNTO CEARÁ II,1,2
+Fortaleza,CONJUNTO CEARÁ II,5,1
+Fortaleza,CONJUNTO CEARÁ II,6,1
+Fortaleza,CONJUNTO CEARÁ II,8,1
+Fortaleza,CONJUNTO CEARÁ II,11,1
+Fortaleza,CONJUNTO CEARÁ II,14,1
+Fortaleza,CONJUNTO CEARÁ II,16,1
+Fortaleza,CONJUNTO CEARÁ II,17,1
+Fortaleza,CONJUNTO CEARÁ II,20,1
+Fortaleza,CONJUNTO CEARÁ II,21,2
+Fortaleza,CONJUNTO CEARÁ II,22,1
+Fortaleza,CONJUNTO ESPERANÇA,2,1
+Fortaleza,CONJUNTO ESPERANÇA,3,1
+Fortaleza,CONJUNTO ESPERANÇA,6,2
+Fortaleza,CONJUNTO ESPERANÇA,9,1
+Fortaleza,CONJUNTO ESPERANÇA,12,1
+Fortaleza,CONJUNTO ESPERANÇA,13,1
+Fortaleza,CONJUNTO ESPERANÇA,15,1
+Fortaleza,CONJUNTO ESPERANÇA,16,1
+Fortaleza,CONJUNTO ESPERANÇA,17,1
+Fortaleza,CONJUNTO ESPERANÇA,21,2
+Fortaleza,CONJUNTO ESPERANÇA,23,1
+Fortaleza,CONJUNTO PALMEIRAS,0,3
+Fortaleza,CONJUNTO PALMEIRAS,2,1
+Fortaleza,CONJUNTO PALMEIRAS,3,3
+Fortaleza,CONJUNTO PALMEIRAS,5,4
+Fortaleza,CONJUNTO PALMEIRAS,6,2
+Fortaleza,CONJUNTO PALMEIRAS,8,2
+Fortaleza,CONJUNTO PALMEIRAS,10,2
+Fortaleza,CONJUNTO PALMEIRAS,12,4
+Fortaleza,CONJUNTO PALMEIRAS,13,4
+Fortaleza,CONJUNTO PALMEIRAS,14,1
+Fortaleza,CONJUNTO PALMEIRAS,15,5
+Fortaleza,CONJUNTO PALMEIRAS,16,4
+Fortaleza,CONJUNTO PALMEIRAS,17,2
+Fortaleza,CONJUNTO PALMEIRAS,18,3
+Fortaleza,CONJUNTO PALMEIRAS,19,4
+Fortaleza,CONJUNTO PALMEIRAS,20,4
+Fortaleza,CONJUNTO PALMEIRAS,21,2
+Fortaleza,CONJUNTO PALMEIRAS,22,4
+Fortaleza,COUTO FERNANDES,0,1
+Fortaleza,COUTO FERNANDES,2,1
+Fortaleza,COUTO FERNANDES,7,1
+Fortaleza,COUTO FERNANDES,12,1
+Fortaleza,COUTO FERNANDES,19,1
+Fortaleza,COUTO FERNANDES,20,1
+Fortaleza,CRISTO REDENTOR,0,4
+Fortaleza,CRISTO REDENTOR,1,2
+Fortaleza,CRISTO REDENTOR,2,2
+Fortaleza,CRISTO REDENTOR,4,3
+Fortaleza,CRISTO REDENTOR,6,1
+Fortaleza,CRISTO REDENTOR,7,3
+Fortaleza,CRISTO REDENTOR,8,2
+Fortaleza,CRISTO REDENTOR,9,2
+Fortaleza,CRISTO REDENTOR,10,2
+Fortaleza,CRISTO REDENTOR,12,1
+Fortaleza,CRISTO REDENTOR,13,6
+Fortaleza,CRISTO REDENTOR,14,1
+Fortaleza,CRISTO REDENTOR,15,7
+Fortaleza,CRISTO REDENTOR,16,5
+Fortaleza,CRISTO REDENTOR,17,2
+Fortaleza,CRISTO REDENTOR,18,4
+Fortaleza,CRISTO REDENTOR,19,2
+Fortaleza,CRISTO REDENTOR,20,3
+Fortaleza,CRISTO REDENTOR,21,2
+Fortaleza,CRISTO REDENTOR,22,4
+Fortaleza,CRISTO REDENTOR,23,2
+Fortaleza,CURIÓ,0,3
+Fortaleza,CURIÓ,1,1
+Fortaleza,CURIÓ,4,1
+Fortaleza,CURIÓ,5,1
+Fortaleza,CURIÓ,6,1
+Fortaleza,CURIÓ,7,1
+Fortaleza,CURIÓ,8,1
+Fortaleza,CURIÓ,10,1
+Fortaleza,CURIÓ,12,1
+Fortaleza,CURIÓ,13,1
+Fortaleza,CURIÓ,15,1
+Fortaleza,CURIÓ,17,2
+Fortaleza,CURIÓ,18,2
+Fortaleza,CURIÓ,19,2
+Fortaleza,CURIÓ,20,1
+Fortaleza,CURIÓ,21,2
+Fortaleza,CURIÓ,22,2
+Fortaleza,DAMAS,8,2
+Fortaleza,DAMAS,18,1
+Fortaleza,DEMÓCRITO ROCHA,2,1
+Fortaleza,DEMÓCRITO ROCHA,5,1
+Fortaleza,DEMÓCRITO ROCHA,9,1
+Fortaleza,DEMÓCRITO ROCHA,11,1
+Fortaleza,DEMÓCRITO ROCHA,14,1
+Fortaleza,DEMÓCRITO ROCHA,17,2
+Fortaleza,DIAS MACÊDO,0,1
+Fortaleza,DIAS MACÊDO,6,1
+Fortaleza,DIAS MACÊDO,9,1
+Fortaleza,DIAS MACÊDO,12,1
+Fortaleza,DIAS MACÊDO,13,1
+Fortaleza,DIAS MACÊDO,16,1
+Fortaleza,DIAS MACÊDO,17,1
+Fortaleza,DIAS MACÊDO,18,1
+Fortaleza,DIAS MACÊDO,20,2
+Fortaleza,DIAS MACÊDO,21,2
+Fortaleza,DIONÍSIO TORRES,19,1
+Fortaleza,DOM LUSTOSA,0,2
+Fortaleza,DOM LUSTOSA,4,1
+Fortaleza,DOM LUSTOSA,5,1
+Fortaleza,DOM LUSTOSA,10,1
+Fortaleza,DOM LUSTOSA,12,1
+Fortaleza,DOM LUSTOSA,13,3
+Fortaleza,DOM LUSTOSA,17,1
+Fortaleza,DOM LUSTOSA,20,1
+Fortaleza,DOM LUSTOSA,22,1
+Fortaleza,DOM LUSTOSA,23,1
+Fortaleza,EDSON QUEIROZ,0,1
+Fortaleza,EDSON QUEIROZ,1,4
+Fortaleza,EDSON QUEIROZ,3,1
+Fortaleza,EDSON QUEIROZ,4,2
+Fortaleza,EDSON QUEIROZ,5,1
+Fortaleza,EDSON QUEIROZ,8,2
+Fortaleza,EDSON QUEIROZ,9,4
+Fortaleza,EDSON QUEIROZ,10,1
+Fortaleza,EDSON QUEIROZ,11,1
+Fortaleza,EDSON QUEIROZ,12,1
+Fortaleza,EDSON QUEIROZ,14,1
+Fortaleza,EDSON QUEIROZ,15,3
+Fortaleza,EDSON QUEIROZ,16,1
+Fortaleza,EDSON QUEIROZ,17,4
+Fortaleza,EDSON QUEIROZ,18,3
+Fortaleza,EDSON QUEIROZ,19,2
+Fortaleza,EDSON QUEIROZ,20,2
+Fortaleza,EDSON QUEIROZ,21,2
+Fortaleza,EDSON QUEIROZ,22,2
+Fortaleza,EDSON QUEIROZ,23,5
+Fortaleza,ELLERY,11,1
+Fortaleza,ELLERY,17,1
+Fortaleza,ENGENHEIRO LUCIANO CAVALCANTE,5,1
+Fortaleza,ENGENHEIRO LUCIANO CAVALCANTE,6,1
+Fortaleza,ENGENHEIRO LUCIANO CAVALCANTE,7,1
+Fortaleza,ENGENHEIRO LUCIANO CAVALCANTE,8,1
+Fortaleza,ENGENHEIRO LUCIANO CAVALCANTE,9,1
+Fortaleza,ENGENHEIRO LUCIANO CAVALCANTE,13,1
+Fortaleza,ENGENHEIRO LUCIANO CAVALCANTE,15,2
+Fortaleza,ENGENHEIRO LUCIANO CAVALCANTE,16,2
+Fortaleza,FARIAS BRITO,8,1
+Fortaleza,FARIAS BRITO,16,2
+Fortaleza,FARIAS BRITO,18,2
+Fortaleza,FARIAS BRITO,19,1
+Fortaleza,FARIAS BRITO,20,1
+Fortaleza,FARIAS BRITO,21,1
+Fortaleza,FARIAS BRITO,23,2
+Fortaleza,FLORESTA,0,1
+Fortaleza,FLORESTA,1,2
+Fortaleza,FLORESTA,3,1
+Fortaleza,FLORESTA,5,2
+Fortaleza,FLORESTA,6,1
+Fortaleza,FLORESTA,7,2
+Fortaleza,FLORESTA,8,2
+Fortaleza,FLORESTA,11,2
+Fortaleza,FLORESTA,12,2
+Fortaleza,FLORESTA,13,1
+Fortaleza,FLORESTA,15,1
+Fortaleza,FLORESTA,16,3
+Fortaleza,FLORESTA,17,2
+Fortaleza,FLORESTA,19,2
+Fortaleza,FLORESTA,20,1
+Fortaleza,FLORESTA,21,2
+Fortaleza,FÁTIMA,0,1
+Fortaleza,FÁTIMA,15,1
+Fortaleza,FÁTIMA,16,1
+Fortaleza,FÁTIMA,17,1
+Fortaleza,FÁTIMA,18,1
+Fortaleza,FÁTIMA,19,2
+Fortaleza,FÁTIMA,20,1
+Fortaleza,FÁTIMA,21,1
+Fortaleza,FÁTIMA,22,2
+Fortaleza,FÁTIMA,23,1
+Fortaleza,GENIBAÚ,0,1
+Fortaleza,GENIBAÚ,2,2
+Fortaleza,GENIBAÚ,3,2
+Fortaleza,GENIBAÚ,4,1
+Fortaleza,GENIBAÚ,5,1
+Fortaleza,GENIBAÚ,6,2
+Fortaleza,GENIBAÚ,10,2
+Fortaleza,GENIBAÚ,13,2
+Fortaleza,GENIBAÚ,14,1
+Fortaleza,GENIBAÚ,15,3
+Fortaleza,GENIBAÚ,16,2
+Fortaleza,GENIBAÚ,18,4
+Fortaleza,GENIBAÚ,19,1
+Fortaleza,GENIBAÚ,21,1
+Fortaleza,GENIBAÚ,22,2
+Fortaleza,GENIBAÚ,23,2
+Fortaleza,GRANJA LISBOA,1,5
+Fortaleza,GRANJA LISBOA,2,2
+Fortaleza,GRANJA LISBOA,4,6
+Fortaleza,GRANJA LISBOA,5,7
+Fortaleza,GRANJA LISBOA,6,6
+Fortaleza,GRANJA LISBOA,7,4
+Fortaleza,GRANJA LISBOA,8,1
+Fortaleza,GRANJA LISBOA,9,3
+Fortaleza,GRANJA LISBOA,10,3
+Fortaleza,GRANJA LISBOA,11,4
+Fortaleza,GRANJA LISBOA,12,5
+Fortaleza,GRANJA LISBOA,13,8
+Fortaleza,GRANJA LISBOA,14,2
+Fortaleza,GRANJA LISBOA,15,7
+Fortaleza,GRANJA LISBOA,16,7
+Fortaleza,GRANJA LISBOA,17,6
+Fortaleza,GRANJA LISBOA,18,5
+Fortaleza,GRANJA LISBOA,19,4
+Fortaleza,GRANJA LISBOA,20,3
+Fortaleza,GRANJA LISBOA,21,10
+Fortaleza,GRANJA LISBOA,22,5
+Fortaleza,GRANJA LISBOA,23,5
+Fortaleza,GRANJA PORTUGAL,1,2
+Fortaleza,GRANJA PORTUGAL,2,3
+Fortaleza,GRANJA PORTUGAL,4,2
+Fortaleza,GRANJA PORTUGAL,5,2
+Fortaleza,GRANJA PORTUGAL,6,2
+Fortaleza,GRANJA PORTUGAL,7,1
+Fortaleza,GRANJA PORTUGAL,9,1
+Fortaleza,GRANJA PORTUGAL,11,2
+Fortaleza,GRANJA PORTUGAL,12,2
+Fortaleza,GRANJA PORTUGAL,13,1
+Fortaleza,GRANJA PORTUGAL,14,4
+Fortaleza,GRANJA PORTUGAL,15,1
+Fortaleza,GRANJA PORTUGAL,16,6
+Fortaleza,GRANJA PORTUGAL,17,3
+Fortaleza,GRANJA PORTUGAL,18,4
+Fortaleza,GRANJA PORTUGAL,19,5
+Fortaleza,GRANJA PORTUGAL,20,2
+Fortaleza,GRANJA PORTUGAL,21,4
+Fortaleza,GRANJA PORTUGAL,22,4
+Fortaleza,GRANJA PORTUGAL,23,5
+Fortaleza,GUAJERU,0,1
+Fortaleza,GUAJERU,4,1
+Fortaleza,GUAJERU,5,1
+Fortaleza,GUAJERU,7,1
+Fortaleza,GUAJERU,9,1
+Fortaleza,GUAJERU,16,2
+Fortaleza,GUAJERU,17,2
+Fortaleza,GUAJERU,18,2
+Fortaleza,GUAJERU,19,5
+Fortaleza,GUAJERU,20,1
+Fortaleza,GUAJERU,22,1
+Fortaleza,HENRIQUE JORGE,0,1
+Fortaleza,HENRIQUE JORGE,3,1
+Fortaleza,HENRIQUE JORGE,4,1
+Fortaleza,HENRIQUE JORGE,5,1
+Fortaleza,HENRIQUE JORGE,6,1
+Fortaleza,HENRIQUE JORGE,8,1
+Fortaleza,HENRIQUE JORGE,10,2
+Fortaleza,HENRIQUE JORGE,13,1
+Fortaleza,HENRIQUE JORGE,14,1
+Fortaleza,HENRIQUE JORGE,15,1
+Fortaleza,HENRIQUE JORGE,18,2
+Fortaleza,HENRIQUE JORGE,20,4
+Fortaleza,HENRIQUE JORGE,22,2
+Fortaleza,ITAOCA,0,1
+Fortaleza,ITAOCA,12,1
+Fortaleza,ITAOCA,13,2
+Fortaleza,ITAOCA,15,1
+Fortaleza,ITAOCA,18,2
+Fortaleza,ITAOCA,22,1
+Fortaleza,ITAPERI,0,1
+Fortaleza,ITAPERI,5,1
+Fortaleza,ITAPERI,11,1
+Fortaleza,ITAPERI,15,1
+Fortaleza,ITAPERI,16,1
+Fortaleza,ITAPERI,18,1
+Fortaleza,ITAPERI,19,1
+Fortaleza,ITAPERI,21,3
+Fortaleza,JACARECANGA,2,1
+Fortaleza,JACARECANGA,3,1
+Fortaleza,JACARECANGA,6,5
+Fortaleza,JACARECANGA,7,1
+Fortaleza,JACARECANGA,8,2
+Fortaleza,JACARECANGA,9,1
+Fortaleza,JACARECANGA,10,1
+Fortaleza,JACARECANGA,11,1
+Fortaleza,JACARECANGA,12,1
+Fortaleza,JACARECANGA,13,3
+Fortaleza,JACARECANGA,14,2
+Fortaleza,JACARECANGA,15,1
+Fortaleza,JACARECANGA,16,2
+Fortaleza,JACARECANGA,18,1
+Fortaleza,JACARECANGA,19,3
+Fortaleza,JACARECANGA,21,1
+Fortaleza,JACARECANGA,23,2
+Fortaleza,JANGURUSSU,0,3
+Fortaleza,JANGURUSSU,1,8
+Fortaleza,JANGURUSSU,2,4
+Fortaleza,JANGURUSSU,3,5
+Fortaleza,JANGURUSSU,4,3
+Fortaleza,JANGURUSSU,5,3
+Fortaleza,JANGURUSSU,6,7
+Fortaleza,JANGURUSSU,7,1
+Fortaleza,JANGURUSSU,8,3
+Fortaleza,JANGURUSSU,9,2
+Fortaleza,JANGURUSSU,10,3
+Fortaleza,JANGURUSSU,11,2
+Fortaleza,JANGURUSSU,12,10
+Fortaleza,JANGURUSSU,13,7
+Fortaleza,JANGURUSSU,14,5
+Fortaleza,JANGURUSSU,15,6
+Fortaleza,JANGURUSSU,16,5
+Fortaleza,JANGURUSSU,17,7
+Fortaleza,JANGURUSSU,18,6
+Fortaleza,JANGURUSSU,19,15
+Fortaleza,JANGURUSSU,20,18
+Fortaleza,JANGURUSSU,21,16
+Fortaleza,JANGURUSSU,22,12
+Fortaleza,JANGURUSSU,23,5
+Fortaleza,JARDIM AMÉRICA,3,1
+Fortaleza,JARDIM AMÉRICA,6,1
+Fortaleza,JARDIM AMÉRICA,19,2
+Fortaleza,JARDIM AMÉRICA,21,3
+Fortaleza,JARDIM CEARENSE,11,1
+Fortaleza,JARDIM CEARENSE,17,1
+Fortaleza,JARDIM CEARENSE,19,1
+Fortaleza,JARDIM DAS OLIVEIRAS,1,4
+Fortaleza,JARDIM DAS OLIVEIRAS,4,2
+Fortaleza,JARDIM DAS OLIVEIRAS,5,1
+Fortaleza,JARDIM DAS OLIVEIRAS,6,1
+Fortaleza,JARDIM DAS OLIVEIRAS,9,2
+Fortaleza,JARDIM DAS OLIVEIRAS,10,1
+Fortaleza,JARDIM DAS OLIVEIRAS,11,3
+Fortaleza,JARDIM DAS OLIVEIRAS,12,2
+Fortaleza,JARDIM DAS OLIVEIRAS,13,2
+Fortaleza,JARDIM DAS OLIVEIRAS,16,5
+Fortaleza,JARDIM DAS OLIVEIRAS,17,2
+Fortaleza,JARDIM DAS OLIVEIRAS,18,2
+Fortaleza,JARDIM DAS OLIVEIRAS,19,4
+Fortaleza,JARDIM DAS OLIVEIRAS,20,6
+Fortaleza,JARDIM DAS OLIVEIRAS,21,4
+Fortaleza,JARDIM DAS OLIVEIRAS,22,6
+Fortaleza,JARDIM DAS OLIVEIRAS,23,3
+Fortaleza,JARDIM GUANABARA,2,1
+Fortaleza,JARDIM GUANABARA,11,1
+Fortaleza,JARDIM GUANABARA,12,1
+Fortaleza,JARDIM GUANABARA,13,1
+Fortaleza,JARDIM GUANABARA,14,2
+Fortaleza,JARDIM GUANABARA,15,1
+Fortaleza,JARDIM GUANABARA,20,1
+Fortaleza,JARDIM GUANABARA,22,1
+Fortaleza,JARDIM IRACEMA,0,2
+Fortaleza,JARDIM IRACEMA,3,1
+Fortaleza,JARDIM IRACEMA,6,2
+Fortaleza,JARDIM IRACEMA,10,1
+Fortaleza,JARDIM IRACEMA,11,1
+Fortaleza,JARDIM IRACEMA,12,1
+Fortaleza,JARDIM IRACEMA,13,2
+Fortaleza,JARDIM IRACEMA,16,1
+Fortaleza,JARDIM IRACEMA,18,2
+Fortaleza,JARDIM IRACEMA,19,2
+Fortaleza,JARDIM IRACEMA,20,2
+Fortaleza,JARDIM IRACEMA,21,2
+Fortaleza,JARDIM IRACEMA,23,1
+Fortaleza,JOAQUIM TÁVORA,0,1
+Fortaleza,JOAQUIM TÁVORA,5,1
+Fortaleza,JOAQUIM TÁVORA,10,1
+Fortaleza,JOAQUIM TÁVORA,12,1
+Fortaleza,JOAQUIM TÁVORA,17,2
+Fortaleza,JOAQUIM TÁVORA,18,1
+Fortaleza,JOAQUIM TÁVORA,22,3
+Fortaleza,JOSÉ BONIFÁCIO,9,1
+Fortaleza,JOSÉ BONIFÁCIO,11,1
+Fortaleza,JOSÉ BONIFÁCIO,13,3
+Fortaleza,JOSÉ BONIFÁCIO,16,1
+Fortaleza,JOSÉ BONIFÁCIO,17,2
+Fortaleza,JOSÉ BONIFÁCIO,19,1
+Fortaleza,JOSÉ BONIFÁCIO,22,1
+Fortaleza,JOSÉ BONIFÁCIO,23,1
+Fortaleza,JOSÉ DE ALENCAR,0,1
+Fortaleza,JOSÉ DE ALENCAR,1,2
+Fortaleza,JOSÉ DE ALENCAR,2,1
+Fortaleza,JOSÉ DE ALENCAR,3,1
+Fortaleza,JOSÉ DE ALENCAR,4,3
+Fortaleza,JOSÉ DE ALENCAR,5,1
+Fortaleza,JOSÉ DE ALENCAR,6,1
+Fortaleza,JOSÉ DE ALENCAR,7,1
+Fortaleza,JOSÉ DE ALENCAR,9,1
+Fortaleza,JOSÉ DE ALENCAR,10,2
+Fortaleza,JOSÉ DE ALENCAR,11,2
+Fortaleza,JOSÉ DE ALENCAR,12,2
+Fortaleza,JOSÉ DE ALENCAR,13,5
+Fortaleza,JOSÉ DE ALENCAR,14,5
+Fortaleza,JOSÉ DE ALENCAR,15,1
+Fortaleza,JOSÉ DE ALENCAR,16,2
+Fortaleza,JOSÉ DE ALENCAR,18,1
+Fortaleza,JOSÉ DE ALENCAR,19,2
+Fortaleza,JOSÉ DE ALENCAR,20,1
+Fortaleza,JOSÉ DE ALENCAR,21,1
+Fortaleza,JOSÉ DE ALENCAR,22,1
+Fortaleza,JOÃO XXIII,0,1
+Fortaleza,JOÃO XXIII,8,1
+Fortaleza,JOÃO XXIII,11,2
+Fortaleza,JOÃO XXIII,18,1
+Fortaleza,JOÃO XXIII,19,1
+Fortaleza,JOÃO XXIII,21,1
+Fortaleza,JOÃO XXIII,23,3
+Fortaleza,JÓQUEI CLUBE,7,3
+Fortaleza,JÓQUEI CLUBE,9,1
+Fortaleza,JÓQUEI CLUBE,10,1
+Fortaleza,JÓQUEI CLUBE,15,1
+Fortaleza,JÓQUEI CLUBE,20,3
+Fortaleza,JÓQUEI CLUBE,21,1
+Fortaleza,JÓQUEI CLUBE,22,1
+Fortaleza,JÓQUEI CLUBE,23,1
+Fortaleza,LAGOA REDONDA,1,3
+Fortaleza,LAGOA REDONDA,2,2
+Fortaleza,LAGOA REDONDA,4,3
+Fortaleza,LAGOA REDONDA,6,1
+Fortaleza,LAGOA REDONDA,7,1
+Fortaleza,LAGOA REDONDA,9,3
+Fortaleza,LAGOA REDONDA,10,1
+Fortaleza,LAGOA REDONDA,11,1
+Fortaleza,LAGOA REDONDA,12,7
+Fortaleza,LAGOA REDONDA,13,3
+Fortaleza,LAGOA REDONDA,14,2
+Fortaleza,LAGOA REDONDA,15,3
+Fortaleza,LAGOA REDONDA,16,2
+Fortaleza,LAGOA REDONDA,17,5
+Fortaleza,LAGOA REDONDA,18,2
+Fortaleza,LAGOA REDONDA,19,3
+Fortaleza,LAGOA REDONDA,20,4
+Fortaleza,LAGOA REDONDA,21,2
+Fortaleza,LAGOA REDONDA,22,4
+Fortaleza,LAGOA REDONDA,23,1
+Fortaleza,MANOEL SÁTIRO,5,2
+Fortaleza,MANOEL SÁTIRO,6,2
+Fortaleza,MANOEL SÁTIRO,7,2
+Fortaleza,MANOEL SÁTIRO,11,1
+Fortaleza,MANOEL SÁTIRO,13,2
+Fortaleza,MANOEL SÁTIRO,14,1
+Fortaleza,MANOEL SÁTIRO,15,1
+Fortaleza,MANOEL SÁTIRO,16,4
+Fortaleza,MANOEL SÁTIRO,17,1
+Fortaleza,MANOEL SÁTIRO,19,3
+Fortaleza,MANOEL SÁTIRO,20,2
+Fortaleza,MANOEL SÁTIRO,21,2
+Fortaleza,MANUEL DIAS BRANCO,1,1
+Fortaleza,MANUEL DIAS BRANCO,5,1
+Fortaleza,MANUEL DIAS BRANCO,6,1
+Fortaleza,MANUEL DIAS BRANCO,9,1
+Fortaleza,MANUEL DIAS BRANCO,11,1
+Fortaleza,MANUEL DIAS BRANCO,13,2
+Fortaleza,MANUEL DIAS BRANCO,16,1
+Fortaleza,MANUEL DIAS BRANCO,17,1
+Fortaleza,MANUEL DIAS BRANCO,18,2
+Fortaleza,MANUEL DIAS BRANCO,19,2
+Fortaleza,MANUEL DIAS BRANCO,20,1
+Fortaleza,MARAPONGA,2,2
+Fortaleza,MARAPONGA,5,1
+Fortaleza,MARAPONGA,6,1
+Fortaleza,MARAPONGA,8,1
+Fortaleza,MARAPONGA,9,1
+Fortaleza,MARAPONGA,10,2
+Fortaleza,MARAPONGA,12,1
+Fortaleza,MARAPONGA,18,1
+Fortaleza,MARAPONGA,19,2
+Fortaleza,MARAPONGA,21,1
+Fortaleza,MARAPONGA,23,2
+Fortaleza,MEIRELES,0,2
+Fortaleza,MEIRELES,4,1
+Fortaleza,MEIRELES,8,1
+Fortaleza,MEIRELES,10,1
+Fortaleza,MEIRELES,19,1
+Fortaleza,MEIRELES,22,1
+Fortaleza,MESSEJANA,0,5
+Fortaleza,MESSEJANA,1,1
+Fortaleza,MESSEJANA,2,3
+Fortaleza,MESSEJANA,3,4
+Fortaleza,MESSEJANA,4,3
+Fortaleza,MESSEJANA,5,1
+Fortaleza,MESSEJANA,6,2
+Fortaleza,MESSEJANA,7,3
+Fortaleza,MESSEJANA,8,4
+Fortaleza,MESSEJANA,9,1
+Fortaleza,MESSEJANA,10,3
+Fortaleza,MESSEJANA,11,2
+Fortaleza,MESSEJANA,12,6
+Fortaleza,MESSEJANA,13,3
+Fortaleza,MESSEJANA,14,3
+Fortaleza,MESSEJANA,15,4
+Fortaleza,MESSEJANA,16,8
+Fortaleza,MESSEJANA,17,10
+Fortaleza,MESSEJANA,18,8
+Fortaleza,MESSEJANA,19,8
+Fortaleza,MESSEJANA,20,11
+Fortaleza,MESSEJANA,21,8
+Fortaleza,MESSEJANA,22,7
+Fortaleza,MESSEJANA,23,3
+Fortaleza,MONDUBIM,0,3
+Fortaleza,MONDUBIM,1,5
+Fortaleza,MONDUBIM,2,3
+Fortaleza,MONDUBIM,3,1
+Fortaleza,MONDUBIM,4,2
+Fortaleza,MONDUBIM,6,2
+Fortaleza,MONDUBIM,7,2
+Fortaleza,MONDUBIM,8,2
+Fortaleza,MONDUBIM,9,1
+Fortaleza,MONDUBIM,10,5
+Fortaleza,MONDUBIM,11,1
+Fortaleza,MONDUBIM,12,3
+Fortaleza,MONDUBIM,13,3
+Fortaleza,MONDUBIM,14,5
+Fortaleza,MONDUBIM,15,4
+Fortaleza,MONDUBIM,16,1
+Fortaleza,MONDUBIM,17,5
+Fortaleza,MONDUBIM,18,2
+Fortaleza,MONDUBIM,19,6
+Fortaleza,MONDUBIM,20,8
+Fortaleza,MONDUBIM,21,9
+Fortaleza,MONDUBIM,22,2
+Fortaleza,MONTE CASTELO,8,1
+Fortaleza,MONTE CASTELO,13,1
+Fortaleza,MONTESE,1,1
+Fortaleza,MONTESE,3,1
+Fortaleza,MONTESE,13,2
+Fortaleza,MONTESE,14,2
+Fortaleza,MONTESE,16,1
+Fortaleza,MONTESE,19,2
+Fortaleza,MOURA BRASIL,0,1
+Fortaleza,MOURA BRASIL,1,1
+Fortaleza,MOURA BRASIL,5,1
+Fortaleza,MOURA BRASIL,6,2
+Fortaleza,MOURA BRASIL,9,1
+Fortaleza,MOURA BRASIL,11,1
+Fortaleza,MOURA BRASIL,16,1
+Fortaleza,MOURA BRASIL,17,1
+Fortaleza,MOURA BRASIL,18,1
+Fortaleza,MOURA BRASIL,22,1
+Fortaleza,MUCURIPE,3,1
+Fortaleza,MUCURIPE,5,1
+Fortaleza,MUCURIPE,6,1
+Fortaleza,MUCURIPE,16,3
+Fortaleza,MUCURIPE,21,1
+Fortaleza,NOVO MONDUBIM,1,1
+Fortaleza,NOVO MONDUBIM,2,1
+Fortaleza,NOVO MONDUBIM,6,1
+Fortaleza,NOVO MONDUBIM,12,1
+Fortaleza,NOVO MONDUBIM,14,1
+Fortaleza,NOVO MONDUBIM,15,1
+Fortaleza,NOVO MONDUBIM,16,3
+Fortaleza,NOVO MONDUBIM,17,3
+Fortaleza,NOVO MONDUBIM,18,1
+Fortaleza,NOVO MONDUBIM,20,3
+Fortaleza,NOVO MONDUBIM,21,1
+Fortaleza,NOVO MONDUBIM,22,4
+Fortaleza,NOVO MONDUBIM,23,2
+Fortaleza,OLAVO OLIVEIRA,3,1
+Fortaleza,OLAVO OLIVEIRA,5,2
+Fortaleza,OLAVO OLIVEIRA,11,2
+Fortaleza,OLAVO OLIVEIRA,13,1
+Fortaleza,OLAVO OLIVEIRA,16,1
+Fortaleza,OLAVO OLIVEIRA,18,2
+Fortaleza,OLAVO OLIVEIRA,19,2
+Fortaleza,OLAVO OLIVEIRA,20,1
+Fortaleza,OLAVO OLIVEIRA,21,1
+Fortaleza,OLAVO OLIVEIRA,22,1
+Fortaleza,PADRE ANDRADE,0,1
+Fortaleza,PADRE ANDRADE,1,2
+Fortaleza,PADRE ANDRADE,3,2
+Fortaleza,PADRE ANDRADE,7,1
+Fortaleza,PADRE ANDRADE,9,1
+Fortaleza,PADRE ANDRADE,12,3
+Fortaleza,PADRE ANDRADE,13,1
+Fortaleza,PADRE ANDRADE,15,3
+Fortaleza,PADRE ANDRADE,16,2
+Fortaleza,PADRE ANDRADE,17,2
+Fortaleza,PADRE ANDRADE,18,1
+Fortaleza,PADRE ANDRADE,19,2
+Fortaleza,PADRE ANDRADE,22,1
+Fortaleza,PADRE ANDRADE,23,1
+Fortaleza,PANAMERICANO,10,1
+Fortaleza,PANAMERICANO,12,1
+Fortaleza,PANAMERICANO,13,1
+Fortaleza,PAPICU,0,2
+Fortaleza,PAPICU,1,4
+Fortaleza,PAPICU,2,1
+Fortaleza,PAPICU,3,1
+Fortaleza,PAPICU,4,2
+Fortaleza,PAPICU,7,2
+Fortaleza,PAPICU,9,1
+Fortaleza,PAPICU,12,2
+Fortaleza,PAPICU,13,2
+Fortaleza,PAPICU,14,1
+Fortaleza,PAPICU,17,1
+Fortaleza,PAPICU,19,1
+Fortaleza,PAPICU,20,1
+Fortaleza,PAPICU,21,3
+Fortaleza,PAPICU,22,2
+Fortaleza,PAPICU,23,2
+Fortaleza,PARANGABA,0,1
+Fortaleza,PARANGABA,1,1
+Fortaleza,PARANGABA,3,1
+Fortaleza,PARANGABA,5,1
+Fortaleza,PARANGABA,7,1
+Fortaleza,PARANGABA,9,1
+Fortaleza,PARANGABA,11,1
+Fortaleza,PARANGABA,14,2
+Fortaleza,PARANGABA,15,1
+Fortaleza,PARANGABA,19,2
+Fortaleza,PARANGABA,20,1
+Fortaleza,PARANGABA,22,1
+Fortaleza,PARANGABA,23,1
+Fortaleza,PARQUE ARAXÁ,12,1
+Fortaleza,PARQUE ARAXÁ,14,1
+Fortaleza,PARQUE DOIS IRMĂOS,0,2
+Fortaleza,PARQUE DOIS IRMĂOS,1,2
+Fortaleza,PARQUE DOIS IRMĂOS,4,2
+Fortaleza,PARQUE DOIS IRMĂOS,5,2
+Fortaleza,PARQUE DOIS IRMĂOS,6,2
+Fortaleza,PARQUE DOIS IRMĂOS,10,2
+Fortaleza,PARQUE DOIS IRMĂOS,11,1
+Fortaleza,PARQUE DOIS IRMĂOS,12,3
+Fortaleza,PARQUE DOIS IRMĂOS,13,2
+Fortaleza,PARQUE DOIS IRMĂOS,14,1
+Fortaleza,PARQUE DOIS IRMĂOS,16,2
+Fortaleza,PARQUE DOIS IRMĂOS,17,1
+Fortaleza,PARQUE DOIS IRMĂOS,18,1
+Fortaleza,PARQUE DOIS IRMĂOS,19,1
+Fortaleza,PARQUE DOIS IRMĂOS,20,4
+Fortaleza,PARQUE DOIS IRMĂOS,21,1
+Fortaleza,PARQUE DOIS IRMĂOS,22,1
+Fortaleza,PARQUE DOIS IRMĂOS,23,3
+Fortaleza,PARQUE IRACEMA,1,1
+Fortaleza,PARQUE IRACEMA,11,1
+Fortaleza,PARQUE IRACEMA,13,1
+Fortaleza,PARQUE IRACEMA,16,1
+Fortaleza,PARQUE IRACEMA,17,1
+Fortaleza,PARQUE IRACEMA,19,2
+Fortaleza,PARQUE IRACEMA,20,3
+Fortaleza,PARQUE IRACEMA,21,1
+Fortaleza,PARQUE IRACEMA,22,1
+Fortaleza,PARQUE MANIBURA,9,1
+Fortaleza,PARQUE MANIBURA,14,1
+Fortaleza,PARQUE MANIBURA,16,1
+Fortaleza,PARQUE MANIBURA,20,1
+Fortaleza,PARQUE MANIBURA,22,1
+Fortaleza,PARQUE MANIBURA,23,1
+Fortaleza,PARQUE PRESIDENTE VARGAS,1,1
+Fortaleza,PARQUE PRESIDENTE VARGAS,7,1
+Fortaleza,PARQUE PRESIDENTE VARGAS,8,1
+Fortaleza,PARQUE PRESIDENTE VARGAS,12,1
+Fortaleza,PARQUE PRESIDENTE VARGAS,13,1
+Fortaleza,PARQUE PRESIDENTE VARGAS,15,1
+Fortaleza,PARQUE PRESIDENTE VARGAS,16,1
+Fortaleza,PARQUE PRESIDENTE VARGAS,17,1
+Fortaleza,PARQUE PRESIDENTE VARGAS,19,1
+Fortaleza,PARQUE PRESIDENTE VARGAS,20,2
+Fortaleza,PARQUE PRESIDENTE VARGAS,21,1
+Fortaleza,PARQUE SANTA MARIA,2,1
+Fortaleza,PARQUE SANTA MARIA,8,1
+Fortaleza,PARQUE SANTA MARIA,12,1
+Fortaleza,PARQUE SANTA MARIA,13,1
+Fortaleza,PARQUE SANTA MARIA,14,1
+Fortaleza,PARQUE SANTA MARIA,15,1
+Fortaleza,PARQUE SANTA MARIA,16,2
+Fortaleza,PARQUE SANTA MARIA,18,1
+Fortaleza,PARQUE SANTA MARIA,19,2
+Fortaleza,PARQUE SANTA MARIA,20,2
+Fortaleza,PARQUE SANTA MARIA,21,3
+Fortaleza,PARQUE SANTA MARIA,22,4
+Fortaleza,PARQUE SANTA ROSA,5,1
+Fortaleza,PARQUE SANTA ROSA,10,1
+Fortaleza,PARQUE SANTA ROSA,14,1
+Fortaleza,PARQUE SANTA ROSA,16,3
+Fortaleza,PARQUE SANTA ROSA,19,2
+Fortaleza,PARQUE SANTA ROSA,21,1
+Fortaleza,PARQUE SĂO JOSÉ,0,1
+Fortaleza,PARQUE SĂO JOSÉ,1,2
+Fortaleza,PARQUE SĂO JOSÉ,3,1
+Fortaleza,PARQUE SĂO JOSÉ,4,2
+Fortaleza,PARQUE SĂO JOSÉ,5,2
+Fortaleza,PARQUE SĂO JOSÉ,6,1
+Fortaleza,PARQUE SĂO JOSÉ,7,1
+Fortaleza,PARQUE SĂO JOSÉ,9,1
+Fortaleza,PARQUE SĂO JOSÉ,11,2
+Fortaleza,PARQUE SĂO JOSÉ,14,1
+Fortaleza,PARQUE SĂO JOSÉ,16,1
+Fortaleza,PARQUE SĂO JOSÉ,19,2
+Fortaleza,PARQUE SĂO JOSÉ,20,2
+Fortaleza,PARQUE SĂO JOSÉ,21,4
+Fortaleza,PARQUE SĂO JOSÉ,22,1
+Fortaleza,PARQUE SĂO JOSÉ,23,1
+Fortaleza,PARQUELÂNDIA,5,1
+Fortaleza,PARQUELÂNDIA,20,2
+Fortaleza,PARQUELÂNDIA,21,1
+Fortaleza,PARREÃO,13,1
+Fortaleza,PARREÃO,15,1
+Fortaleza,PARREÃO,19,2
+Fortaleza,PARREÃO,20,1
+Fortaleza,PASSARÉ,1,1
+Fortaleza,PASSARÉ,3,1
+Fortaleza,PASSARÉ,4,1
+Fortaleza,PASSARÉ,6,3
+Fortaleza,PASSARÉ,7,2
+Fortaleza,PASSARÉ,8,3
+Fortaleza,PASSARÉ,9,1
+Fortaleza,PASSARÉ,10,3
+Fortaleza,PASSARÉ,11,3
+Fortaleza,PASSARÉ,12,3
+Fortaleza,PASSARÉ,13,7
+Fortaleza,PASSARÉ,14,2
+Fortaleza,PASSARÉ,15,4
+Fortaleza,PASSARÉ,16,3
+Fortaleza,PASSARÉ,17,1
+Fortaleza,PASSARÉ,18,7
+Fortaleza,PASSARÉ,19,4
+Fortaleza,PASSARÉ,20,1
+Fortaleza,PASSARÉ,21,5
+Fortaleza,PASSARÉ,22,8
+Fortaleza,PASSARÉ,23,2
+Fortaleza,PAUPINA,0,1
+Fortaleza,PAUPINA,1,2
+Fortaleza,PAUPINA,6,3
+Fortaleza,PAUPINA,7,5
+Fortaleza,PAUPINA,10,1
+Fortaleza,PAUPINA,11,1
+Fortaleza,PAUPINA,12,2
+Fortaleza,PAUPINA,13,6
+Fortaleza,PAUPINA,14,2
+Fortaleza,PAUPINA,15,3
+Fortaleza,PAUPINA,17,3
+Fortaleza,PAUPINA,18,3
+Fortaleza,PAUPINA,19,3
+Fortaleza,PAUPINA,20,2
+Fortaleza,PAUPINA,21,2
+Fortaleza,PAUPINA,23,2
+Fortaleza,PEDRAS,2,2
+Fortaleza,PEDRAS,5,1
+Fortaleza,PEDRAS,7,5
+Fortaleza,PEDRAS,8,2
+Fortaleza,PEDRAS,9,1
+Fortaleza,PEDRAS,10,1
+Fortaleza,PEDRAS,12,2
+Fortaleza,PEDRAS,13,1
+Fortaleza,PEDRAS,15,1
+Fortaleza,PEDRAS,16,2
+Fortaleza,PEDRAS,18,1
+Fortaleza,PEDRAS,19,2
+Fortaleza,PEDRAS,20,2
+Fortaleza,PEDRAS,21,1
+Fortaleza,PEDRAS,22,2
+Fortaleza,PEDRAS,23,1
+Fortaleza,PICI,0,3
+Fortaleza,PICI,1,1
+Fortaleza,PICI,4,2
+Fortaleza,PICI,5,1
+Fortaleza,PICI,6,1
+Fortaleza,PICI,7,1
+Fortaleza,PICI,8,1
+Fortaleza,PICI,9,1
+Fortaleza,PICI,11,1
+Fortaleza,PICI,12,4
+Fortaleza,PICI,13,2
+Fortaleza,PICI,14,3
+Fortaleza,PICI,15,1
+Fortaleza,PICI,16,6
+Fortaleza,PICI,17,6
+Fortaleza,PICI,18,1
+Fortaleza,PICI,19,4
+Fortaleza,PICI,20,3
+Fortaleza,PICI,21,5
+Fortaleza,PICI,22,6
+Fortaleza,PICI,23,3
+Fortaleza,PIRAMBU,0,2
+Fortaleza,PIRAMBU,1,2
+Fortaleza,PIRAMBU,4,1
+Fortaleza,PIRAMBU,5,1
+Fortaleza,PIRAMBU,7,1
+Fortaleza,PIRAMBU,8,1
+Fortaleza,PIRAMBU,9,1
+Fortaleza,PIRAMBU,10,2
+Fortaleza,PIRAMBU,11,1
+Fortaleza,PIRAMBU,12,1
+Fortaleza,PIRAMBU,13,3
+Fortaleza,PIRAMBU,14,4
+Fortaleza,PIRAMBU,15,2
+Fortaleza,PIRAMBU,17,3
+Fortaleza,PIRAMBU,18,4
+Fortaleza,PIRAMBU,19,2
+Fortaleza,PIRAMBU,20,3
+Fortaleza,PIRAMBU,23,1
+Fortaleza,PLANALTO AYRTON SENNA,0,1
+Fortaleza,PLANALTO AYRTON SENNA,1,1
+Fortaleza,PLANALTO AYRTON SENNA,2,4
+Fortaleza,PLANALTO AYRTON SENNA,3,2
+Fortaleza,PLANALTO AYRTON SENNA,4,1
+Fortaleza,PLANALTO AYRTON SENNA,5,3
+Fortaleza,PLANALTO AYRTON SENNA,6,1
+Fortaleza,PLANALTO AYRTON SENNA,7,1
+Fortaleza,PLANALTO AYRTON SENNA,8,2
+Fortaleza,PLANALTO AYRTON SENNA,9,2
+Fortaleza,PLANALTO AYRTON SENNA,10,5
+Fortaleza,PLANALTO AYRTON SENNA,11,3
+Fortaleza,PLANALTO AYRTON SENNA,12,5
+Fortaleza,PLANALTO AYRTON SENNA,13,9
+Fortaleza,PLANALTO AYRTON SENNA,14,2
+Fortaleza,PLANALTO AYRTON SENNA,15,7
+Fortaleza,PLANALTO AYRTON SENNA,16,8
+Fortaleza,PLANALTO AYRTON SENNA,17,7
+Fortaleza,PLANALTO AYRTON SENNA,18,5
+Fortaleza,PLANALTO AYRTON SENNA,19,7
+Fortaleza,PLANALTO AYRTON SENNA,20,4
+Fortaleza,PLANALTO AYRTON SENNA,21,4
+Fortaleza,PLANALTO AYRTON SENNA,22,3
+Fortaleza,PLANALTO AYRTON SENNA,23,6
+Fortaleza,PRAIA DE IRACEMA,5,1
+Fortaleza,PRAIA DE IRACEMA,6,1
+Fortaleza,PRAIA DE IRACEMA,7,1
+Fortaleza,PRAIA DE IRACEMA,17,1
+Fortaleza,PRAIA DE IRACEMA,19,1
+Fortaleza,PRAIA DE IRACEMA,20,1
+Fortaleza,PRAIA DE IRACEMA,21,1
+Fortaleza,PRAIA DO FUTURO I,4,1
+Fortaleza,PRAIA DO FUTURO I,9,1
+Fortaleza,PRAIA DO FUTURO I,11,2
+Fortaleza,PRAIA DO FUTURO I,13,1
+Fortaleza,PRAIA DO FUTURO I,15,3
+Fortaleza,PRAIA DO FUTURO I,17,1
+Fortaleza,PRAIA DO FUTURO I,19,1
+Fortaleza,PRAIA DO FUTURO I,20,1
+Fortaleza,PRAIA DO FUTURO II,0,1
+Fortaleza,PRAIA DO FUTURO II,1,1
+Fortaleza,PRAIA DO FUTURO II,2,1
+Fortaleza,PRAIA DO FUTURO II,3,1
+Fortaleza,PRAIA DO FUTURO II,4,3
+Fortaleza,PRAIA DO FUTURO II,7,1
+Fortaleza,PRAIA DO FUTURO II,9,1
+Fortaleza,PRAIA DO FUTURO II,10,3
+Fortaleza,PRAIA DO FUTURO II,12,2
+Fortaleza,PRAIA DO FUTURO II,13,1
+Fortaleza,PRAIA DO FUTURO II,14,1
+Fortaleza,PRAIA DO FUTURO II,15,1
+Fortaleza,PRAIA DO FUTURO II,16,4
+Fortaleza,PRAIA DO FUTURO II,17,2
+Fortaleza,PRAIA DO FUTURO II,18,2
+Fortaleza,PRAIA DO FUTURO II,19,4
+Fortaleza,PRAIA DO FUTURO II,20,6
+Fortaleza,PRAIA DO FUTURO II,21,1
+Fortaleza,PRAIA DO FUTURO II,22,5
+Fortaleza,PRAIA DO FUTURO II,23,3
+Fortaleza,PRECABURA,1,1
+Fortaleza,PRECABURA,5,2
+Fortaleza,PRECABURA,13,1
+Fortaleza,PRECABURA,19,1
+Fortaleza,PREFEITO JOSÉ WALTER,0,2
+Fortaleza,PREFEITO JOSÉ WALTER,1,4
+Fortaleza,PREFEITO JOSÉ WALTER,2,1
+Fortaleza,PREFEITO JOSÉ WALTER,3,3
+Fortaleza,PREFEITO JOSÉ WALTER,4,3
+Fortaleza,PREFEITO JOSÉ WALTER,5,1
+Fortaleza,PREFEITO JOSÉ WALTER,6,2
+Fortaleza,PREFEITO JOSÉ WALTER,7,6
+Fortaleza,PREFEITO JOSÉ WALTER,9,6
+Fortaleza,PREFEITO JOSÉ WALTER,10,7
+Fortaleza,PREFEITO JOSÉ WALTER,11,2
+Fortaleza,PREFEITO JOSÉ WALTER,12,4
+Fortaleza,PREFEITO JOSÉ WALTER,13,7
+Fortaleza,PREFEITO JOSÉ WALTER,14,6
+Fortaleza,PREFEITO JOSÉ WALTER,15,6
+Fortaleza,PREFEITO JOSÉ WALTER,16,5
+Fortaleza,PREFEITO JOSÉ WALTER,17,4
+Fortaleza,PREFEITO JOSÉ WALTER,18,6
+Fortaleza,PREFEITO JOSÉ WALTER,19,10
+Fortaleza,PREFEITO JOSÉ WALTER,20,4
+Fortaleza,PREFEITO JOSÉ WALTER,21,8
+Fortaleza,PREFEITO JOSÉ WALTER,22,5
+Fortaleza,PREFEITO JOSÉ WALTER,23,1
+Fortaleza,PRESIDENTE KENNEDY,2,1
+Fortaleza,PRESIDENTE KENNEDY,3,1
+Fortaleza,PRESIDENTE KENNEDY,4,2
+Fortaleza,PRESIDENTE KENNEDY,13,1
+Fortaleza,PRESIDENTE KENNEDY,16,2
+Fortaleza,PRESIDENTE KENNEDY,18,2
+Fortaleza,PRESIDENTE KENNEDY,19,2
+Fortaleza,PRESIDENTE KENNEDY,20,3
+Fortaleza,PRESIDENTE KENNEDY,21,2
+Fortaleza,PRESIDENTE KENNEDY,22,2
+Fortaleza,PRESIDENTE KENNEDY,23,2
+Fortaleza,QUINTINO CUNHA,0,2
+Fortaleza,QUINTINO CUNHA,1,2
+Fortaleza,QUINTINO CUNHA,2,3
+Fortaleza,QUINTINO CUNHA,4,1
+Fortaleza,QUINTINO CUNHA,5,3
+Fortaleza,QUINTINO CUNHA,6,3
+Fortaleza,QUINTINO CUNHA,7,1
+Fortaleza,QUINTINO CUNHA,8,3
+Fortaleza,QUINTINO CUNHA,9,1
+Fortaleza,QUINTINO CUNHA,11,2
+Fortaleza,QUINTINO CUNHA,13,2
+Fortaleza,QUINTINO CUNHA,14,4
+Fortaleza,QUINTINO CUNHA,15,2
+Fortaleza,QUINTINO CUNHA,16,1
+Fortaleza,QUINTINO CUNHA,17,4
+Fortaleza,QUINTINO CUNHA,18,6
+Fortaleza,QUINTINO CUNHA,19,2
+Fortaleza,QUINTINO CUNHA,20,2
+Fortaleza,QUINTINO CUNHA,21,8
+Fortaleza,QUINTINO CUNHA,22,2
+Fortaleza,QUINTINO CUNHA,23,1
+Fortaleza,RACHEL DE QUEIROZ,1,2
+Fortaleza,RACHEL DE QUEIROZ,11,1
+Fortaleza,RACHEL DE QUEIROZ,13,1
+Fortaleza,RACHEL DE QUEIROZ,17,1
+Fortaleza,RACHEL DE QUEIROZ,19,1
+Fortaleza,RACHEL DE QUEIROZ,20,1
+Fortaleza,RODOLFO TEÓFILO,7,1
+Fortaleza,RODOLFO TEÓFILO,16,2
+Fortaleza,RODOLFO TEÓFILO,17,2
+Fortaleza,SABIAGUABA,0,1
+Fortaleza,SABIAGUABA,1,1
+Fortaleza,SABIAGUABA,6,1
+Fortaleza,SABIAGUABA,10,1
+Fortaleza,SABIAGUABA,13,1
+Fortaleza,SABIAGUABA,16,1
+Fortaleza,SABIAGUABA,17,1
+Fortaleza,SABIAGUABA,19,1
+Fortaleza,SABIAGUABA,21,1
+Fortaleza,SALINAS,3,1
+Fortaleza,SALINAS,11,1
+Fortaleza,SALINAS,13,1
+Fortaleza,SAPIRANGA / COITÉ,7,1
+Fortaleza,SAPIRANGA / COITÉ,10,1
+Fortaleza,SAPIRANGA / COITÉ,12,5
+Fortaleza,SAPIRANGA / COITÉ,13,1
+Fortaleza,SAPIRANGA / COITÉ,14,3
+Fortaleza,SAPIRANGA / COITÉ,15,4
+Fortaleza,SAPIRANGA / COITÉ,16,1
+Fortaleza,SAPIRANGA / COITÉ,17,2
+Fortaleza,SAPIRANGA / COITÉ,18,3
+Fortaleza,SAPIRANGA / COITÉ,19,5
+Fortaleza,SAPIRANGA / COITÉ,20,1
+Fortaleza,SAPIRANGA / COITÉ,21,2
+Fortaleza,SAPIRANGA / COITÉ,22,3
+Fortaleza,SAPIRANGA / COITÉ,23,2
+Fortaleza,SERRINHA,0,2
+Fortaleza,SERRINHA,1,1
+Fortaleza,SERRINHA,2,1
+Fortaleza,SERRINHA,4,1
+Fortaleza,SERRINHA,5,1
+Fortaleza,SERRINHA,9,1
+Fortaleza,SERRINHA,10,1
+Fortaleza,SERRINHA,12,1
+Fortaleza,SERRINHA,14,1
+Fortaleza,SERRINHA,15,2
+Fortaleza,SERRINHA,16,2
+Fortaleza,SERRINHA,17,1
+Fortaleza,SERRINHA,19,2
+Fortaleza,SERRINHA,20,1
+Fortaleza,SERRINHA,21,3
+Fortaleza,SERRINHA,22,2
+Fortaleza,SERRINHA,23,1
+Fortaleza,SIQUEIRA,0,4
+Fortaleza,SIQUEIRA,1,1
+Fortaleza,SIQUEIRA,2,1
+Fortaleza,SIQUEIRA,3,4
+Fortaleza,SIQUEIRA,4,3
+Fortaleza,SIQUEIRA,5,1
+Fortaleza,SIQUEIRA,6,2
+Fortaleza,SIQUEIRA,7,1
+Fortaleza,SIQUEIRA,8,3
+Fortaleza,SIQUEIRA,9,10
+Fortaleza,SIQUEIRA,10,2
+Fortaleza,SIQUEIRA,11,1
+Fortaleza,SIQUEIRA,12,4
+Fortaleza,SIQUEIRA,13,2
+Fortaleza,SIQUEIRA,14,3
+Fortaleza,SIQUEIRA,15,5
+Fortaleza,SIQUEIRA,16,2
+Fortaleza,SIQUEIRA,17,4
+Fortaleza,SIQUEIRA,18,7
+Fortaleza,SIQUEIRA,19,4
+Fortaleza,SIQUEIRA,20,1
+Fortaleza,SIQUEIRA,21,4
+Fortaleza,SIQUEIRA,22,8
+Fortaleza,SIQUEIRA,23,4
+Fortaleza,SÃO BENTO,0,2
+Fortaleza,SÃO BENTO,5,1
+Fortaleza,SÃO BENTO,7,2
+Fortaleza,SÃO BENTO,14,1
+Fortaleza,SÃO BENTO,15,1
+Fortaleza,SÃO BENTO,16,1
+Fortaleza,SÃO BENTO,17,1
+Fortaleza,SÃO BENTO,18,1
+Fortaleza,SÃO BENTO,19,5
+Fortaleza,SÃO BENTO,22,2
+Fortaleza,SÃO BENTO,23,2
+Fortaleza,SÃO GERARDO,6,1
+Fortaleza,SÃO GERARDO,13,1
+Fortaleza,SÃO GERARDO,21,1
+Fortaleza,SÃO JOÃO DO TAUAPE,3,2
+Fortaleza,SÃO JOÃO DO TAUAPE,8,1
+Fortaleza,SÃO JOÃO DO TAUAPE,14,3
+Fortaleza,SÃO JOÃO DO TAUAPE,15,1
+Fortaleza,SÃO JOÃO DO TAUAPE,16,1
+Fortaleza,SÃO JOÃO DO TAUAPE,17,2
+Fortaleza,SÃO JOÃO DO TAUAPE,19,3
+Fortaleza,SÃO JOÃO DO TAUAPE,21,1
+Fortaleza,SÃO JOÃO DO TAUAPE,22,1
+Fortaleza,SÃO JOÃO DO TAUAPE,23,1
+Fortaleza,VARJOTA,0,1
+Fortaleza,VARJOTA,2,1
+Fortaleza,VARJOTA,7,1
+Fortaleza,VARJOTA,11,2
+Fortaleza,VARJOTA,18,1
+Fortaleza,VICENTE PINZÓN,0,5
+Fortaleza,VICENTE PINZÓN,1,2
+Fortaleza,VICENTE PINZÓN,2,1
+Fortaleza,VICENTE PINZÓN,3,2
+Fortaleza,VICENTE PINZÓN,4,2
+Fortaleza,VICENTE PINZÓN,7,3
+Fortaleza,VICENTE PINZÓN,8,1
+Fortaleza,VICENTE PINZÓN,9,1
+Fortaleza,VICENTE PINZÓN,11,3
+Fortaleza,VICENTE PINZÓN,12,3
+Fortaleza,VICENTE PINZÓN,13,3
+Fortaleza,VICENTE PINZÓN,14,1
+Fortaleza,VICENTE PINZÓN,15,2
+Fortaleza,VICENTE PINZÓN,16,5
+Fortaleza,VICENTE PINZÓN,17,3
+Fortaleza,VICENTE PINZÓN,18,2
+Fortaleza,VICENTE PINZÓN,19,5
+Fortaleza,VICENTE PINZÓN,20,2
+Fortaleza,VICENTE PINZÓN,21,2
+Fortaleza,VICENTE PINZÓN,22,4
+Fortaleza,VICENTE PINZÓN,23,6
+Fortaleza,VILA PERI,1,2
+Fortaleza,VILA PERI,3,1
+Fortaleza,VILA PERI,4,3
+Fortaleza,VILA PERI,5,1
+Fortaleza,VILA PERI,6,1
+Fortaleza,VILA PERI,13,1
+Fortaleza,VILA PERI,15,4
+Fortaleza,VILA PERI,16,4
+Fortaleza,VILA PERI,17,2
+Fortaleza,VILA PERI,18,2
+Fortaleza,VILA PERI,19,3
+Fortaleza,VILA PERI,20,1
+Fortaleza,VILA PERI,21,3
+Fortaleza,VILA PERI,22,2
+Fortaleza,VILA UNIĂO,0,1
+Fortaleza,VILA UNIĂO,1,3
+Fortaleza,VILA UNIĂO,7,1
+Fortaleza,VILA UNIĂO,9,1
+Fortaleza,VILA UNIĂO,16,1
+Fortaleza,VILA UNIĂO,20,1
+Fortaleza,VILA VELHA,0,3
+Fortaleza,VILA VELHA,1,1
+Fortaleza,VILA VELHA,4,2
+Fortaleza,VILA VELHA,6,1
+Fortaleza,VILA VELHA,7,1
+Fortaleza,VILA VELHA,9,1
+Fortaleza,VILA VELHA,10,1
+Fortaleza,VILA VELHA,12,2
+Fortaleza,VILA VELHA,13,3
+Fortaleza,VILA VELHA,14,1
+Fortaleza,VILA VELHA,16,7
+Fortaleza,VILA VELHA,17,2
+Fortaleza,VILA VELHA,18,4
+Fortaleza,VILA VELHA,19,7
+Fortaleza,VILA VELHA,20,1
+Fortaleza,VILA VELHA,21,1
+Fortaleza,VILA VELHA,22,5
+Fortaleza,VILA VELHA,23,1
+Fortaleza,ÁLVARO WEYNE,1,2
+Fortaleza,ÁLVARO WEYNE,3,1
+Fortaleza,ÁLVARO WEYNE,8,1
+Fortaleza,ÁLVARO WEYNE,9,1
+Fortaleza,ÁLVARO WEYNE,10,1
+Fortaleza,ÁLVARO WEYNE,14,2
+Fortaleza,ÁLVARO WEYNE,15,2
+Fortaleza,ÁLVARO WEYNE,16,5
+Fortaleza,ÁLVARO WEYNE,17,2
+Fortaleza,ÁLVARO WEYNE,18,1
+Fortaleza,ÁLVARO WEYNE,20,2
+Fortaleza,ÁLVARO WEYNE,21,1
+Fortaleza,ÁLVARO WEYNE,22,3
+Fortaleza,ÁLVARO WEYNE,23,2
+Fortim,,0,1
+Fortim,,2,2
+Fortim,,3,1
+Fortim,,4,2
+Fortim,,12,1
+Fortim,,18,2
+Fortim,,19,1
+Fortim,,22,2
+Fortim,,23,1
+Frecheirinha,,2,1
+Frecheirinha,,4,1
+Frecheirinha,,5,1
+Frecheirinha,,6,1
+Frecheirinha,,7,2
+Frecheirinha,,10,2
+Frecheirinha,,11,2
+Frecheirinha,,12,1
+Frecheirinha,,15,1
+Frecheirinha,,16,5
+Frecheirinha,,17,1
+Frecheirinha,,18,2
+Frecheirinha,,19,1
+Frecheirinha,,21,3
+General Sampaio,,2,1
+General Sampaio,,3,1
+General Sampaio,,6,3
+General Sampaio,,7,1
+General Sampaio,,10,1
+General Sampaio,,12,1
+General Sampaio,,13,3
+General Sampaio,,17,1
+General Sampaio,,18,1
+General Sampaio,,20,1
+General Sampaio,,23,2
+Granja,,0,1
+Granja,,2,2
+Granja,,7,3
+Granja,,8,1
+Granja,,9,1
+Granja,,10,1
+Granja,,11,4
+Granja,,12,1
+Granja,,13,2
+Granja,,15,1
+Granja,,16,1
+Granja,,18,1
+Granja,,19,3
+Granja,,20,3
+Granja,,21,4
+Granja,,23,1
+Graça,,0,2
+Graça,,1,4
+Graça,,2,1
+Graça,,3,1
+Graça,,8,1
+Graça,,9,3
+Graça,,10,2
+Graça,,12,1
+Graça,,16,2
+Graça,,17,1
+Graça,,19,1
+Graça,,20,1
+Graça,,22,1
+Graça,,23,2
+Groaíras,,0,3
+Groaíras,,2,1
+Groaíras,,3,3
+Groaíras,,5,1
+Groaíras,,6,3
+Groaíras,,7,1
+Groaíras,,8,2
+Groaíras,,9,1
+Groaíras,,10,2
+Groaíras,,11,3
+Groaíras,,12,3
+Groaíras,,13,3
+Groaíras,,14,1
+Groaíras,,15,3
+Groaíras,,16,3
+Groaíras,,17,2
+Groaíras,,18,2
+Groaíras,,19,4
+Groaíras,,20,4
+Groaíras,,21,2
+Groaíras,,23,1
+Guaiúba,,0,3
+Guaiúba,,1,9
+Guaiúba,,2,9
+Guaiúba,,3,4
+Guaiúba,,4,4
+Guaiúba,,5,1
+Guaiúba,,6,2
+Guaiúba,,7,1
+Guaiúba,,8,1
+Guaiúba,,9,1
+Guaiúba,,10,3
+Guaiúba,,13,1
+Guaiúba,,14,5
+Guaiúba,,15,6
+Guaiúba,,17,1
+Guaiúba,,18,3
+Guaiúba,,19,9
+Guaiúba,,20,5
+Guaiúba,,21,2
+Guaiúba,,22,2
+Guaiúba,,23,2
+Guaraciaba do Norte,,1,1
+Guaraciaba do Norte,,3,2
+Guaraciaba do Norte,,5,1
+Guaraciaba do Norte,,6,1
+Guaraciaba do Norte,,8,1
+Guaraciaba do Norte,,13,1
+Guaraciaba do Norte,,15,1
+Guaraciaba do Norte,,21,2
+Guaraciaba do Norte,,22,1
+Guaramiranga,,0,1
+Guaramiranga,,19,1
+Guaramiranga,,22,1
+Hidrolândia,,18,1
+Hidrolândia,,22,1
+Horizonte,,0,8
+Horizonte,,1,16
+Horizonte,,2,5
+Horizonte,,3,11
+Horizonte,,4,2
+Horizonte,,5,3
+Horizonte,,6,5
+Horizonte,,7,7
+Horizonte,,8,3
+Horizonte,,9,3
+Horizonte,,10,4
+Horizonte,,11,4
+Horizonte,,12,2
+Horizonte,,13,11
+Horizonte,,14,3
+Horizonte,,15,5
+Horizonte,,16,7
+Horizonte,,17,3
+Horizonte,,18,2
+Horizonte,,19,8
+Horizonte,,20,10
+Horizonte,,21,11
+Horizonte,,22,8
+Horizonte,,23,6
+Ibaretama,,0,1
+Ibaretama,,3,3
+Ibaretama,,4,1
+Ibaretama,,5,1
+Ibaretama,,6,1
+Ibaretama,,7,2
+Ibaretama,,11,1
+Ibaretama,,12,1
+Ibaretama,,16,2
+Ibaretama,,17,1
+Ibaretama,,19,3
+Ibaretama,,20,2
+Ibaretama,,21,3
+Ibaretama,,22,2
+Ibiapina,,0,1
+Ibiapina,,1,2
+Ibiapina,,3,3
+Ibiapina,,7,1
+Ibiapina,,11,1
+Ibiapina,,13,1
+Ibiapina,,16,1
+Ibiapina,,17,1
+Ibiapina,,18,1
+Ibiapina,,21,1
+Ibiapina,,22,1
+Ibiapina,,23,1
+Ibicuitinga,,0,1
+Ibicuitinga,,2,1
+Ibicuitinga,,3,1
+Ibicuitinga,,4,4
+Ibicuitinga,,6,1
+Ibicuitinga,,7,2
+Ibicuitinga,,9,2
+Ibicuitinga,,10,3
+Ibicuitinga,,12,1
+Ibicuitinga,,13,3
+Ibicuitinga,,14,1
+Ibicuitinga,,15,1
+Ibicuitinga,,16,1
+Ibicuitinga,,17,7
+Ibicuitinga,,18,2
+Ibicuitinga,,19,4
+Ibicuitinga,,20,1
+Ibicuitinga,,21,2
+Ibicuitinga,,22,1
+Ibicuitinga,,23,1
+Icapuí,,1,2
+Icapuí,,2,1
+Icapuí,,3,1
+Icapuí,,4,2
+Icapuí,,7,3
+Icapuí,,9,1
+Icapuí,,10,1
+Icapuí,,13,1
+Icapuí,,14,1
+Icapuí,,16,3
+Icapuí,,18,3
+Icapuí,,19,2
+Icapuí,,20,2
+Icapuí,,21,4
+Icapuí,,22,1
+Icapuí,,23,2
+Icó,,0,1
+Icó,,1,2
+Icó,,2,1
+Icó,,4,1
+Icó,,6,1
+Icó,,7,2
+Icó,,8,1
+Icó,,10,1
+Icó,,13,4
+Icó,,14,3
+Icó,,15,2
+Icó,,16,5
+Icó,,17,3
+Icó,,18,2
+Icó,,19,3
+Icó,,20,3
+Icó,,21,1
+Icó,,23,1
+Iguatu,,0,3
+Iguatu,,1,4
+Iguatu,,2,1
+Iguatu,,3,7
+Iguatu,,4,2
+Iguatu,,5,3
+Iguatu,,6,8
+Iguatu,,7,5
+Iguatu,,8,1
+Iguatu,,9,6
+Iguatu,,10,7
+Iguatu,,11,1
+Iguatu,,12,2
+Iguatu,,13,9
+Iguatu,,14,2
+Iguatu,,15,1
+Iguatu,,16,2
+Iguatu,,17,3
+Iguatu,,18,3
+Iguatu,,19,7
+Iguatu,,20,5
+Iguatu,,21,6
+Iguatu,,22,1
+Iguatu,,23,4
+Independência,,1,3
+Independência,,2,3
+Independência,,3,1
+Independência,,4,4
+Independência,,5,1
+Independência,,8,2
+Independência,,10,1
+Independência,,13,2
+Independência,,14,1
+Independência,,15,1
+Independência,,17,1
+Independência,,18,2
+Independência,,19,1
+Independência,,20,1
+Independência,,21,4
+Independência,,22,3
+Independência,,23,1
+Ipaporanga,,2,3
+Ipaporanga,,6,1
+Ipaporanga,,9,1
+Ipaporanga,,10,1
+Ipaporanga,,17,1
+Ipaporanga,,19,1
+Ipaporanga,,22,1
+Ipaumirim,,1,1
+Ipaumirim,,16,1
+Ipu,,0,3
+Ipu,,7,1
+Ipu,,8,1
+Ipu,,11,2
+Ipu,,19,1
+Ipu,,22,1
+Ipu,,23,1
+Ipueiras,,8,1
+Ipueiras,,13,1
+Ipueiras,,14,1
+Ipueiras,,16,1
+Ipueiras,,19,1
+Ipueiras,,20,1
+Iracema,,2,3
+Iracema,,3,2
+Iracema,,8,2
+Iracema,,13,2
+Iracema,,17,1
+Iracema,,19,3
+Iracema,,20,1
+Iracema,,21,2
+Iracema,,22,3
+Irauçuba,,0,5
+Irauçuba,,1,1
+Irauçuba,,2,2
+Irauçuba,,3,1
+Irauçuba,,5,2
+Irauçuba,,7,1
+Irauçuba,,8,2
+Irauçuba,,10,2
+Irauçuba,,11,1
+Irauçuba,,12,1
+Irauçuba,,13,1
+Irauçuba,,14,1
+Irauçuba,,15,1
+Irauçuba,,16,1
+Irauçuba,,17,1
+Irauçuba,,18,1
+Irauçuba,,20,2
+Irauçuba,,21,1
+Irauçuba,,22,3
+Itaitinga,,0,4
+Itaitinga,,1,3
+Itaitinga,,2,1
+Itaitinga,,4,3
+Itaitinga,,6,4
+Itaitinga,,7,2
+Itaitinga,,8,2
+Itaitinga,,9,4
+Itaitinga,,10,2
+Itaitinga,,11,6
+Itaitinga,,12,2
+Itaitinga,,13,5
+Itaitinga,,14,1
+Itaitinga,,15,3
+Itaitinga,,16,4
+Itaitinga,,17,5
+Itaitinga,,18,6
+Itaitinga,,19,5
+Itaitinga,,20,6
+Itaitinga,,21,5
+Itaitinga,,22,3
+Itaitinga,,23,4
+Itaiçaba,,0,1
+Itaiçaba,,5,1
+Itaiçaba,,6,1
+Itaiçaba,,7,3
+Itaiçaba,,9,1
+Itaiçaba,,10,1
+Itaiçaba,,13,2
+Itaiçaba,,15,1
+Itaiçaba,,19,1
+Itaiçaba,,20,1
+Itaiçaba,,23,1
+Itapajé,,0,3
+Itapajé,,1,10
+Itapajé,,2,5
+Itapajé,,3,9
+Itapajé,,4,4
+Itapajé,,5,1
+Itapajé,,6,4
+Itapajé,,7,5
+Itapajé,,8,1
+Itapajé,,9,3
+Itapajé,,10,2
+Itapajé,,11,1
+Itapajé,,12,2
+Itapajé,,13,2
+Itapajé,,14,3
+Itapajé,,15,4
+Itapajé,,16,3
+Itapajé,,17,1
+Itapajé,,18,3
+Itapajé,,19,5
+Itapajé,,20,4
+Itapajé,,21,8
+Itapajé,,22,6
+Itapajé,,23,5
+Itapipoca,,0,7
+Itapipoca,,1,11
+Itapipoca,,2,8
+Itapipoca,,3,15
+Itapipoca,,4,11
+Itapipoca,,5,7
+Itapipoca,,6,4
+Itapipoca,,7,14
+Itapipoca,,8,7
+Itapipoca,,9,5
+Itapipoca,,10,6
+Itapipoca,,11,3
+Itapipoca,,12,5
+Itapipoca,,13,6
+Itapipoca,,14,7
+Itapipoca,,15,6
+Itapipoca,,16,6
+Itapipoca,,17,9
+Itapipoca,,18,10
+Itapipoca,,19,13
+Itapipoca,,20,5
+Itapipoca,,21,14
+Itapipoca,,22,6
+Itapipoca,,23,2
+Itapiúna,,0,1
+Itapiúna,,1,1
+Itapiúna,,2,1
+Itapiúna,,3,1
+Itapiúna,,4,2
+Itapiúna,,5,1
+Itapiúna,,6,3
+Itapiúna,,7,1
+Itapiúna,,8,1
+Itapiúna,,9,2
+Itapiúna,,10,2
+Itapiúna,,12,4
+Itapiúna,,13,2
+Itapiúna,,14,3
+Itapiúna,,16,1
+Itapiúna,,18,2
+Itapiúna,,19,2
+Itapiúna,,20,1
+Itapiúna,,21,5
+Itapiúna,,22,2
+Itapiúna,,23,1
+Itarema,,0,10
+Itarema,,1,9
+Itarema,,2,14
+Itarema,,3,9
+Itarema,,4,5
+Itarema,,5,4
+Itarema,,6,2
+Itarema,,7,5
+Itarema,,8,1
+Itarema,,9,9
+Itarema,,10,5
+Itarema,,11,3
+Itarema,,12,9
+Itarema,,13,6
+Itarema,,14,3
+Itarema,,15,3
+Itarema,,16,9
+Itarema,,17,4
+Itarema,,18,3
+Itarema,,19,5
+Itarema,,20,8
+Itarema,,21,4
+Itarema,,22,4
+Itatira,,1,5
+Itatira,,2,3
+Itatira,,8,1
+Itatira,,9,1
+Itatira,,11,1
+Itatira,,12,2
+Itatira,,13,1
+Itatira,,19,3
+Itatira,,20,2
+Itatira,,21,3
+Itatira,,22,5
+Itatira,,23,3
+Jaguaretama,,0,1
+Jaguaretama,,1,2
+Jaguaretama,,3,2
+Jaguaretama,,4,3
+Jaguaretama,,6,2
+Jaguaretama,,7,1
+Jaguaretama,,8,1
+Jaguaretama,,9,1
+Jaguaretama,,11,2
+Jaguaretama,,14,1
+Jaguaretama,,15,2
+Jaguaretama,,17,1
+Jaguaretama,,19,7
+Jaguaretama,,20,4
+Jaguaretama,,21,2
+Jaguaretama,,22,3
+Jaguaretama,,23,3
+Jaguaribara,,1,4
+Jaguaribara,,4,1
+Jaguaribara,,5,2
+Jaguaribara,,7,1
+Jaguaribara,,9,1
+Jaguaribara,,10,1
+Jaguaribara,,12,2
+Jaguaribara,,13,2
+Jaguaribara,,17,1
+Jaguaribara,,18,1
+Jaguaribara,,19,4
+Jaguaribara,,20,2
+Jaguaribara,,21,2
+Jaguaribara,,23,2
+Jaguaribe,,0,1
+Jaguaribe,,1,3
+Jaguaribe,,2,1
+Jaguaribe,,3,1
+Jaguaribe,,4,1
+Jaguaribe,,6,1
+Jaguaribe,,7,2
+Jaguaribe,,9,1
+Jaguaribe,,12,2
+Jaguaribe,,14,1
+Jaguaribe,,16,1
+Jaguaribe,,18,5
+Jaguaribe,,19,1
+Jaguaribe,,20,4
+Jaguaribe,,21,6
+Jaguaribe,,22,2
+Jaguaribe,,23,1
+Jaguaruana,,1,1
+Jaguaruana,,4,2
+Jaguaruana,,5,1
+Jaguaruana,,6,1
+Jaguaruana,,9,1
+Jaguaruana,,10,1
+Jaguaruana,,11,1
+Jaguaruana,,12,1
+Jaguaruana,,14,1
+Jaguaruana,,20,2
+Jaguaruana,,21,1
+Jaguaruana,,22,2
+Jaguaruana,,23,2
+Jardim,,1,2
+Jardim,,8,1
+Jardim,,9,1
+Jardim,,18,1
+Jardim,,21,2
+Jati,,12,1
+Jati,,14,1
+Jati,,19,1
+Jati,,22,1
+Jijoca de Jericoacoara,,0,1
+Jijoca de Jericoacoara,,1,2
+Jijoca de Jericoacoara,,2,1
+Jijoca de Jericoacoara,,4,1
+Jijoca de Jericoacoara,,6,1
+Jijoca de Jericoacoara,,7,4
+Jijoca de Jericoacoara,,10,2
+Jijoca de Jericoacoara,,11,2
+Jijoca de Jericoacoara,,13,2
+Jijoca de Jericoacoara,,14,2
+Jijoca de Jericoacoara,,15,6
+Jijoca de Jericoacoara,,16,4
+Jijoca de Jericoacoara,,17,2
+Jijoca de Jericoacoara,,18,3
+Jijoca de Jericoacoara,,19,1
+Jijoca de Jericoacoara,,20,1
+Jijoca de Jericoacoara,,21,2
+Jijoca de Jericoacoara,,22,2
+Jijoca de Jericoacoara,,23,2
+Juazeiro do Norte,,0,8
+Juazeiro do Norte,,1,20
+Juazeiro do Norte,,2,10
+Juazeiro do Norte,,3,13
+Juazeiro do Norte,,4,14
+Juazeiro do Norte,,5,4
+Juazeiro do Norte,,6,7
+Juazeiro do Norte,,7,11
+Juazeiro do Norte,,8,10
+Juazeiro do Norte,,9,10
+Juazeiro do Norte,,10,8
+Juazeiro do Norte,,11,9
+Juazeiro do Norte,,12,7
+Juazeiro do Norte,,13,12
+Juazeiro do Norte,,14,9
+Juazeiro do Norte,,15,12
+Juazeiro do Norte,,16,9
+Juazeiro do Norte,,17,15
+Juazeiro do Norte,,18,13
+Juazeiro do Norte,,19,22
+Juazeiro do Norte,,20,21
+Juazeiro do Norte,,21,23
+Juazeiro do Norte,,22,18
+Juazeiro do Norte,,23,11
+Jucás,,0,1
+Jucás,,1,3
+Jucás,,2,2
+Jucás,,3,2
+Jucás,,6,1
+Jucás,,8,1
+Jucás,,10,2
+Jucás,,13,2
+Jucás,,14,1
+Jucás,,17,1
+Jucás,,18,1
+Jucás,,19,2
+Lavras da Mangabeira,,0,1
+Lavras da Mangabeira,,3,1
+Lavras da Mangabeira,,6,1
+Lavras da Mangabeira,,12,1
+Lavras da Mangabeira,,14,1
+Lavras da Mangabeira,,22,1
+Lavras da Mangabeira,,23,1
+Limoeiro do Norte,,0,2
+Limoeiro do Norte,,1,6
+Limoeiro do Norte,,2,2
+Limoeiro do Norte,,3,3
+Limoeiro do Norte,,4,5
+Limoeiro do Norte,,5,5
+Limoeiro do Norte,,6,2
+Limoeiro do Norte,,7,8
+Limoeiro do Norte,,8,1
+Limoeiro do Norte,,9,4
+Limoeiro do Norte,,10,3
+Limoeiro do Norte,,11,2
+Limoeiro do Norte,,12,5
+Limoeiro do Norte,,14,3
+Limoeiro do Norte,,15,3
+Limoeiro do Norte,,16,7
+Limoeiro do Norte,,17,6
+Limoeiro do Norte,,18,5
+Limoeiro do Norte,,19,11
+Limoeiro do Norte,,20,5
+Limoeiro do Norte,,21,6
+Limoeiro do Norte,,22,7
+Limoeiro do Norte,,23,1
+Madalena,,0,1
+Madalena,,2,2
+Madalena,,3,1
+Madalena,,6,1
+Madalena,,7,3
+Madalena,,9,1
+Madalena,,10,2
+Madalena,,11,1
+Madalena,,13,1
+Madalena,,14,1
+Madalena,,18,3
+Madalena,,19,3
+Madalena,,20,4
+Madalena,,21,1
+Madalena,,22,2
+Madalena,,23,2
+Maracanaú,,0,22
+Maracanaú,,1,25
+Maracanaú,,2,17
+Maracanaú,,3,23
+Maracanaú,,4,11
+Maracanaú,,5,12
+Maracanaú,,6,21
+Maracanaú,,7,26
+Maracanaú,,8,18
+Maracanaú,,9,16
+Maracanaú,,10,21
+Maracanaú,,11,16
+Maracanaú,,12,16
+Maracanaú,,13,31
+Maracanaú,,14,27
+Maracanaú,,15,34
+Maracanaú,,16,31
+Maracanaú,,17,40
+Maracanaú,,18,44
+Maracanaú,,19,51
+Maracanaú,,20,49
+Maracanaú,,21,45
+Maracanaú,,22,45
+Maracanaú,,23,22
+Maranguape,,0,9
+Maranguape,,1,13
+Maranguape,,2,11
+Maranguape,,3,6
+Maranguape,,4,5
+Maranguape,,5,8
+Maranguape,,6,10
+Maranguape,,7,12
+Maranguape,,8,9
+Maranguape,,9,10
+Maranguape,,10,11
+Maranguape,,11,13
+Maranguape,,12,7
+Maranguape,,13,7
+Maranguape,,14,11
+Maranguape,,15,15
+Maranguape,,16,19
+Maranguape,,17,15
+Maranguape,,18,25
+Maranguape,,19,27
+Maranguape,,20,25
+Maranguape,,21,20
+Maranguape,,22,13
+Maranguape,,23,10
+Marco,,0,1
+Marco,,1,2
+Marco,,3,2
+Marco,,4,1
+Marco,,7,2
+Marco,,9,1
+Marco,,10,1
+Marco,,12,1
+Marco,,14,2
+Marco,,16,1
+Marco,,18,1
+Marco,,21,2
+Marco,,22,2
+Martinópole,,1,1
+Martinópole,,7,1
+Martinópole,,16,1
+Martinópole,,20,1
+Martinópole,,22,2
+Massapê,,1,1
+Massapê,,2,1
+Massapê,,3,3
+Massapê,,4,1
+Massapê,,5,1
+Massapê,,6,2
+Massapê,,7,1
+Massapê,,12,1
+Massapê,,16,2
+Massapê,,17,1
+Massapê,,18,3
+Massapê,,21,1
+Massapê,,22,4
+Massapê,,23,1
+Mauriti,,3,2
+Mauriti,,4,1
+Mauriti,,5,1
+Mauriti,,6,3
+Mauriti,,7,1
+Mauriti,,9,2
+Mauriti,,10,1
+Mauriti,,14,1
+Mauriti,,15,1
+Mauriti,,16,3
+Mauriti,,17,1
+Mauriti,,18,1
+Mauriti,,19,5
+Mauriti,,20,3
+Mauriti,,21,1
+Mauriti,,22,1
+Meruoca,,2,1
+Meruoca,,7,1
+Meruoca,,8,1
+Meruoca,,12,1
+Meruoca,,18,1
+Milagres,,6,1
+Milagres,,7,2
+Milagres,,9,1
+Milagres,,10,1
+Milagres,,12,1
+Milagres,,16,2
+Milagres,,17,1
+Milagres,,18,1
+Milagres,,19,1
+Milagres,,20,2
+Milhã,,3,1
+Milhã,,6,1
+Milhã,,7,1
+Milhã,,8,1
+Milhã,,10,1
+Milhã,,14,1
+Milhã,,16,1
+Milhã,,17,3
+Miraíma,,0,1
+Miraíma,,1,1
+Miraíma,,3,2
+Miraíma,,4,2
+Miraíma,,5,1
+Miraíma,,6,5
+Miraíma,,7,5
+Miraíma,,8,1
+Miraíma,,10,2
+Miraíma,,12,2
+Miraíma,,13,2
+Miraíma,,14,2
+Miraíma,,15,1
+Miraíma,,16,1
+Miraíma,,17,3
+Miraíma,,19,2
+Miraíma,,22,1
+Missão Velha,,0,2
+Missão Velha,,2,1
+Missão Velha,,3,2
+Missão Velha,,6,2
+Missão Velha,,7,3
+Missão Velha,,10,4
+Missão Velha,,16,2
+Missão Velha,,18,2
+Missão Velha,,19,2
+Missão Velha,,20,3
+Missão Velha,,21,2
+Missão Velha,,22,3
+Mombaça,,0,2
+Mombaça,,1,1
+Mombaça,,3,3
+Mombaça,,5,1
+Mombaça,,7,2
+Mombaça,,11,1
+Mombaça,,16,3
+Mombaça,,18,1
+Mombaça,,19,3
+Mombaça,,20,1
+Mombaça,,21,1
+Mombaça,,23,1
+Monsenhor Tabosa,,1,1
+Monsenhor Tabosa,,3,1
+Monsenhor Tabosa,,4,2
+Monsenhor Tabosa,,6,5
+Monsenhor Tabosa,,7,1
+Monsenhor Tabosa,,8,1
+Monsenhor Tabosa,,9,1
+Monsenhor Tabosa,,10,1
+Monsenhor Tabosa,,12,2
+Monsenhor Tabosa,,13,1
+Monsenhor Tabosa,,14,1
+Monsenhor Tabosa,,16,1
+Monsenhor Tabosa,,19,1
+Monsenhor Tabosa,,20,1
+Monsenhor Tabosa,,22,1
+Monsenhor Tabosa,,23,1
+Morada Nova,,0,3
+Morada Nova,,1,8
+Morada Nova,,2,2
+Morada Nova,,3,4
+Morada Nova,,4,5
+Morada Nova,,5,4
+Morada Nova,,6,9
+Morada Nova,,7,5
+Morada Nova,,8,6
+Morada Nova,,9,6
+Morada Nova,,10,5
+Morada Nova,,11,3
+Morada Nova,,12,3
+Morada Nova,,13,3
+Morada Nova,,14,4
+Morada Nova,,15,4
+Morada Nova,,16,8
+Morada Nova,,17,8
+Morada Nova,,18,8
+Morada Nova,,19,14
+Morada Nova,,20,6
+Morada Nova,,21,14
+Morada Nova,,22,7
+Morada Nova,,23,5
+Moraújo,,2,1
+Moraújo,,22,1
+Morrinhos,,0,2
+Morrinhos,,1,1
+Morrinhos,,2,1
+Morrinhos,,4,1
+Morrinhos,,9,1
+Morrinhos,,12,2
+Morrinhos,,15,1
+Morrinhos,,16,1
+Morrinhos,,17,1
+Morrinhos,,19,2
+Mucambo,,0,1
+Mucambo,,1,1
+Mucambo,,5,1
+Mucambo,,6,1
+Mucambo,,14,1
+Mucambo,,16,1
+Mucambo,,18,3
+Mucambo,,20,3
+Mucambo,,21,2
+Mulungu,,2,2
+Mulungu,,4,1
+Mulungu,,7,1
+Mulungu,,11,3
+Mulungu,,12,4
+Mulungu,,13,2
+Mulungu,,14,1
+Mulungu,,15,1
+Mulungu,,17,2
+Mulungu,,18,1
+Mulungu,,19,2
+Mulungu,,20,2
+Nova Olinda,,0,1
+Nova Olinda,,3,1
+Nova Olinda,,4,1
+Nova Olinda,,5,2
+Nova Olinda,,6,1
+Nova Olinda,,7,1
+Nova Olinda,,10,1
+Nova Olinda,,11,3
+Nova Olinda,,14,2
+Nova Olinda,,15,1
+Nova Olinda,,16,1
+Nova Olinda,,17,1
+Nova Olinda,,18,2
+Nova Olinda,,19,2
+Nova Olinda,,20,3
+Nova Olinda,,22,1
+Nova Olinda,,23,1
+Nova Russas,,1,2
+Nova Russas,,4,1
+Nova Russas,,9,1
+Nova Russas,,12,3
+Nova Russas,,15,1
+Nova Russas,,17,2
+Nova Russas,,19,1
+Nova Russas,,21,1
+Nova Russas,,23,2
+Novo Oriente,,0,1
+Novo Oriente,,3,3
+Novo Oriente,,6,1
+Novo Oriente,,7,1
+Novo Oriente,,8,2
+Novo Oriente,,9,2
+Novo Oriente,,10,2
+Novo Oriente,,11,2
+Novo Oriente,,12,2
+Novo Oriente,,14,1
+Novo Oriente,,16,1
+Novo Oriente,,18,1
+Novo Oriente,,19,3
+Novo Oriente,,20,1
+Novo Oriente,,22,2
+Novo Oriente,,23,2
+Ocara,,1,1
+Ocara,,2,1
+Ocara,,9,1
+Ocara,,11,2
+Ocara,,12,1
+Ocara,,13,1
+Ocara,,17,1
+Ocara,,18,2
+Ocara,,19,1
+Ocara,,22,2
+Ocara,,23,1
+Orós,,0,1
+Orós,,1,1
+Orós,,3,2
+Orós,,7,2
+Orós,,13,1
+Orós,,15,2
+Orós,,17,3
+Orós,,18,1
+Orós,,19,1
+Orós,,20,2
+Orós,,21,1
+Orós,,23,1
+Pacajus,,0,3
+Pacajus,,1,8
+Pacajus,,2,9
+Pacajus,,3,3
+Pacajus,,4,1
+Pacajus,,5,3
+Pacajus,,6,3
+Pacajus,,7,6
+Pacajus,,8,5
+Pacajus,,9,4
+Pacajus,,10,11
+Pacajus,,11,6
+Pacajus,,12,4
+Pacajus,,13,6
+Pacajus,,14,8
+Pacajus,,15,7
+Pacajus,,16,2
+Pacajus,,17,7
+Pacajus,,18,6
+Pacajus,,19,12
+Pacajus,,20,8
+Pacajus,,21,4
+Pacajus,,22,6
+Pacajus,,23,7
+Pacatuba,,0,7
+Pacatuba,,1,2
+Pacatuba,,2,4
+Pacatuba,,3,3
+Pacatuba,,4,7
+Pacatuba,,5,5
+Pacatuba,,6,12
+Pacatuba,,7,19
+Pacatuba,,8,3
+Pacatuba,,9,6
+Pacatuba,,10,10
+Pacatuba,,11,5
+Pacatuba,,12,9
+Pacatuba,,13,7
+Pacatuba,,14,7
+Pacatuba,,15,7
+Pacatuba,,16,11
+Pacatuba,,17,8
+Pacatuba,,18,16
+Pacatuba,,19,14
+Pacatuba,,20,8
+Pacatuba,,21,15
+Pacatuba,,22,11
+Pacatuba,,23,7
+Pacoti,,2,2
+Pacoti,,3,1
+Pacoti,,4,1
+Pacoti,,10,1
+Pacoti,,13,1
+Pacoti,,18,1
+Pacoti,,20,1
+Pacoti,,22,1
+Pacujá,,0,1
+Pacujá,,22,1
+Palhano,,1,1
+Palhano,,2,1
+Palhano,,3,1
+Palhano,,20,1
+Palhano,,21,1
+Palmácia,,1,2
+Palmácia,,3,2
+Palmácia,,6,2
+Palmácia,,18,2
+Palmácia,,20,2
+Palmácia,,22,1
+Paracuru,,0,4
+Paracuru,,1,6
+Paracuru,,2,4
+Paracuru,,3,3
+Paracuru,,4,2
+Paracuru,,5,1
+Paracuru,,6,3
+Paracuru,,8,6
+Paracuru,,9,2
+Paracuru,,10,1
+Paracuru,,11,1
+Paracuru,,12,2
+Paracuru,,13,4
+Paracuru,,14,4
+Paracuru,,15,3
+Paracuru,,16,2
+Paracuru,,17,2
+Paracuru,,18,3
+Paracuru,,19,5
+Paracuru,,20,3
+Paracuru,,21,7
+Paracuru,,22,4
+Paracuru,,23,5
+Paraipaba,,0,1
+Paraipaba,,1,3
+Paraipaba,,2,1
+Paraipaba,,3,1
+Paraipaba,,4,1
+Paraipaba,,8,1
+Paraipaba,,9,2
+Paraipaba,,10,1
+Paraipaba,,12,2
+Paraipaba,,13,2
+Paraipaba,,14,1
+Paraipaba,,15,1
+Paraipaba,,16,2
+Paraipaba,,17,3
+Paraipaba,,18,3
+Paraipaba,,19,5
+Paraipaba,,20,5
+Paraipaba,,21,5
+Paraipaba,,22,5
+Paraipaba,,23,1
+Parambu,,0,1
+Parambu,,1,1
+Parambu,,2,1
+Parambu,,3,1
+Parambu,,6,2
+Parambu,,12,1
+Parambu,,13,1
+Parambu,,16,1
+Parambu,,17,1
+Parambu,,19,1
+Parambu,,20,1
+Parambu,,22,2
+Paramoti,,0,1
+Paramoti,,1,2
+Paramoti,,2,3
+Paramoti,,3,1
+Paramoti,,4,3
+Paramoti,,6,1
+Paramoti,,9,1
+Paramoti,,14,1
+Paramoti,,19,3
+Paramoti,,20,1
+Paramoti,,22,2
+Paramoti,,23,1
+Pedra Branca,,0,1
+Pedra Branca,,1,5
+Pedra Branca,,2,2
+Pedra Branca,,3,2
+Pedra Branca,,4,3
+Pedra Branca,,5,1
+Pedra Branca,,7,3
+Pedra Branca,,8,1
+Pedra Branca,,10,1
+Pedra Branca,,11,1
+Pedra Branca,,14,5
+Pedra Branca,,15,2
+Pedra Branca,,16,4
+Pedra Branca,,17,2
+Pedra Branca,,18,2
+Pedra Branca,,19,7
+Pedra Branca,,20,1
+Pedra Branca,,21,5
+Pedra Branca,,22,3
+Pedra Branca,,23,1
+Penaforte,,1,1
+Penaforte,,4,1
+Penaforte,,10,1
+Penaforte,,13,1
+Penaforte,,18,1
+Penaforte,,20,1
+Pentecoste,,0,4
+Pentecoste,,1,3
+Pentecoste,,2,1
+Pentecoste,,4,3
+Pentecoste,,5,5
+Pentecoste,,6,4
+Pentecoste,,7,11
+Pentecoste,,8,4
+Pentecoste,,12,2
+Pentecoste,,13,2
+Pentecoste,,14,1
+Pentecoste,,15,1
+Pentecoste,,16,7
+Pentecoste,,17,2
+Pentecoste,,18,6
+Pentecoste,,19,5
+Pentecoste,,20,5
+Pentecoste,,21,7
+Pentecoste,,22,3
+Pentecoste,,23,2
+Pereiro,,9,2
+Pereiro,,12,1
+Pereiro,,14,1
+Pereiro,,19,1
+Pereiro,,20,2
+Pereiro,,21,2
+Pereiro,,22,2
+Pereiro,,23,1
+Pindoretama,,0,4
+Pindoretama,,2,1
+Pindoretama,,3,3
+Pindoretama,,6,3
+Pindoretama,,7,1
+Pindoretama,,11,1
+Pindoretama,,13,1
+Pindoretama,,15,3
+Pindoretama,,16,3
+Pindoretama,,17,3
+Pindoretama,,18,1
+Pindoretama,,19,2
+Pindoretama,,20,2
+Pindoretama,,21,1
+Pindoretama,,22,6
+Pindoretama,,23,4
+Piquet Carneiro,,3,1
+Piquet Carneiro,,6,1
+Piquet Carneiro,,7,2
+Piquet Carneiro,,15,1
+Piquet Carneiro,,17,1
+Piquet Carneiro,,19,1
+Piquet Carneiro,,20,2
+Piquet Carneiro,,22,2
+Pires Ferreira,,2,1
+Pires Ferreira,,3,1
+Pires Ferreira,,6,1
+Poranga,,1,2
+Poranga,,2,1
+Poranga,,3,1
+Poranga,,4,1
+Poranga,,14,1
+Poranga,,16,1
+Poranga,,17,2
+Poranga,,19,3
+Poranga,,20,1
+Poranga,,21,1
+Poranga,,22,1
+Porteiras,,1,1
+Porteiras,,8,1
+Porteiras,,9,1
+Porteiras,,11,1
+Porteiras,,17,1
+Porteiras,,21,1
+Potengi,,1,1
+Potengi,,7,1
+Potengi,,17,1
+Potengi,,18,1
+Potengi,,19,1
+Potiretama,,7,2
+Potiretama,,9,1
+Potiretama,,13,1
+Potiretama,,17,1
+Potiretama,,18,1
+Potiretama,,19,1
+Quiterianópolis,,6,1
+Quiterianópolis,,14,1
+Quiterianópolis,,15,2
+Quiterianópolis,,20,2
+Quiterianópolis,,21,1
+Quiterianópolis,,23,2
+Quixadá,,0,6
+Quixadá,,1,4
+Quixadá,,2,7
+Quixadá,,3,13
+Quixadá,,4,6
+Quixadá,,5,6
+Quixadá,,6,1
+Quixadá,,7,8
+Quixadá,,8,1
+Quixadá,,9,1
+Quixadá,,10,5
+Quixadá,,11,4
+Quixadá,,12,1
+Quixadá,,13,1
+Quixadá,,14,3
+Quixadá,,15,2
+Quixadá,,16,2
+Quixadá,,17,6
+Quixadá,,18,9
+Quixadá,,19,13
+Quixadá,,20,17
+Quixadá,,21,15
+Quixadá,,22,10
+Quixadá,,23,5
+Quixelô,,0,2
+Quixelô,,4,1
+Quixelô,,18,1
+Quixelô,,19,2
+Quixelô,,21,1
+Quixelô,,22,1
+Quixeramobim,,1,1
+Quixeramobim,,3,1
+Quixeramobim,,4,2
+Quixeramobim,,5,1
+Quixeramobim,,8,1
+Quixeramobim,,9,1
+Quixeramobim,,10,1
+Quixeramobim,,11,1
+Quixeramobim,,12,1
+Quixeramobim,,15,3
+Quixeramobim,,17,2
+Quixeramobim,,19,3
+Quixeramobim,,20,2
+Quixeramobim,,21,2
+Quixeramobim,,22,3
+Quixeramobim,,23,1
+Quixeré,,0,1
+Quixeré,,1,5
+Quixeré,,2,3
+Quixeré,,3,1
+Quixeré,,4,4
+Quixeré,,5,2
+Quixeré,,6,5
+Quixeré,,7,3
+Quixeré,,11,2
+Quixeré,,14,1
+Quixeré,,15,1
+Quixeré,,16,1
+Quixeré,,17,1
+Quixeré,,19,2
+Quixeré,,20,2
+Quixeré,,21,1
+Quixeré,,22,3
+Redenção,,1,1
+Redenção,,4,2
+Redenção,,7,1
+Redenção,,10,1
+Redenção,,11,1
+Redenção,,13,2
+Redenção,,14,1
+Redenção,,17,1
+Redenção,,20,1
+Redenção,,21,2
+Redenção,,22,2
+Redenção,,23,1
+Reriutaba,,1,1
+Reriutaba,,2,1
+Reriutaba,,3,1
+Reriutaba,,6,1
+Reriutaba,,15,2
+Reriutaba,,17,1
+Reriutaba,,18,2
+Reriutaba,,21,2
+Reriutaba,,22,1
+Reriutaba,,23,1
+Russas,,0,3
+Russas,,1,6
+Russas,,2,6
+Russas,,3,7
+Russas,,4,8
+Russas,,5,1
+Russas,,6,5
+Russas,,7,4
+Russas,,8,2
+Russas,,9,3
+Russas,,10,5
+Russas,,11,3
+Russas,,12,6
+Russas,,13,5
+Russas,,14,2
+Russas,,15,4
+Russas,,16,6
+Russas,,17,8
+Russas,,18,2
+Russas,,19,4
+Russas,,20,7
+Russas,,21,6
+Russas,,22,2
+Russas,,23,2
+Saboeiro,,1,1
+Saboeiro,,4,1
+Saboeiro,,6,1
+Saboeiro,,7,1
+Saboeiro,,9,2
+Saboeiro,,11,1
+Saboeiro,,15,1
+Saboeiro,,16,1
+Saboeiro,,18,1
+Saboeiro,,19,1
+Saboeiro,,20,1
+Saboeiro,,22,3
+Salitre,,0,1
+Salitre,,1,2
+Salitre,,3,1
+Salitre,,6,2
+Salitre,,7,2
+Salitre,,9,1
+Salitre,,10,2
+Salitre,,13,2
+Salitre,,16,1
+Salitre,,19,1
+Salitre,,20,1
+Salitre,,21,2
+Santa Quitéria,,1,1
+Santa Quitéria,,2,1
+Santa Quitéria,,4,2
+Santa Quitéria,,7,1
+Santa Quitéria,,9,1
+Santa Quitéria,,10,1
+Santa Quitéria,,12,1
+Santa Quitéria,,13,1
+Santa Quitéria,,15,2
+Santa Quitéria,,17,1
+Santa Quitéria,,18,2
+Santa Quitéria,,19,2
+Santa Quitéria,,21,5
+Santa Quitéria,,22,6
+Santana do Acaraú,,1,2
+Santana do Acaraú,,3,1
+Santana do Acaraú,,4,1
+Santana do Acaraú,,5,1
+Santana do Acaraú,,6,1
+Santana do Acaraú,,12,1
+Santana do Acaraú,,13,2
+Santana do Acaraú,,14,2
+Santana do Acaraú,,17,1
+Santana do Acaraú,,18,1
+Santana do Acaraú,,19,1
+Santana do Acaraú,,20,1
+Santana do Acaraú,,23,1
+Santana do Cariri,,5,1
+Santana do Cariri,,21,1
+Senador Pompeu,,1,1
+Senador Pompeu,,5,1
+Senador Pompeu,,6,4
+Senador Pompeu,,8,4
+Senador Pompeu,,9,1
+Senador Pompeu,,11,2
+Senador Pompeu,,12,1
+Senador Pompeu,,13,1
+Senador Pompeu,,17,1
+Senador Pompeu,,18,1
+Senador Pompeu,,19,7
+Senador Pompeu,,20,2
+Senador Pompeu,,21,4
+Senador Pompeu,,22,3
+Senador Pompeu,,23,3
+Senador Sá,,2,1
+Senador Sá,,6,2
+Senador Sá,,16,1
+Senador Sá,,23,1
+Sobral,,0,11
+Sobral,,1,12
+Sobral,,2,13
+Sobral,,3,15
+Sobral,,4,10
+Sobral,,5,7
+Sobral,,6,13
+Sobral,,7,7
+Sobral,,8,7
+Sobral,,9,13
+Sobral,,10,14
+Sobral,,11,12
+Sobral,,12,10
+Sobral,,13,20
+Sobral,,14,16
+Sobral,,15,21
+Sobral,,16,21
+Sobral,,17,19
+Sobral,,18,18
+Sobral,,19,30
+Sobral,,20,30
+Sobral,,21,23
+Sobral,,22,15
+Sobral,,23,13
+Solonópole,,1,4
+Solonópole,,2,2
+Solonópole,,3,1
+Solonópole,,4,2
+Solonópole,,9,2
+Solonópole,,10,2
+Solonópole,,13,1
+Solonópole,,15,1
+Solonópole,,17,2
+Solonópole,,18,3
+Solonópole,,20,3
+Solonópole,,21,3
+Solonópole,,22,1
+Solonópole,,23,1
+São Benedito,,0,3
+São Benedito,,1,6
+São Benedito,,2,2
+São Benedito,,3,9
+São Benedito,,4,6
+São Benedito,,5,2
+São Benedito,,6,2
+São Benedito,,7,3
+São Benedito,,8,2
+São Benedito,,9,3
+São Benedito,,10,2
+São Benedito,,11,1
+São Benedito,,12,3
+São Benedito,,13,4
+São Benedito,,14,3
+São Benedito,,15,2
+São Benedito,,16,3
+São Benedito,,17,2
+São Benedito,,18,4
+São Benedito,,19,10
+São Benedito,,20,6
+São Benedito,,21,1
+São Benedito,,22,5
+São Benedito,,23,3
+São Gonçalo do Amarante,,0,3
+São Gonçalo do Amarante,,1,8
+São Gonçalo do Amarante,,2,3
+São Gonçalo do Amarante,,3,3
+São Gonçalo do Amarante,,4,4
+São Gonçalo do Amarante,,5,1
+São Gonçalo do Amarante,,6,4
+São Gonçalo do Amarante,,7,12
+São Gonçalo do Amarante,,8,6
+São Gonçalo do Amarante,,9,1
+São Gonçalo do Amarante,,10,5
+São Gonçalo do Amarante,,11,6
+São Gonçalo do Amarante,,12,5
+São Gonçalo do Amarante,,13,4
+São Gonçalo do Amarante,,14,3
+São Gonçalo do Amarante,,15,8
+São Gonçalo do Amarante,,16,6
+São Gonçalo do Amarante,,17,5
+São Gonçalo do Amarante,,18,7
+São Gonçalo do Amarante,,19,10
+São Gonçalo do Amarante,,20,8
+São Gonçalo do Amarante,,21,4
+São Gonçalo do Amarante,,22,7
+São Gonçalo do Amarante,,23,3
+São João do Jaguaribe,,0,1
+São João do Jaguaribe,,1,2
+São João do Jaguaribe,,5,1
+São João do Jaguaribe,,7,2
+São João do Jaguaribe,,8,3
+São João do Jaguaribe,,10,1
+São João do Jaguaribe,,13,3
+São João do Jaguaribe,,18,2
+São João do Jaguaribe,,19,5
+São João do Jaguaribe,,20,2
+São João do Jaguaribe,,21,3
+São João do Jaguaribe,,23,1
+São Luís do Curu,,3,2
+São Luís do Curu,,4,1
+São Luís do Curu,,8,1
+São Luís do Curu,,9,1
+São Luís do Curu,,10,2
+São Luís do Curu,,11,2
+São Luís do Curu,,12,1
+São Luís do Curu,,13,2
+São Luís do Curu,,15,2
+São Luís do Curu,,16,2
+São Luís do Curu,,18,1
+São Luís do Curu,,19,3
+São Luís do Curu,,21,4
+São Luís do Curu,,22,1
+São Luís do Curu,,23,2
+Tabuleiro do Norte,,1,3
+Tabuleiro do Norte,,2,2
+Tabuleiro do Norte,,4,3
+Tabuleiro do Norte,,5,2
+Tabuleiro do Norte,,8,2
+Tabuleiro do Norte,,9,2
+Tabuleiro do Norte,,10,2
+Tabuleiro do Norte,,11,3
+Tabuleiro do Norte,,12,2
+Tabuleiro do Norte,,13,3
+Tabuleiro do Norte,,14,1
+Tabuleiro do Norte,,15,3
+Tabuleiro do Norte,,16,3
+Tabuleiro do Norte,,17,3
+Tabuleiro do Norte,,18,2
+Tabuleiro do Norte,,19,1
+Tabuleiro do Norte,,20,6
+Tabuleiro do Norte,,21,2
+Tabuleiro do Norte,,22,1
+Tabuleiro do Norte,,23,1
+Tamboril,,2,3
+Tamboril,,4,2
+Tamboril,,5,1
+Tamboril,,6,3
+Tamboril,,8,1
+Tamboril,,10,2
+Tamboril,,12,2
+Tamboril,,13,2
+Tamboril,,16,1
+Tamboril,,17,1
+Tamboril,,18,1
+Tamboril,,19,2
+Tamboril,,21,5
+Tamboril,,23,1
+Tarrafas,,2,1
+Tarrafas,,10,2
+Tarrafas,,18,1
+Tarrafas,,23,1
+Tauá,,0,1
+Tauá,,1,4
+Tauá,,2,2
+Tauá,,3,1
+Tauá,,4,3
+Tauá,,5,2
+Tauá,,6,3
+Tauá,,7,1
+Tauá,,8,1
+Tauá,,9,1
+Tauá,,10,1
+Tauá,,11,2
+Tauá,,12,2
+Tauá,,14,1
+Tauá,,15,1
+Tauá,,16,1
+Tauá,,17,2
+Tauá,,18,2
+Tauá,,19,7
+Tauá,,21,1
+Tauá,,22,8
+Tejuçuoca,,0,1
+Tejuçuoca,,2,3
+Tejuçuoca,,3,1
+Tejuçuoca,,4,2
+Tejuçuoca,,5,4
+Tejuçuoca,,6,1
+Tejuçuoca,,7,1
+Tejuçuoca,,9,1
+Tejuçuoca,,10,2
+Tejuçuoca,,13,2
+Tejuçuoca,,14,3
+Tejuçuoca,,15,2
+Tejuçuoca,,16,2
+Tejuçuoca,,18,6
+Tejuçuoca,,20,5
+Tejuçuoca,,21,1
+Tejuçuoca,,22,1
+Tejuçuoca,,23,1
+Tianguá,,0,4
+Tianguá,,1,8
+Tianguá,,2,9
+Tianguá,,3,6
+Tianguá,,4,4
+Tianguá,,5,2
+Tianguá,,6,4
+Tianguá,,7,5
+Tianguá,,8,1
+Tianguá,,9,1
+Tianguá,,10,4
+Tianguá,,11,4
+Tianguá,,12,6
+Tianguá,,13,4
+Tianguá,,14,6
+Tianguá,,15,2
+Tianguá,,16,7
+Tianguá,,17,10
+Tianguá,,18,5
+Tianguá,,19,15
+Tianguá,,20,7
+Tianguá,,21,6
+Tianguá,,22,7
+Tianguá,,23,3
+Trairi,,0,8
+Trairi,,1,10
+Trairi,,2,3
+Trairi,,3,5
+Trairi,,4,4
+Trairi,,5,4
+Trairi,,6,3
+Trairi,,7,2
+Trairi,,8,4
+Trairi,,9,5
+Trairi,,10,8
+Trairi,,11,2
+Trairi,,12,3
+Trairi,,13,2
+Trairi,,14,2
+Trairi,,15,4
+Trairi,,16,8
+Trairi,,17,8
+Trairi,,18,7
+Trairi,,19,12
+Trairi,,20,12
+Trairi,,21,10
+Trairi,,22,9
+Trairi,,23,5
+Tururu,,0,3
+Tururu,,1,1
+Tururu,,3,2
+Tururu,,4,1
+Tururu,,6,2
+Tururu,,7,1
+Tururu,,10,1
+Tururu,,11,1
+Tururu,,14,1
+Tururu,,15,2
+Tururu,,16,1
+Tururu,,17,2
+Tururu,,21,1
+Tururu,,22,2
+Tururu,,23,3
+Ubajara,,0,3
+Ubajara,,2,1
+Ubajara,,4,1
+Ubajara,,6,2
+Ubajara,,7,3
+Ubajara,,8,1
+Ubajara,,10,1
+Ubajara,,11,1
+Ubajara,,12,1
+Ubajara,,13,3
+Ubajara,,15,4
+Ubajara,,16,2
+Ubajara,,17,4
+Ubajara,,18,2
+Ubajara,,19,3
+Ubajara,,20,6
+Ubajara,,21,4
+Ubajara,,22,2
+Ubajara,,23,1
+Umari,,0,1
+Umari,,22,1
+Umirim,,0,1
+Umirim,,1,3
+Umirim,,2,1
+Umirim,,5,1
+Umirim,,7,3
+Umirim,,8,2
+Umirim,,9,3
+Umirim,,12,2
+Umirim,,15,1
+Umirim,,17,1
+Umirim,,19,2
+Umirim,,20,2
+Uruburetama,,0,1
+Uruburetama,,1,1
+Uruburetama,,3,1
+Uruburetama,,4,3
+Uruburetama,,5,3
+Uruburetama,,6,3
+Uruburetama,,7,6
+Uruburetama,,8,1
+Uruburetama,,9,2
+Uruburetama,,15,2
+Uruburetama,,16,1
+Uruburetama,,20,1
+Uruburetama,,21,1
+Uruoca,,2,2
+Uruoca,,4,1
+Uruoca,,7,1
+Uruoca,,8,1
+Uruoca,,14,1
+Uruoca,,15,1
+Uruoca,,22,1
+Uruoca,,23,1
+Varjota,,0,3
+Varjota,,1,1
+Varjota,,2,2
+Varjota,,3,6
+Varjota,,4,3
+Varjota,,5,3
+Varjota,,6,2
+Varjota,,7,2
+Varjota,,9,2
+Varjota,,10,2
+Varjota,,11,4
+Varjota,,12,2
+Varjota,,13,1
+Varjota,,15,1
+Varjota,,16,4
+Varjota,,17,2
+Varjota,,18,2
+Varjota,,19,4
+Varjota,,20,3
+Varjota,,21,3
+Varjota,,22,3
+Varjota,,23,2
+Viçosa do Ceará,,1,7
+Viçosa do Ceará,,2,3
+Viçosa do Ceará,,3,17
+Viçosa do Ceará,,4,2
+Viçosa do Ceará,,6,1
+Viçosa do Ceará,,7,1
+Viçosa do Ceará,,9,1
+Viçosa do Ceará,,10,1
+Viçosa do Ceará,,13,2
+Viçosa do Ceará,,14,4
+Viçosa do Ceará,,15,1
+Viçosa do Ceará,,16,2
+Viçosa do Ceará,,17,1
+Viçosa do Ceará,,18,1
+Viçosa do Ceará,,19,2
+Viçosa do Ceará,,20,1
+Viçosa do Ceará,,21,3
+Viçosa do Ceará,,22,1
+Viçosa do Ceará,,23,3
+Várzea Alegre,,1,2
+Várzea Alegre,,2,1
+Várzea Alegre,,3,1
+Várzea Alegre,,4,3
+Várzea Alegre,,6,2
+Várzea Alegre,,10,1
+Várzea Alegre,,17,1
+Várzea Alegre,,20,2
+Várzea Alegre,,21,2
