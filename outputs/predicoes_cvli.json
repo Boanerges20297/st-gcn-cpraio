@@ -1,0 +1,138 @@
+{
+  "timestamp": "2026-01-23T11:42:40.058416",
+  "modelo": "STGCN_DynamicFactions",
+  "horizonte_dias": 210,
+  "periodo": "2026-01-23 a 2026-08-21",
+  "sumario": {
+    "total_cvli_predito": 1.6316600572106912,
+    "media_por_bairro": 0.013484793861245382,
+    "mediana": 0.007183408956161842,
+    "max": 0.0800437012836659,
+    "min": 0.0005131006281781741,
+    "bairros_criticos": 12,
+    "bairros_alto_risco": 30,
+    "bairros_disputa": 0
+  },
+  "top_20": [
+    {
+      "bairro": "Jangurussu",
+      "cvli_predito": 0.0800437012836659,
+      "prob_mudanca": 0.00033967578201554716,
+      "volatilidade": 0.1170368492603302
+    },
+    {
+      "bairro": "Barra Do Ceará",
+      "cvli_predito": 0.07183408760444827,
+      "prob_mudanca": 0.00033954691025428474,
+      "volatilidade": 0.08362087607383728
+    },
+    {
+      "bairro": "Messejana",
+      "cvli_predito": 0.056954174114818255,
+      "prob_mudanca": 0.000339874328346923,
+      "volatilidade": 0.14313346147537231
+    },
+    {
+      "bairro": "Granja Lisboa",
+      "cvli_predito": 0.055414863729084635,
+      "prob_mudanca": 0.0003394724626559764,
+      "volatilidade": 0.09520432353019714
+    },
+    {
+      "bairro": "Prefeito José Walter",
+      "cvli_predito": 0.05284936518549214,
+      "prob_mudanca": 0.00033952973899431527,
+      "volatilidade": 0.13277113437652588
+    },
+    {
+      "bairro": "Planalto Ayrton Senna",
+      "cvli_predito": 0.047718365802704985,
+      "prob_mudanca": 0.00033955241087824106,
+      "volatilidade": 0.08649926632642746
+    },
+    {
+      "bairro": "Siqueira",
+      "cvli_predito": 0.041561154422272505,
+      "prob_mudanca": 0.00033970619551837444,
+      "volatilidade": 0.11982761323451996
+    },
+    {
+      "bairro": "Mondubim",
+      "cvli_predito": 0.0384825505792356,
+      "prob_mudanca": 0.00033979627187363803,
+      "volatilidade": 0.08476080745458603
+    },
+    {
+      "bairro": "Barroso",
+      "cvli_predito": 0.03540394659014275,
+      "prob_mudanca": 0.0003395488311070949,
+      "volatilidade": 0.11192907392978668
+    },
+    {
+      "bairro": "Passaré",
+      "cvli_predito": 0.03335154519348112,
+      "prob_mudanca": 0.0003397641994524747,
+      "volatilidade": 0.10913597792387009
+    },
+    {
+      "bairro": "Cristo Redentor",
+      "cvli_predito": 0.030786038880476572,
+      "prob_mudanca": 0.00033954691025428474,
+      "volatilidade": 0.07349300384521484
+    },
+    {
+      "bairro": "Vicente Pinzón",
+      "cvli_predito": 0.029759840095908763,
+      "prob_mudanca": 0.00033955564140342176,
+      "volatilidade": 0.10402456670999527
+    },
+    {
+      "bairro": "Granja Portugal",
+      "cvli_predito": 0.028733663224385184,
+      "prob_mudanca": 0.000342939660185948,
+      "volatilidade": 0.10250616818666458
+    },
+    {
+      "bairro": "Pici",
+      "cvli_predito": 0.028733635824647368,
+      "prob_mudanca": 0.00033961227745749056,
+      "volatilidade": 0.10250639170408249
+    },
+    {
+      "bairro": "Quintino Cunha",
+      "cvli_predito": 0.028220534564500847,
+      "prob_mudanca": 0.0003398710978217423,
+      "volatilidade": 0.10502409189939499
+    },
+    {
+      "bairro": "Bom Jardim",
+      "cvli_predito": 0.02770743516718936,
+      "prob_mudanca": 0.0003395546809770167,
+      "volatilidade": 0.07165421545505524
+    },
+    {
+      "bairro": "Conjunto Palmeiras",
+      "cvli_predito": 0.027707431864542317,
+      "prob_mudanca": 0.00033954691025428474,
+      "volatilidade": 0.10096309334039688
+    },
+    {
+      "bairro": "Lagoa Redonda",
+      "cvli_predito": 0.02719433390704284,
+      "prob_mudanca": 0.00033978719147853553,
+      "volatilidade": 0.10351525992155075
+    },
+    {
+      "bairro": "Carlito Pamplona",
+      "cvli_predito": 0.025655031989438287,
+      "prob_mudanca": 0.0003395634121261537,
+      "volatilidade": 0.09778524935245514
+    },
+    {
+      "bairro": "Jardim Das Oliveiras",
+      "cvli_predito": 0.025655028931431834,
+      "prob_mudanca": 0.00033954691025428474,
+      "volatilidade": 0.1811436265707016
+    }
+  ]
+}

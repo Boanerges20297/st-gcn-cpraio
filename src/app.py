@@ -7,9 +7,15 @@ import os
 import re
 from pathlib import Path
 import numpy as np
+from datetime import datetime, timedelta
 
-# Import local config
-from . import config
+# Import local config - support both relative and direct imports
+try:
+    from . import config
+    from .data_adapter import init_adapter, get_adapter
+except ImportError:
+    import config
+    from data_adapter import init_adapter, get_adapter
 
 app = Flask(__name__, static_folder='../data', static_url_path='/data')
 
@@ -283,114 +289,72 @@ def index():
 
 @app.route('/api/dashboard_data')
 def dashboard_data():
-    """Rota otimizada com filtros em cascata (AND logic)."""
+    """
+    Rota otimizada com novo modelo ST-GCN
+    Retorna dados de risco baseados em predições do novo modelo
+    """
     try:
         region = request.args.get('region', 'CAPITAL')
         faccao = request.args.get('faccao', 'TODAS')
         tipo_crime = request.args.get('tipo_crime', 'CVLI')
         
-        # LÓGICA DE CASCATA:
-        # Cada filtro refina progressivamente os dados
+        # Usar novo DataAdapter para predições
+        adapter = get_adapter()
         
-        if faccao != 'TODAS':
-            # MODO 1: Filtro territorial ativado - mostra mapa da facção
-            territory_path = config.DATA_GRAPH / f"territorio_{faccao.lower()}_{region.lower()}.geojson"
-            if territory_path.exists():
-                with open(territory_path, 'r', encoding='utf-8') as f:
-                    risk_geojson = json.load(f)
-                # Garantir que o mapa de calor represente a predição futura
-                try:
-                    pred_path = config.ARTIFACTS.get(region, {}).get('prediction')
-                    if pred_path and pred_path.exists():
-                        df_pred = load_prediction_csv(pred_path)
-                        mapping = dict(zip(df_pred['local_upper'], df_pred['risco_previsto']))
+        if adapter.df_pred is None:
+            return jsonify({
+                "polygons": None,
+                "points": [],
+                "targets": [],
+                "filtros_ativos": {"regiao": region, "faccao": faccao, "tipo_crime": tipo_crime},
+                "erro": "Predições não disponíveis"
+            })
+        
+        # Carregar base de limites (continua igual)
+        risk_geojson = load_risk_map(region, tipo_crime)
+        
+        # Enriquecer com predições do novo modelo
+        if risk_geojson:
+            for feature in risk_geojson.get('features', []):
+                props = feature.setdefault('properties', {})
+                bairro_name = props.get('name') or props.get('bairro') or ''
+                
+                # Buscar predição no novo modelo
+                bairro_info = adapter.get_bairro_info(bairro_name)
+                if bairro_info:
+                    score_risco = (bairro_info['score_risco'] or 0) / 100  # Normalizar 0-1
+                    props['risco_previsto'] = float(score_risco)
+                    props['risco'] = float(score_risco)
+                    props['cvli_predito'] = float(bairro_info['cvli_predito'])
+                    
+                    # Classificar nível de alerta
+                    if score_risco >= 0.8:
+                        props['nivel_alerta'] = 'CRÍTICO'
+                        props['cor_alerta'] = '#ff0000'
+                    elif score_risco >= 0.6:
+                        props['nivel_alerta'] = 'ALTO'
+                        props['cor_alerta'] = '#ff6b6b'
+                    elif score_risco >= 0.4:
+                        props['nivel_alerta'] = 'MÉDIO'
+                        props['cor_alerta'] = '#ffcc00'
                     else:
-                        mapping = {}
-
-                    # Aplicar risco previsto a cada feature; manter contadores históricos se solicitados
-                    for feature in risk_geojson.get('features', []):
-                        props = feature.setdefault('properties', {})
-                        local = str(props.get('name') or props.get('bairro') or '').upper().strip()
-                        risco_prev = mapping.get(local)
-                        if risco_prev is not None:
-                            props['risco_previsto'] = float(risco_prev)
-                            props['risco'] = float(risco_prev)
-                            nivel, cor = get_alert_level(float(risco_prev), region)
-                            props['nivel_alerta'] = nivel
-                            props['cor_alerta'] = cor
-                        else:
-                            # default quando não houver predição
-                            props['risco_previsto'] = props.get('risco_previsto', 0)
-                            props['risco'] = props.get('risco', 0)
-                            props['nivel_alerta'] = props.get('nivel_alerta', 'BAIXO')
-                            props['cor_alerta'] = props.get('cor_alerta', '#000000')
-                except Exception:
-                    # Em caso de falha ao ler predições, manter comportamento anterior de fallback
-                    for feature in risk_geojson.get('features', []):
-                        props = feature['properties']
-                        crit = props.get('criticidade_territorio', 'BAIXO')
-                        nivel, cor = get_alert_level(0.5 if crit == 'CRÍTICO' else 0.3 if crit == 'ALTO' else 0.1, region)
-                        props['nivel_alerta'] = crit
-                        props['cor_alerta'] = cor
-
-            # Se houver filtro por tipo de crime, ainda calculamos contadores históricos para exibição,
-            # mas NÃO alteramos o nível do polígono que continua baseado na predição
-            if tipo_crime in ['CVLI', 'CVP']:
-                try:
-                    df = load_occurrences()
-                    df = df[(df['regiao_sistema'] == region) & 
-                            (df['faccao'] == faccao) & 
-                            (df['tipo'] == tipo_crime)]
-                    crime_counts = df.groupby('local_oficial').size()
-                    for feature in risk_geojson.get('features', []):
-                        props = feature.setdefault('properties', {})
-                        local = str(props.get('name') or props.get('bairro') or '').upper().strip()
-                        count = int(crime_counts.get(local, 0))
-                        props['count_tipo_crime'] = count
-                except Exception:
-                    pass
-            
-            
-            points = []
-            top_targets = []
+                        props['nivel_alerta'] = 'BAIXO'
+                        props['cor_alerta'] = '#00ff00'
         
-        else:
-            # MODO 2: Sem filtro territorial - mostra mapa de risco geral
-            risk_geojson = load_risk_map(region, tipo_crime)
-            
-            # Pontos com filtro de tipo_crime cascata
-            df = load_occurrences()
-            points = []
-            if not df.empty:
-                # Cascata de filtros
-                df = df[df['regiao_sistema'] == region]
-                
-                # FILTRO: Tipo de Crime (se especificado)
-                if tipo_crime in ['CVLI', 'CVP']:
-                    df = df[df['tipo'] == tipo_crime]
-                
-                # FILTRO: Facção (apenas se não estiver em modo territorial)
-                # Nesse modo, facção já é 'TODAS', então não filtra
-                
-                # Limite para performance
-                if not df.empty:
-                    df = df.sort_values('data_hora', ascending=False).head(3000)
-                    points = df[['latitude', 'longitude', 'natureza', 'local_oficial', 'faccao', 'data_hora', 'tipo']].to_dict(orient='records')
-            
-            # Top Alvos (apenas risco geral, sem filtro territorial)
-            top_targets = []
-            if risk_geojson:
-                features = risk_geojson['features']
-                features.sort(key=lambda x: x['properties'].get('risco', 0), reverse=True)
-                for f in features[:5]:
-                    props = f['properties']
-                    if props.get('risco', 0) > 0:
-                        top_targets.append({
-                            'local': props.get('name') or props.get('bairro'),
-                            'nivel': props.get('nivel_alerta'),
-                            'score': round(props.get('risco', 0), 3)
-                        })
-
+        # Top alvos baseado em novo modelo
+        top_bairros = adapter.get_top_bairros(10)
+        top_targets = [
+            {
+                'local': b['bairro'],
+                'nivel': 'CRÍTICO' if b['score_risco'] >= 80 else 'ALTO' if b['score_risco'] >= 60 else 'MÉDIO',
+                'score': round(b['score_risco'] / 100, 3),
+                'cvli': round(b['cvli_predito'], 4)
+            }
+            for b in top_bairros
+        ]
+        
+        points = []  # Não usar pontos históricos com novo modelo
+        
         return jsonify({
             "polygons": risk_geojson,
             "points": points,
@@ -398,14 +362,24 @@ def dashboard_data():
             "filtros_ativos": {
                 "regiao": region,
                 "faccao": faccao,
-                "tipo_crime": tipo_crime
+                "tipo_crime": tipo_crime,
+                "fonte": "ST-GCN Model"
             }
         })
+    
     except Exception as e:
         import traceback
         erro_detalhes = traceback.format_exc()
         print(f"[ERRO] /api/dashboard_data: {str(e)}\n{erro_detalhes}")
-        return jsonify({"sucesso": False, "erro": str(e), "detalhes": erro_detalhes}), 200
+        return jsonify({
+            "sucesso": False,
+            "erro": str(e),
+            "detalhes": erro_detalhes,
+            "polygons": None,
+            "points": [],
+            "targets": []
+        }), 200
+
 
 # --- DASHBOARD ESTRATÉGICO COM IA ---
 
@@ -1467,6 +1441,440 @@ def get_recomendacoes_operacionais():
         erro_detalhes = traceback.format_exc()
         print(f"[ERRO] /api/recomendacoes_operacionais: {str(e)}\n{erro_detalhes}")
         return jsonify({"sucesso": False, "erro": str(e), "detalhes": erro_detalhes})
+
+
+# ============================================================================
+# NOVAS ROTAS: PREDIÇÕES COM DINÂMICA DE FACÇÕES (180+30 DIAS)
+# ============================================================================
+
+@app.route('/api/cvli_forecast_extended')
+def get_cvli_forecast_extended():
+    """
+    Predições de CVLI para 210 dias (180 + 30 janela)
+    Integra dinâmica de facções (mudança territorial, conflito, volatilidade)
+    
+    Query params (opcionais):
+    - top: número de bairros a retornar (default 20)
+    - min_risco: filtro de risco mínimo (default 0)
+    
+    Retorna: Top bairros com maior risco de CVLI
+    """
+    try:
+        # Parâmetros
+        top_n = int(request.args.get('top', 20))
+        min_risco = float(request.args.get('min_risco', 0))
+        
+        # Carregar predições
+        pred_file = config.OUTPUT_DIR / 'predicoes_cvli.csv'
+        if not pred_file.exists():
+            return jsonify({
+                "sucesso": False, 
+                "erro": "Predições não disponíveis",
+                "arquivo_esperado": str(pred_file)
+            }), 404
+        
+        df_pred = pd.read_csv(pred_file)
+        
+        # Filtrar por risco mínimo
+        df_pred = df_pred[df_pred['cvli_predito'] >= min_risco]
+        
+        # Top N por risco
+        top_pred = df_pred.nlargest(top_n, 'cvli_predito')
+        
+        # Calcular percentil e classificação
+        percentil_75 = df_pred['cvli_predito'].quantile(0.75)
+        percentil_90 = df_pred['cvli_predito'].quantile(0.90)
+        
+        def classificar_risco(valor):
+            if valor > percentil_90:
+                return "CRÍTICO"
+            elif valor > percentil_75:
+                return "ALTO"
+            elif valor > df_pred['cvli_predito'].median():
+                return "MÉDIO"
+            else:
+                return "BAIXO"
+        
+        top_pred['classificacao'] = top_pred['cvli_predito'].apply(classificar_risco)
+        
+        # Estruturar resposta
+        resultado = []
+        for idx, row in top_pred.iterrows():
+            resultado.append({
+                'bairro': row['bairro'],
+                'cvli_predito': float(row['cvli_predito']),
+                'prob_mudanca': float(row.get('prob_mudanca', 0)),
+                'volatilidade': float(row.get('volatilidade', 0)),
+                'classificacao': row['classificacao'],
+                'risco_territorialidade': 'SIM' if row.get('prob_mudanca', 0) > 0.3 else 'NÃO'
+            })
+        
+        return jsonify({
+            "sucesso": True,
+            "data": {
+                "horizonte_dias": 210,
+                "periodo": f"23/01/2026 a 21/08/2026",
+                "total_bairros": int(len(df_pred)),
+                "bairros_criticos": int((df_pred['cvli_predito'] > percentil_90).sum()),
+                "bairros_alto_risco": int(((df_pred['cvli_predito'] > percentil_75) & (df_pred['cvli_predito'] <= percentil_90)).sum()),
+                "previsoes": resultado,
+                "metricas": {
+                    "cvli_medio": float(df_pred['cvli_predito'].mean()),
+                    "cvli_max": float(df_pred['cvli_predito'].max()),
+                    "cvli_min": float(df_pred['cvli_predito'].min()),
+                    "bairros_com_mudanca_territorial": int((df_pred['prob_mudanca'] > 0.3).sum())
+                }
+            }
+        })
+    
+    except Exception as e:
+        import traceback
+        print(f"[ERRO] /api/cvli_forecast_extended: {str(e)}\n{traceback.format_exc()}")
+        return jsonify({"sucesso": False, "erro": str(e)}), 500
+
+
+@app.route('/api/territorial_volatility/<bairro>')
+def get_territorial_volatility(bairro):
+    """
+    Análise detalhada de volatilidade territorial por bairro
+    
+    Params:
+    - bairro: nome do bairro (URL encoded)
+    
+    Retorna:
+    - Risco de mudança territorial
+    - Estabilidade do controle
+    - Histórico de mudanças
+    - Recomendações operacionais
+    """
+    try:
+        # URL decode do bairro
+        bairro = bairro.replace('%20', ' ').title()
+        
+        # Carregar predições
+        pred_file = config.OUTPUT_DIR / 'predicoes_cvli.csv'
+        if not pred_file.exists():
+            return jsonify({"sucesso": False, "erro": "Predições não disponíveis"}), 404
+        
+        df_pred = pd.read_csv(pred_file)
+        
+        # Procurar bairro
+        bairro_data = df_pred[df_pred['bairro'].str.lower() == bairro.lower()]
+        
+        if bairro_data.empty:
+            # Sugerir bairros similares
+            bairros_disponiveis = df_pred['bairro'].unique().tolist()
+            return jsonify({
+                "sucesso": False,
+                "erro": f"Bairro '{bairro}' não encontrado",
+                "bairros_disponibles_sample": bairros_disponiveis[:5]
+            }), 404
+        
+        row = bairro_data.iloc[0]
+        
+        # Carregar análise de facções se disponível
+        analise_faccoes_file = config.DATA_PROCESSED / 'analise_movimentacao_faccoes.json'
+        faccoes_info = {}
+        if analise_faccoes_file.exists():
+            with open(analise_faccoes_file, 'r', encoding='utf-8') as f:
+                analise_faccoes = json.load(f)
+                faccoes_info = analise_faccoes.get('bairros', {}).get(bairro, {})
+        
+        # Calcular risco de volatilidade
+        prob_mudanca = float(row.get('prob_mudanca', 0))
+        volatilidade = float(row.get('volatilidade', 0))
+        
+        # Classificação de risco territorial
+        if prob_mudanca > 0.5 or volatilidade > 0.7:
+            nivel_volatilidade = "CRÍTICO"
+            cor = "#ff0000"
+        elif prob_mudanca > 0.3 or volatilidade > 0.4:
+            nivel_volatilidade = "ALTO"
+            cor = "#ff6600"
+        elif prob_mudanca > 0.1 or volatilidade > 0.2:
+            nivel_volatilidade = "MÉDIO"
+            cor = "#ffcc00"
+        else:
+            nivel_volatilidade = "BAIXO"
+            cor = "#00cc00"
+        
+        # Recomendações baseadas em volatilidade
+        if nivel_volatilidade == "CRÍTICO":
+            recomendacoes = [
+                "⚠️ Alto risco de disputa territorial - Reforçar inteligência",
+                "🚗 Aumentar patrulhamento móvel e sensores",
+                "📞 Ativar protocolo de monitoramento de facções",
+                "🎯 Coordenar com agências de inteligência"
+            ]
+        elif nivel_volatilidade == "ALTO":
+            recomendacoes = [
+                "🔍 Monitorar mudanças de controle territorial",
+                "📡 Aumentar vigilância em horários críticos",
+                "🤝 Manter diálogo com lideranças locais"
+            ]
+        elif nivel_volatilidade == "MÉDIO":
+            recomendacoes = [
+                "✓ Manter presença policial habitual",
+                "📊 Acompanhar tendências de mudança"
+            ]
+        else:
+            recomendacoes = [
+                "✅ Territorialidade estável - Manutenção rotineira"
+            ]
+        
+        return jsonify({
+            "sucesso": True,
+            "data": {
+                "bairro": bairro,
+                "cvli_predito": float(row['cvli_predito']),
+                "volatilidade_territorial": {
+                    "nivel": nivel_volatilidade,
+                    "cor": cor,
+                    "prob_mudanca": float(prob_mudanca),
+                    "volatilidade_index": float(volatilidade)
+                },
+                "faccoes": faccoes_info,
+                "recomendacoes": recomendacoes,
+                "periodo_predicao": "210 dias (23/01/2026 a 21/08/2026)"
+            }
+        })
+    
+    except Exception as e:
+        import traceback
+        print(f"[ERRO] /api/territorial_volatility: {str(e)}\n{traceback.format_exc()}")
+        return jsonify({"sucesso": False, "erro": str(e)}), 500
+
+
+@app.route('/api/faction_timeline')
+def get_faction_timeline():
+    """
+    Timeline de movimentação de facções baseada em snapshots GeoJSON
+    
+    Retorna:
+    - Histórico de controle territorial por bairro
+    - Mudanças detectadas ao longo do tempo
+    - Padrões de conflito
+    """
+    try:
+        # Carregar análise de facções
+        analise_file = config.DATA_PROCESSED / 'analise_movimentacao_faccoes.json'
+        historico_file = config.DATA_PROCESSED / 'historico_mudancas_territoriais.csv'
+        
+        if not analise_file.exists():
+            return jsonify({
+                "sucesso": False,
+                "erro": "Análise de facções não disponível"
+            }), 404
+        
+        # Carregar dados
+        with open(analise_file, 'r', encoding='utf-8') as f:
+            analise = json.load(f)
+        
+        # Tentar carregar histórico de mudanças
+        timeline = []
+        if historico_file.exists():
+            df_historico = pd.read_csv(historico_file)
+            timeline = df_historico.to_dict(orient='records')
+        
+        # Resumo de facções
+        faccoes_resumo = analise.get('faccoes', {})
+        bairros_resumo = analise.get('bairros', {})
+        
+        # Contar tipos de mudanças
+        mudancas_detectadas = len([b for b in bairros_resumo.values() if b.get('mudancas', 0) > 0])
+        
+        return jsonify({
+            "sucesso": True,
+            "data": {
+                "ultima_atualizacao": analise.get('data_analise', 'N/A'),
+                "faccoes_identificadas": faccoes_resumo,
+                "bairros_analisados": int(len(bairros_resumo)),
+                "bairros_com_mudancas": int(mudancas_detectadas),
+                "timeline": timeline[:50],  # Últimas 50 mudanças
+                "resumo": {
+                    "total_snapshots": int(analise.get('total_snapshots', 1)),
+                    "periodo": f"23/01/2026"
+                }
+            }
+        })
+    
+    except Exception as e:
+        import traceback
+        print(f"[ERRO] /api/faction_timeline: {str(e)}\n{traceback.format_exc()}")
+        return jsonify({"sucesso": False, "erro": str(e)}), 500
+
+
+# ============================================================================
+# ROTAS DE SINCRONIZAÇÃO COM DASHBOARD (usando Data Adapter)
+# ============================================================================
+
+@app.route('/api/dashboard_sync')
+def get_dashboard_sync():
+    """
+    Sincroniza dados do novo modelo (ST-GCN + facções) com o dashboard
+    Substitui a busca por arquivo consolidado
+    
+    Retorna:
+    - Top 15 bairros de risco
+    - Métricas globais
+    - Dados por região
+    - Timeline de 30 dias
+    """
+    try:
+        adapter = get_adapter()
+        
+        # Se não tem predições, tentar inicializar
+        if adapter.df_pred is None:
+            init_adapter()
+            adapter = get_adapter()
+        
+        # Se ainda não tem, retornar erro
+        if adapter.df_pred is None:
+            return jsonify({
+                "sucesso": False,
+                "erro": "Predições não disponíveis",
+                "acao": "Execute: python src/predict_with_factions.py"
+            }), 503
+        
+        # Exportar tudo para dashboard
+        dados = adapter.export_para_dashboard()
+        
+        return jsonify({
+            "sucesso": True,
+            "data": dados,
+            "fonte": "ST-GCN com Dinâmica de Facções",
+            "atualizado_em": datetime.now().isoformat()
+        })
+    
+    except Exception as e:
+        import traceback
+        print(f"[ERRO] /api/dashboard_sync: {str(e)}\n{traceback.format_exc()}")
+        return jsonify({"sucesso": False, "erro": str(e)}), 500
+
+
+@app.route('/api/recomendacoes_simples')
+def get_recomendacoes_simples():
+    """
+    Recomendações operacionais simples baseadas em top bairros críticos
+    Usa dados do novo modelo ST-GCN
+    """
+    try:
+        adapter = get_adapter()
+        
+        if adapter.df_pred is None:
+            return jsonify({
+                "sucesso": False,
+                "erro": "Dados não disponíveis",
+                "data": {"recomendacoes": []}
+            })
+        
+        # Top 5 bairros críticos
+        top_bairros = adapter.get_top_bairros(5)
+        
+        recomendacoes = []
+        for i, bairro in enumerate(top_bairros, 1):
+            score = bairro['score_risco']
+            
+            if score >= 80:
+                nivel = "CRÍTICO"
+                icon = "🔴"
+                acao = "Operação imediata com deslocamento de equipes"
+            elif score >= 60:
+                nivel = "ALTO"
+                icon = "🟠"
+                acao = "Monitoramento intensificado e patrulhamento aumentado"
+            else:
+                nivel = "MÉDIO"
+                icon = "🟡"
+                acao = "Reforço operacional e inteligência preventiva"
+            
+            recomendacoes.append({
+                "id": i,
+                "tipo": f"Operação - {bairro['bairro']}",
+                "prioridade": nivel,
+                "icon": icon,
+                "acao": acao,
+                "bairro": bairro['bairro'],
+                "score_risco": score,
+                "cvli_predito": bairro['cvli_predito'],
+                "regiao": bairro['regiao'],
+                "motivo": f"Predição de CVLI: {bairro['cvli_predito']:.4f} eventos/dia"
+            })
+        
+        return jsonify({
+            "sucesso": True,
+            "data": {"recomendacoes": recomendacoes}
+        })
+    
+    except Exception as e:
+        import traceback
+        print(f"[ERRO] /api/recomendacoes_simples: {str(e)}\n{traceback.format_exc()}")
+        return jsonify({
+            "sucesso": False,
+            "erro": str(e),
+            "data": {"recomendacoes": []}
+        }), 500
+
+
+@app.route('/api/bairro_detalhes/<bairro>')
+def get_bairro_detalhes(bairro):
+    """
+    Detalhes completos de um bairro com predição e análise
+    
+    Retorna:
+    - Score de risco (0-100)
+    - Predição CVLI
+    - Análise de volatilidade
+    - Recomendações
+    """
+    try:
+        # URL decode
+        bairro = bairro.replace('%20', ' ').replace('%27', "'")
+        
+        adapter = get_adapter()
+        if adapter.df_pred is None:
+            init_adapter()
+            adapter = get_adapter()
+        
+        # Obter info do bairro
+        info = adapter.get_bairro_info(bairro)
+        
+        if not info:
+            return jsonify({
+                "sucesso": False,
+                "erro": f"Bairro '{bairro}' não encontrado"
+            }), 404
+        
+        # Calcular recomendações
+        score = info['score_risco']
+        if score > 75:
+            recomendacao = "🔴 CRÍTICO - Reforço policial imediato necessário"
+            cor = "#ff0000"
+        elif score > 50:
+            recomendacao = "🟠 ALTO - Aumentar vigilância e patrulhamento"
+            cor = "#ff6600"
+        elif score > 25:
+            recomendacao = "🟡 MÉDIO - Manter monitoramento rotineiro"
+            cor = "#ffcc00"
+        else:
+            recomendacao = "🟢 BAIXO - Manutenção regular"
+            cor = "#00cc00"
+        
+        return jsonify({
+            "sucesso": True,
+            "data": {
+                **info,
+                "recomendacao": recomendacao,
+                "cor_risco": cor,
+                "risco_territorial": "ALTO" if info['prob_mudanca'] > 0.3 else "NORMAL",
+                "volatilidade_status": "CRÍTICA" if info['volatilidade'] > 0.7 else ("ALTA" if info['volatilidade'] > 0.4 else "NORMAL")
+            }
+        })
+    
+    except Exception as e:
+        import traceback
+        print(f"[ERRO] /api/bairro_detalhes: {str(e)}\n{traceback.format_exc()}")
+        return jsonify({"sucesso": False, "erro": str(e)}), 500
 
 if __name__ == '__main__':
     # Desabilita auto-reload para evitar loop infinito com .venv
