@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "date_min": "2020-06-03 00:00:00",
+    "date_max": "2026-01-22 00:00:00",
+    "n_days": 2060,
+    "n_cities": 279,
+    "n_neighborhoods": 943,
+    "cvli_count": "938",
+    "cvli_pct": 2.2928379369347347
+  },
+  "metrics": {
+    "sparsity": {
+      "total_ops": 0.9843334200364153,
+      "cvli_ops": 0.9995898277276456,
+      "seizure_ops": 0.9899257688229056
+    },
+    "signal": {
+      "total_ops": 0.020018407731247124,
+      "cvli_ops": 0.00041017227235438887,
+      "seizure_ops": 0.012255147161807959,
+      "p50": 0.0,
+      "p75": 0.0,
+      "p90": 0.0
+    },
+    "temporal_cv": {
+      "total_ops": 0.4346863817874054,
+      "cvli_ops": 1.4886004948052698
+    },
+    "correlations": {
+      "cvli_vs_total": 0.2576348357903352
+    },
+    "scores": {
+      "sparsity": 0,
+      "signal": 1.0009203865623562,
+      "correlation": 25.76348357903352,
+      "overall": 8.029321189678761
+    }
+  }
+}

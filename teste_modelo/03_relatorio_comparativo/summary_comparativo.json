@@ -1,0 +1,13 @@
+{
+  "recomendacao": "AMBAS",
+  "score_analise_1": 73.98700529057454,
+  "score_analise_2": 73.77640452513789,
+  "diferenca": -0.21060076543665218,
+  "diferenca_pct": -0.28464561392847904,
+  "razao": "Scores praticamente iguais. Escolha depende de complexidade aceit\u00e1vel.",
+  "data_geracao": "2026-01-23T00:05:04.575929",
+  "periodo_analise": "2022-01-01 a 2026-01-11",
+  "total_bairros": 121,
+  "total_dias": 1472,
+  "eventos_cvli": 3180
+}

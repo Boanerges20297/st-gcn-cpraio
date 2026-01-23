@@ -1,0 +1,15 @@
+import pandas as pd
+df = pd.read_csv('outputs/cvli_with_bairro.csv', low_memory=False)
+print('Valores em TIPO:')
+print(df['tipo'].value_counts())
+print(f'\nTotal: {len(df)}')
+print(f'CVLI: {(df["tipo"] == "cvli").sum()}')
+print(f'CVP: {(df["tipo"] == "cvp").sum()}')
+print(f'\nPeriodo:')
+print(df['data'].min(), 'a', df['data'].max())
+print(f'\nCVLI desde 2022:')
+df['data'] = pd.to_datetime(df['data'])
+df_2022 = df[(df['data'].dt.year >= 2022) & (df['tipo'] == 'cvli')]
+print(f'Total CVLI 2022+: {len(df_2022)}')
+print(f'Periodo: {df_2022["data"].min().date()} a {df_2022["data"].max().date()}')
+print(f'Com coordenadas: {df_2022[["latitude", "longitude"]].notna().all(axis=1).sum()}')

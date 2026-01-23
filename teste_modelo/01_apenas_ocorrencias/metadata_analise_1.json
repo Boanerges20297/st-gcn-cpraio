@@ -1,0 +1,23 @@
+{
+  "periodo": "2022-01-10 a 2026-01-18",
+  "total_dias": 1470,
+  "total_bairros": 94,
+  "eventos_cvli": 313,
+  "tensor_shape": [
+    1470,
+    94
+  ],
+  "tensor_cells": 138180,
+  "cells_nonzero": 310,
+  "sparsity": 0.997756549428282,
+  "signal_mean": 0.002265161383702417,
+  "signal_nz_mean": 1.0096774193548388,
+  "cv": 0.3418082440573666,
+  "score": {
+    "sparsidade": 0.0,
+    "sinal": 100.0,
+    "variabilidade": 92.09041220286834,
+    "cobertura": 100.0,
+    "geral": 73.41808244057367
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "fonte": "outputs/cvli_with_bairro.csv (tipo=cvli)",
+  "periodo": "2022-01-01 a 2026-01-11",
+  "total_dias": 1472,
+  "total_bairros": 121,
+  "eventos_cvli": 3180,
+  "tensor_shape": [
+    1472,
+    121
+  ],
+  "tensor_cells": 178112,
+  "cells_nonzero": 2959,
+  "sparsity": 0.9833868577075099,
+  "signal_mean": 0.017853934602946462,
+  "signal_nz_mean": 1.0746873943899966,
+  "cv": 0.6012994709425453,
+  "score": {
+    "sparsidade": 0.0,
+    "sinal": 100.0,
+    "variabilidade": 94.93502645287273,
+    "cobertura": 100.0,
+    "geral": 73.98700529057454
+  }
+}

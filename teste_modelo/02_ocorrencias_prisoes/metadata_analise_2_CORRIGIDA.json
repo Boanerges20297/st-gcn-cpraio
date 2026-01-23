@@ -1,0 +1,30 @@
+{
+  "fonte_cvli": "outputs/cvli_with_bairro.csv (tipo=cvli)",
+  "fonte_operacional": "data/raw/View_Ocorrencias_Operacionais_Modelo.csv",
+  "periodo": "2022-01-01 a 2026-01-11",
+  "total_dias": 1472,
+  "total_bairros": 121,
+  "eventos_cvli": 3180,
+  "eventos_prisoes": 3073,
+  "eventos_apreensoes": 15209,
+  "tensor_shape": [
+    1472,
+    121,
+    3
+  ],
+  "feature_scores": {
+    "CVLI": 73.98700529057454,
+    "Pris\u00f5es": 73.92662619466529,
+    "Apreens\u00f5es": 73.41558209017387
+  },
+  "correlacoes": {
+    "cvli_prisoes": 0.0043266333690075215,
+    "cvli_apreensoes": 0.018327029180147284,
+    "prisoes_apreensoes": 0.1855059762646188
+  },
+  "score": {
+    "media_features": 73.77640452513789,
+    "bonus_correlacao": 0.0,
+    "geral": 73.77640452513789
+  }
+}
